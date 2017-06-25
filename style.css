@@ -1,0 +1,101 @@
+body {
+  margin:0px;
+  background-color:rgba(188, 188, 188, 1);
+  background-image:none;
+  position:relative;
+  left:-89px;
+  width:485px;
+  margin-left:auto;
+  margin-right:auto;
+  text-align:left;
+}
+
+
+p {
+    margin: 0px;
+}
+
+.rota {
+  position:absolute;
+  z-index:0;
+}
+
+#header {
+  border-width:0px;
+  position:absolute;
+  left:180px;
+  top:9px;
+  width:279px;
+  height:81px;
+  font-family:'Impact Bold', 'Impact';
+  font-weight:700;
+  font-style:normal;
+  font-size:72px;
+  text-align:center;
+}
+
+#goto {
+  color:#000033;
+}
+
+#rota {
+  color:#000000;
+}
+
+
+#rotaLabel {
+  border-width:0px;
+  position:absolute;
+  left:89px;
+  top:222px;
+  width:199px;
+  height:16px;
+  white-space:nowrap;
+}
+
+#dateChoice {
+  border-width:0px;
+  position:absolute;
+  left:298px;
+  top:218px;
+  width:131px;
+  height:25px;
+  font-family:'Arial';
+  font-weight:400;
+  font-style:normal;
+  font-size:13px;
+  text-decoration:none;
+  color:#000000;
+  text-align:left;
+}
+
+#submit {
+  position:absolute;
+  left:451px;
+  top:218px;
+  width:94px;
+  height:25px;
+  font-family:'Arial';
+  font-weight:400;
+  font-style:normal;
+  font-size:13px;
+  text-decoration:none;
+  color:#333333;
+  text-align:center;
+}
+
+#welcome {
+  position:absolute;
+  left:89px;
+  top:183px;
+  width:83px;
+  height:24px;
+  font-size:20px;
+}
+
+#rotaTable {
+  position:absolute;
+  top:268px;
+  text-align:center;
+  background-color: white;
+}
