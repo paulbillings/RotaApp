@@ -84,7 +84,7 @@ $week_ending = $_POST['week_ending'];
 $week_beginning = date('Y-m-d', strtotime('-6 day', strtotime($week_ending)));
 echo $week_beginning . '<br>';
 
-$query = "SELECT lastname,start_shift,end_shift,day FROM employee,schedule,date \n"
+$query = "SELECT firstname,lastname,start_shift,end_shift,day FROM employee,schedule,date \n"
     . "WHERE schedule.employee_id=employee.employee_id AND schedule.Week_ending='$week_ending'\n"
     . "AND date.fulldate=schedule.fulldate\n"
     . "AND date.fulldate BETWEEN '$week_beginning' AND '$week_ending'\n"
@@ -141,6 +141,7 @@ $sorted[10] = 'Day';
 $sorted[11] = 'Off'; 
 $sorted[12] = 'Day';
 $sorted[13] = 'Off'; 
+$sorted[14] = 'Name';
 
 
 for ($j = 0 ; $j < $rows ; ++$j)
@@ -177,7 +178,10 @@ for ($j = 0 ; $j < $rows ; ++$j)
 		$sorted[13] = $row['end_shift'];
 	}
 	
-		$sorted[14] = $row['lastname'];
+		$fname = $row['firstname'];
+		$sname = $row['lastname'];
+		$fullname = $fname . ' ' . $sname;
+		$sorted[14] = $fullname;
 		
 }
 	
