@@ -18,17 +18,21 @@
           <p><span id="goto" >Goto</span><span id="rota" >Rota</span></p>
       </div>
 
+	  
+	 <form action="http://localhost/rota/getRota.php" method="post"> 
       <div id="rotaLabel" >
           <p><span>View your rota for week ending:</span></p> 
       </div>
 
       <div id="dateChoice">
-        <input type="date" value=""/>
+        <input id="week_ending" type="date" name="week_ending" value=""/>
       </div>
 
       <div id="submit" >
-        <input type="submit" value="Submit" onclick="rota.rotaApp.have()"/>
-      </div>
+        <input type="submit" value="Submit" onclick="rota.rotaApp.have()" />
+	  </div>		
+	 </form>
+	  
 
       <div id="welcome">
           <p><span>Welcome</span></p>
