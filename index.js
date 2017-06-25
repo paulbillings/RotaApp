@@ -6,14 +6,14 @@ var rota = {
         this.bindEvents();
     },
     bindEvents: function() {
-				 
+			 
 		function rotaApp() {
-			this.have = function () {
-				alert("It worked");
-			}
+			
 		}
 		
 		this.rotaApp = new rotaApp();
-    }    
+    } 
+
+	
 };
 rota.initialize();
