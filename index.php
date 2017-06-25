@@ -27,7 +27,7 @@
       </div>
 
       <div id="dateChoice" >
-        <input id="week_ending" type="date" name="week_ending" value=""/>
+        <input id="week_ending" type="date" name="week_ending" value="" />
       </div>
 
       <div id="submit" >
@@ -78,11 +78,11 @@ define('DB_HOST', 'localhost');
 
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 if ($conn->connect_error) die($conn->connect_error);
-echo 'Connected successfully!'. '<br><br>';
+//echo 'Connected successfully!'. '<br><br>';
 
 $week_ending = $_POST['week_ending'];
 $week_beginning = date('Y-m-d', strtotime('-6 day', strtotime($week_ending)));
-echo $week_beginning . '<br>';
+//echo $week_beginning . '<br>';
 
 $query = "SELECT firstname,lastname,start_shift,end_shift,day FROM employee,schedule,date \n"
     . "WHERE schedule.employee_id=employee.employee_id AND schedule.Week_ending='$week_ending'\n"
