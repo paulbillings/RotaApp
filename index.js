@@ -6,10 +6,11 @@ var rota = {
         this.bindEvents();
     },
     bindEvents: function() {
-			 
-		function rotaApp() {
-			
-		}
+		
+		$(document).ready(function(){
+			alert('Hello world');
+			$("#week_ending").datepicker();
+		});	 
 		
 		this.rotaApp = new rotaApp();
     } 

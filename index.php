@@ -1,5 +1,5 @@
 
-
+<!DOCTYPE html>
 
 <html>
   <head>
@@ -7,15 +7,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <link href="resources/css/jquery-ui-themes.css" type="text/css" rel="stylesheet"/>
     <link href="style.css" type="text/css" rel="stylesheet"/>
-    <script src="resources/scripts/jquery-1.7.1.min.js"></script>
-    <script src="resources/scripts/jquery-ui-1.8.10.custom.min.js"></script>
+    <script src="resources/jquery-3.2.1.js"></script>
+    <script src="resources/jquery-ui.js"></script>
+	<link href="resources/jquery-ui.css" rel="stylesheet">
     <script src="index.js"></script>
+	<script>
+		$(document).ready(function(){
+			alert('Hello world');
+			$("#week_ending").datepicker({
+			showButtonPanel: true});
+		});	 
+	</script>
   </head>
   <body>
     <div class="rota" >
-
+		
       <div id="header" >
           <p><span id="goto" >Goto</span><span id="rota" >Rota</span></p>
       </div>
@@ -27,7 +34,7 @@
       </div>
 
       <div id="dateChoice" >
-        <input id="week_ending" type="date" name="week_ending" value="" />
+        <input id="week_ending" type="text" name="week_ending" value="" />
       </div>
 
       <div id="submit" >
@@ -213,6 +220,7 @@ $result->close();
 $conn->close();
 }
 ?>
+
       
     </div>
   </body>
