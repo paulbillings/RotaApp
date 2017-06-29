@@ -213,26 +213,6 @@ $result->close();
 $conn->close();
 }
 ?>
-		<!--<tr>
-			<td id="name">Joe Bloggs</td>
-			<td id="sunStart">8.00</td>
-			<td id="sunFinish">4.00</td>
-			<td id="monStart">9.15</td>
-			<td id="monFinish">5.15</td>
-			<td id="tueStart">2.00</td>
-			<td id="tueFinish">10.00</td>
-			<td id="wedStart">Off</td>
-			<td id="wedFinish">Off</td>
-			<td id="thurStart">9.15</td>
-			<td id="thurFinish">5.15</td>
-			<td id="friStart">9.15</td>
-			<td id="friFinish">5.15</td>
-			<td id="satStart">Off</td>
-			<td id="satFinish">Off</td>
-		</tr>
-	</table>-->
-	
-	
       
     </div>
   </body>
