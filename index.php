@@ -10,8 +10,21 @@
     <link href="resources/css/jquery-ui-themes.css" type="text/css" rel="stylesheet"/>
     <link href="style.css" type="text/css" rel="stylesheet"/>
     <script src="resources/jquery-3.2.1.js"></script>
-    <script src="resources/scripts/jquery-ui-1.8.10.custom.min.js"></script>
+	<script src="resources/jquery-ui.js"></script>
+	<link href="resources/jquery-ui.css" rel="stylesheet">
     <script src="index.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("#week_ending").datepicker({
+			showButtonPanel: true,
+			dateFormat: 'yy-mm-dd',
+			beforeShowDay: disableDays});
+		});
+		function disableDays(date) {
+			var day = date.getDay();
+			return[(day == 6)];
+		}
+	</script>
   </head>
   <body>
     <div class="rota" >
@@ -27,12 +40,12 @@
       </div>
 
       <div id="dateChoice" >
-        <input id="week_ending" type="date" name="week_ending" value="" />
+        <input id="week_ending" type="text" name="week_ending" value="yyyy-mm-dd" />
       </div>
 
-      <div id="submit" >
-        <input type="submit" value="Submit" />
-	  </div>	
+      
+        <input id="submit" type="submit" value="Submit" />
+	  
 	 </form>
 	  
 
@@ -79,8 +92,8 @@ define('DB_HOST', 'localhost');
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 if ($conn->connect_error) die($conn->connect_error);
 //echo 'Connected successfully!'. '<br><br>';
-
 $week_ending = $_POST['week_ending'];
+echo $week_ending . '<br>';
 $week_beginning = date('Y-m-d', strtotime('-6 day', strtotime($week_ending)));
 //echo $week_beginning . '<br>';
 
