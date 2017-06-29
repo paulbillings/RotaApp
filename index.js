@@ -1,19 +1,11 @@
-/**
- * This is the main class
- */
-var rota = {
-    initialize: function() {
-        this.bindEvents();
-    },
-    bindEvents: function() {
-			 
-		function rotaApp() {
-			
-		}
+$(document).ready(function(){
+	$("#week_ending").datepicker({
+	showButtonPanel: true,
+	dateFormat: 'yy-mm-dd',
+	beforeShowDay: disableDays});
+});
 		
-		this.rotaApp = new rotaApp();
-    } 
-
-	
-};
-rota.initialize();
+function disableDays(date) {
+	var day = date.getDay();
+	return[(day == 6)];
+}
