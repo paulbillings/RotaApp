@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	if ($conn->connect_error) die($conn->connect_error);
 		//echo 'Connected successfully!'. '<br><br>';
-		$week_ending = $_POST['week_ending'];
+		$week_ending = htmlentities($_POST['week_ending']);
 		//echo $week_ending . '<br>';
 		$week_beginning = date('Y-m-d', strtotime('-6 day', strtotime($week_ending)));
 		//echo $week_beginning . '<br>';
@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		//echo $name . '<br>';
 		//$split = explode(" ", $name);
 		//$surname = array_pop($split);
-		$number = $_POST['col_number'];
+		$number = htmlentities($_POST['col_number']);
 
 	$query = "SELECT firstname,lastname,start_shift,end_shift,day FROM employee,schedule,date \n"
 		. "WHERE schedule.employee_id=employee.employee_id AND schedule.Week_ending='$week_ending'\n"
