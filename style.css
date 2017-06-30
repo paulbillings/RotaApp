@@ -64,9 +64,25 @@ p {
   text-align:left;
 }
 
+#colleagueNumber {
+  border-width:0px;
+  position:absolute;
+  left:298px;
+  top:183px;
+  width:131px;
+  height:25px;
+  font-family:'Arial';
+  font-weight:400;
+  font-style:normal;
+  font-size:13px;
+  text-decoration:none;
+  color:#000000;
+  text-align:left;
+}
+
 #submit {
   position:absolute;
-  left:451px;
+  left:480px;
   top:218px;
   width:94px;
   height:25px;
@@ -83,9 +99,8 @@ p {
   position:absolute;
   left:89px;
   top:183px;
-  width:83px;
+  width:199px;
   height:24px;
-  font-size:20px;
 }
 
 #rotaTable {

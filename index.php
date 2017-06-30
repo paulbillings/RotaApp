@@ -19,18 +19,20 @@
 		</div>
 
 		<form action="" method="post"> 
+			<div id="welcome">
+				<p><span>Enter your colleague number:</span></p>
+			</div>
+			<div id="colleagueNumber" >
+				<input id="col_number" type="text" name="col_number" placeholder="Type number here" />
+			</div>
 			<div id="rotaLabel" >
 				<p><span>View your rota for week ending:</span></p> 
 			</div>
 			<div id="dateChoice" >
-				<input id="week_ending" type="text" name="week_ending" value="yyyy-mm-dd" />
+				<input id="week_ending" type="text" name="week_ending" placeholder="yyyy-mm-dd" />
 			</div>
 			<input id="submit" type="submit" value="Submit" />
 		</form>
-	  
-		<div id="welcome">
-			<p><span>Welcome</span></p>
-		</div>
 	  
 		<table id="rotaTable" border="2">
 		<tr>
@@ -75,12 +77,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		//echo $week_ending . '<br>';
 		$week_beginning = date('Y-m-d', strtotime('-6 day', strtotime($week_ending)));
 		//echo $week_beginning . '<br>';
+		//$name = $_POST['name'];
+		//echo $name . '<br>';
+		//$split = explode(" ", $name);
+		//$surname = array_pop($split);
+		$number = $_POST['col_number'];
 
 	$query = "SELECT firstname,lastname,start_shift,end_shift,day FROM employee,schedule,date \n"
 		. "WHERE schedule.employee_id=employee.employee_id AND schedule.Week_ending='$week_ending'\n"
 		. "AND date.fulldate=schedule.fulldate\n"
 		. "AND date.fulldate BETWEEN '$week_beginning' AND '$week_ending'\n"
-		. "AND employee.lastname='billings'";
+		. "AND schedule.employee_id='$number'";
 
 	$result = $conn->query($query);
 	if (!$result) die ("Database access failed: " . $conn->error);
