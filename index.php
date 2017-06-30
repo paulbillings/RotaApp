@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <link href="resources/css/jquery-ui-themes.css" type="text/css" rel="stylesheet"/>
     <link href="style.css" type="text/css" rel="stylesheet"/>
     <script src="resources/jquery-3.2.1.js"></script>
 	<script src="resources/jquery-ui.js"></script>
@@ -23,11 +22,9 @@
 			<div id="rotaLabel" >
 				<p><span>View your rota for week ending:</span></p> 
 			</div>
-
 			<div id="dateChoice" >
 				<input id="week_ending" type="text" name="week_ending" value="yyyy-mm-dd" />
 			</div>
-
 			<input id="submit" type="submit" value="Submit" />
 		</form>
 	  
