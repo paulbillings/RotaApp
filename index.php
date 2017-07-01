@@ -6,10 +6,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <link href="style.css" type="text/css" rel="stylesheet"/>
-    <script src="resources/jquery-3.2.1.js"></script>
-	<script src="resources/jquery-ui.js"></script>
 	<link href="resources/jquery-ui.css" rel="stylesheet">
-    <script src="index.js"></script>
   </head>
   <body>
     <div class="rota" >
@@ -18,20 +15,20 @@
 			<p><span id="goto" >Goto</span><span id="rota" >Rota</span></p>
 		</div>
 
-		<form action="" method="post"> 
+		<form name="rotaForm" id="rotaForm" action="" method="post"> 
 			<div id="welcome">
 				<p><span>Enter your colleague number:</span></p>
 			</div>
 			<div id="colleagueNumber" >
-				<input id="col_number" type="text" name="col_number" placeholder="Type number here" />
+				<input id="col_number" type="number" name="col_number" maxlength="10" required="true" placeholder="Type number here" />
 			</div>
 			<div id="rotaLabel" >
 				<p><span>View your rota for week ending:</span></p> 
 			</div>
 			<div id="dateChoice" >
-				<input id="week_ending" type="text" name="week_ending" placeholder="yyyy-mm-dd" />
+				<input id="week_ending" type="text" name="week_ending" maxlength="10" required="true" placeholder="yyyy-mm-dd"  />
 			</div>
-			<input id="submit" type="submit" value="Submit" />
+			<input id="submitButton" type="submit" value="Submit" />
 		</form>
 	  
 		<table id="rotaTable" border="2">
@@ -219,5 +216,8 @@ function mysql_fix_string($conn, $string) {
 ?>
       
     </div>
+	<script src="resources/jquery-3.2.1.js"></script>
+	<script src="resources/jquery-ui.js"></script>
+	<script src="index.js"></script>
   </body>
 </html>
