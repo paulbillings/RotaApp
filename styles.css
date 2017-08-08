@@ -85,7 +85,7 @@ p {
   width:300px;
   height:25px;
 }
-#name_input {
+#name {
   position:absolute;
   left:0px;
   top:0px;
@@ -107,7 +107,7 @@ p {
   width:300px;
   height:25px;
 }
-#password_input {
+#password {
   position:absolute;
   left:0px;
   top:0px;
