@@ -60,7 +60,8 @@
 			$pass = mysql_entities_fix_string($conn, $_POST['password']);
 			
 			if ($name == "" || $pass == "")
-				echo "Please enter a value in both input boxes";
+				//echo "Please enter a value in both input boxes";
+				echo "<script type='text/javascript'>alert('Please enter values in both boxes');</script>";
 			
 			else{
 				
@@ -71,7 +72,8 @@
 					if (!$result) die ("Database access failed: " . $conn->error);
 				
 					if ($result->num_rows == 0){
-						echo "Invalid username/ password";
+						//echo "Invalid username/ password";
+						echo "<script type='text/javascript'>alert('Invalid username/ password');</script>";
 					}
 					else{
 						//die("you are now logged in. Please <a href='index.php'>" . 
