@@ -8,7 +8,7 @@
     <link href="style.css" type="text/css" rel="stylesheet"/>
 	<link href="resources/jquery-ui.css" rel="stylesheet">
   </head>
-  <body>
+  <body onload="onLoadSubmit()">
     <div class="rota" >
 
 		<div id="header" >
@@ -16,12 +16,12 @@
 		</div>
 
 		<form name="rotaForm" id="rotaForm" action="" method="post"> 
-			<div id="welcome">
+			<!--<div id="welcome">
 				<p><span>Enter your colleague number:</span></p>
 			</div>
 			<div id="colleagueNumber" >
 				<input id="col_number" type="number" name="col_number" maxlength="10" required="true" placeholder="Type number here" />
-			</div>
+			</div>-->
 			<div id="rotaLabel" >
 				<p><span>View your rota for week ending:</span></p> 
 			</div>
@@ -71,14 +71,14 @@ session_start();
 	$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	if ($conn->connect_error) die($conn->connect_error);
 
-$weekEnding = '2017-06-24';
-$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
-getRota($colNumber, $weekEnding);
+//$weekEnding =  mysql_entities_fix_string($conn, $_POST['week_ending']);
+//$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
+//getRota($colNumber, $weekEnding);
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
-	$colNumber = mysql_entities_fix_string($conn, $_POST['col_number']);
+	$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
 	getRota($colNumber, $weekEnding);
 }
 

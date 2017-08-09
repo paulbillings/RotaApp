@@ -29,16 +29,18 @@ $(document).ready(function(){
 	
 	$("#week_ending").datepicker().datepicker("setDate", displayDate);
 	
-	$("form").submit(function() {
-		//alert('It worked');
-		
-	});
+	$("#rotaForm").submit();
+	  
 	
 });
 		
 function disableDays(date) {
 	var day = date.getDay();
 	return[(day == 6)];
+}
+
+function onLoadSubmit() {
+	document.rotaForm.submit();
 }
 
 
