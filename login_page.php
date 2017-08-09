@@ -36,7 +36,7 @@
 						//"click here</a> to continue.");
 						$_SESSION['user'] = $name;
 						$_SESSION['pass'] = $pass;
-						header("Location: index.php");
+						header("Location: userProfile.php");
 						exit;
 					}
 					
