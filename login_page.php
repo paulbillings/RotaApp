@@ -1,4 +1,63 @@
 ﻿<!DOCTYPE html>
+<?php
+		session_start();
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			define('DB_NAME', 'rotas');
+			define('DB_USER', 'root');
+			define('DB_PASSWORD', '');
+			define('DB_HOST', 'localhost');
+
+		
+		$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+		if ($conn->connect_error) die($conn->connect_error);
+		
+		if (isset($_POST['submit'])){
+			$name = mysql_entities_fix_string($conn, $_POST['name']);
+			$pass = mysql_entities_fix_string($conn, $_POST['password']);
+			
+			if ($name == "" || $pass == "")
+				//echo "Please enter a value in both input boxes";
+				echo "<script type='text/javascript'>alert('Please enter values in both boxes');</script>";
+			
+			else{
+				
+					$query = "SELECT lastName, employee_id FROM employee \n"
+					. "WHERE lastName='$name' AND employee_id='$pass'";
+					
+					$result = $conn->query($query);
+					if (!$result) die ("Database access failed: " . $conn->error);
+				
+					if ($result->num_rows == 0){
+						//echo "Invalid username/ password";
+						echo "<script type='text/javascript'>alert('Invalid username/ password');</script>";
+					}
+					else{
+						//die("you are now logged in. Please <a href='index.php'>" . 
+						//"click here</a> to continue.");
+						$_SESSION['user'] = $name;
+						$_SESSION['pass'] = $pass;
+						header("Location: index.php");
+						exit;
+					}
+					
+				}
+			
+		}
+		
+		
+		}	
+		
+	function mysql_entities_fix_string($conn, $string) {
+	return htmlentities(mysql_fix_string($conn, $string));
+	}
+
+	function mysql_fix_string($conn, $string) {
+	if (get_magic_quotes_gpc()) $string = stripcslashes($string);
+	return $conn->real_escape_string($string);
+	}	
+		
+		
+	?>
 <html>
   <head>
     <title>Home Page</title>
@@ -44,62 +103,7 @@
 		</form>
 		
 		
-	<?php
-		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			define('DB_NAME', 'rotas');
-			define('DB_USER', 'root');
-			define('DB_PASSWORD', '');
-			define('DB_HOST', 'localhost');
-
-		
-		$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-		if ($conn->connect_error) die($conn->connect_error);
-		
-		if (isset($_POST['submit'])){
-			$name = mysql_entities_fix_string($conn, $_POST['name']);
-			$pass = mysql_entities_fix_string($conn, $_POST['password']);
-			
-			if ($name == "" || $pass == "")
-				//echo "Please enter a value in both input boxes";
-				echo "<script type='text/javascript'>alert('Please enter values in both boxes');</script>";
-			
-			else{
-				
-					$query = "SELECT lastName, employee_id FROM employee \n"
-					. "WHERE lastName='$name' AND employee_id='$pass'";
-					
-					$result = $conn->query($query);
-					if (!$result) die ("Database access failed: " . $conn->error);
-				
-					if ($result->num_rows == 0){
-						//echo "Invalid username/ password";
-						echo "<script type='text/javascript'>alert('Invalid username/ password');</script>";
-					}
-					else{
-						//die("you are now logged in. Please <a href='index.php'>" . 
-						//"click here</a> to continue.");
-						header("Location: index.php");
-						exit;
-					}
-					
-				}
-			
-		}
-		
-		
-		}	
-		
-	function mysql_entities_fix_string($conn, $string) {
-	return htmlentities(mysql_fix_string($conn, $string));
-	}
-
-	function mysql_fix_string($conn, $string) {
-	if (get_magic_quotes_gpc()) $string = stripcslashes($string);
-	return $conn->real_escape_string($string);
-	}	
-		
-		
-	?>
+	
     </div>
 	
   </body>
