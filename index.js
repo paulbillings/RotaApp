@@ -1,6 +1,16 @@
 $(document).ready(function(){
 	
-    var now = new Date();
+    formReady();
+	
+});
+		
+function disableDays(date) {
+	var day = date.getDay();
+	return[(day == 6)];
+}
+
+function formReady() {
+	var now = new Date();
     var day = now.getDay();
     var daysToSaturday;
 	var displayDate;
@@ -21,7 +31,6 @@ $(document).ready(function(){
 	}
 	//alert(displayDate);
 	
-	
 	$("#week_ending").datepicker({
 	showButtonPanel: true,
 	dateFormat: 'yy-mm-dd',
@@ -29,19 +38,8 @@ $(document).ready(function(){
 	
 	$("#week_ending").datepicker().datepicker("setDate", displayDate);
 	
-	$("#rotaForm").submit();
-	  
-	
-});
-		
-function disableDays(date) {
-	var day = date.getDay();
-	return[(day == 6)];
 }
 
-function onLoadSubmit() {
-	document.rotaForm.submit();
-}
 
 
 

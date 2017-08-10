@@ -8,14 +8,14 @@
     <link href="style.css" type="text/css" rel="stylesheet"/>
 	<link href="resources/jquery-ui.css" rel="stylesheet">
   </head>
-  <body onload="onLoadSubmit()">
+  <body>
     <div class="rota" >
 
 		<div id="header" >
 			<p><span id="goto" >Goto</span><span id="rota" >Rota</span></p>
 		</div>
 
-		<form name="rotaForm" id="rotaForm" action="" method="post"> 
+		<form name="rotaForm" id="rotaForm" action="userProfile.php" method="post"> 
 			<!--<div id="welcome">
 				<p><span>Enter your colleague number:</span></p>
 			</div>
@@ -60,6 +60,12 @@
 			<th>Finish</th>
 		</tr>
 		
+	<script type='text/javascript'>
+		var user = "<?php echo $_SESSION['pass'] ?>";
+	</script>
+
+	
+		
 <?php
 session_start();
 
@@ -70,11 +76,8 @@ session_start();
 
 	$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	if ($conn->connect_error) die($conn->connect_error);
-
-//$weekEnding =  mysql_entities_fix_string($conn, $_POST['week_ending']);
-//$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
-//getRota($colNumber, $weekEnding);
-
+	
+	echo "<input type='hidden' id='userPass' value='".$_SESSION['pass']."'/>";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
@@ -230,6 +233,28 @@ function getRota($colNumber, $weekEnding) {
 	
 	
 }
+
+	
+		if (isset($_SESSION['pass'])) {
+		$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+		if ($conn->connect_error) die($conn->connect_error);
+		
+		
+		if (!isset($_POST['week_ending'])) {
+			$weekEnding = date('Y-m-d',strtotime('next saturday'));
+		}
+		else {
+			$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
+		}
+		
+		echo $weekEnding;
+		
+		$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
+		getRota($colNumber, $weekEnding);   
+		}
+	
+
+	
 
 ?>
       
