@@ -15,13 +15,9 @@
 			<p><span id="goto" >Goto</span><span id="rota" >Rota</span></p>
 		</div>
 
+			
 		<form name="rotaForm" id="rotaForm" action="userProfile.php" method="post"> 
-			<!--<div id="welcome">
-				<p><span>Enter your colleague number:</span></p>
-			</div>
-			<div id="colleagueNumber" >
-				<input id="col_number" type="number" name="col_number" maxlength="10" required="true" placeholder="Type number here" />
-			</div>-->
+			
 			<div id="rotaLabel" >
 				<p><span>View your rota for week ending:</span></p> 
 			</div>
@@ -60,11 +56,7 @@
 			<th>Finish</th>
 		</tr>
 		
-	<script type='text/javascript'>
-		var user = "<?php echo $_SESSION['pass'] ?>";
-	</script>
 
-	
 		
 <?php
 session_start();
@@ -77,7 +69,7 @@ session_start();
 	$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	if ($conn->connect_error) die($conn->connect_error);
 	
-	echo "<input type='hidden' id='userPass' value='".$_SESSION['pass']."'/>";
+	//echo "<input type='hidden' id='userPass' value='".$_SESSION['pass']."'/>";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
@@ -116,7 +108,8 @@ function getRota($colNumber, $weekEnding) {
 	if (!$result) die ("Database access failed: " . $conn->error);
 
 		$rows = $result->num_rows;
-
+		
+		if ($rows > 0) {
 		echo 
 			'<table id="rotaTable" border="2">
 				<tr>
@@ -204,10 +197,10 @@ function getRota($colNumber, $weekEnding) {
 		$sorted[14] = $fullname;
 		
 	}
-	
+	//<th>'; echo $sorted[14]; echo '</th>
 	echo
 		'<tr>
-			<th>'; echo $sorted[14]; echo '</th>
+			<th>'; echo '<p>Week ending </p>'; echo $week_ending; echo '</th>
 			<td>'; echo $sorted[0]; echo '</td>
 			<td>'; echo $sorted[1]; echo '</td>
 			<td>'; echo $sorted[2]; echo '</td>
@@ -226,7 +219,30 @@ function getRota($colNumber, $weekEnding) {
 
 
 	echo '</table>';
-
+	
+	echo '
+			<div id="welcome">
+				<p><span>Welcome </span><span>'; 
+				echo $fullname;
+				echo '</span></p>
+			</div>';
+			
+		}
+		else {
+			echo '
+			<div id="welcome">
+				<p><span>Welcome </span><span>'; 
+				echo $currentName;
+				echo '</span></p>
+			</div>';
+			
+				echo '<script language="javascript">';
+				echo 'alert("No records for selected week")';
+				echo '</script>';
+		}
+		
+		$currentName = $fullname;
+		
 	$result->close();
 	$conn->close();
 	
@@ -247,7 +263,7 @@ function getRota($colNumber, $weekEnding) {
 			$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
 		}
 		
-		echo $weekEnding;
+		//echo $weekEnding;
 		
 		$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
 		getRota($colNumber, $weekEnding);   
