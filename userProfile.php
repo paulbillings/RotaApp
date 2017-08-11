@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Home Page</title>
+    <title>GotoRota</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -16,7 +16,7 @@
 		</div>
 
 			
-		<form name="rotaForm" id="rotaForm" action="userProfile.php" method="post"> 
+		<form name="rotaForm" id="rotaForm" action="" method="post"> 
 			
 			<div id="rotaLabel" >
 				<p><span>View your rota for week ending:</span></p> 
@@ -26,38 +26,7 @@
 			</div>
 			<input id="submitButton" type="submit" value="Submit" />
 		</form>
-	  
-		<table id="rotaTable" border="2">
-		<tr>
-			<th></th>
-			<th name="Sunday" colspan="2">Sunday</th>
-			<th name="Monday" colspan="2">Monday</th>
-			<th name="Tuesday" colspan="2">Tuesday</th>
-			<th name="Wednesday" colspan="2">Wednesday</th>
-			<th name="Thursday" colspan="2">Thursday</th>
-			<th name="Friday" colspan="2">Friday</th>
-			<th name="Saturday" colspan="2">Saturday</th>
-		</tr>
-		<tr>
-			<th></th>
-			<th>Start</th>
-			<th>Finish</th>
-			<th>Start</th>
-			<th>Finish</th>
-			<th>Start</th>
-			<th>Finish</th>
-			<th>Start</th>
-			<th>Finish</th>
-			<th>Start</th>
-			<th>Finish</th>
-			<th>Start</th>
-			<th>Finish</th>
-			<th>Start</th>
-			<th>Finish</th>
-		</tr>
-		
-
-		
+	  	
 <?php
 session_start();
 
@@ -69,8 +38,7 @@ session_start();
 	$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	if ($conn->connect_error) die($conn->connect_error);
 	
-	//echo "<input type='hidden' id='userPass' value='".$_SESSION['pass']."'/>";
-
+	
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
 	$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
@@ -85,6 +53,7 @@ function mysql_fix_string($conn, $string) {
 	if (get_magic_quotes_gpc()) $string = stripcslashes($string);
 	return $conn->real_escape_string($string);
 }
+
 
 function getRota($colNumber, $weekEnding) {
 
@@ -196,6 +165,7 @@ function getRota($colNumber, $weekEnding) {
 		$fullname = $fname . ' ' . $sname;
 		$sorted[14] = $fullname;
 		
+		
 	}
 	//<th>'; echo $sorted[14]; echo '</th>
 	echo
@@ -227,21 +197,33 @@ function getRota($colNumber, $weekEnding) {
 				echo '</span></p>
 			</div>';
 			
+			$_SESSION['weekEnding'] = $week_ending;
 		}
 		else {
-			echo '
-			<div id="welcome">
-				<p><span>Welcome </span><span>'; 
-				echo $currentName;
-				echo '</span></p>
-			</div>';
 			
-				echo '<script language="javascript">';
-				echo 'alert("No records for selected week")';
-				echo '</script>';
+				if (!$_SESSION['executed']){
+					echo '<script language="javascript">';
+					echo 'alert("No records for selected week")';
+					echo '</script>';
+					$weekEnding = $_SESSION['weekEnding'];
+					$colNumber = $_SESSION['pass'];
+					getRota($colNumber, $weekEnding);
+					$_SESSION['executed'] = true;
+				}
+				else {
+					$weekEnding = $_SESSION['weekEnding'];
+					$colNumber = $_SESSION['pass'];
+					getRota($colNumber, $weekEnding);
+					$_SESSION['executed'] = false;
+				}
+				
+				
+				
+				
+				
 		}
 		
-		$currentName = $fullname;
+		
 		
 	$result->close();
 	$conn->close();
@@ -249,6 +231,7 @@ function getRota($colNumber, $weekEnding) {
 	
 	
 }
+
 
 	
 		if (isset($_SESSION['pass'])) {

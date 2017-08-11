@@ -36,6 +36,7 @@
 						//"click here</a> to continue.");
 						$_SESSION['user'] = $name;
 						$_SESSION['pass'] = $pass;
+						$_SESSION['executed'] = false;
 						header("Location: userProfile.php");
 						exit;
 					}
@@ -60,7 +61,7 @@
 	?>
 <html>
   <head>
-    <title>Home Page</title>
+    <title>GotoRota - Login Page</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
