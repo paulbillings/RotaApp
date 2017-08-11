@@ -1,3 +1,9 @@
+<?php
+	session_start();
+	if (!$_SESSION['logged_in']){
+		header("Location: login_page.php");
+	}
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -14,6 +20,16 @@
 		<div id="header" >
 			<p><span id="goto" >Goto</span><span id="rota" >Rota</span></p>
 		</div>
+		
+		<nav>
+			<ul>
+				<li><a href="" class="current">Home</a></li>
+				<li><a href="">Admin</a></li>
+				<li><a href="">Help</a></li>
+				<li><a href="login_page.php">Logout</a></li>
+			</ul>
+		</nav>
+		
 
 			
 		<form name="rotaForm" id="rotaForm" action="" method="post"> 
@@ -28,7 +44,6 @@
 		</form>
 	  	
 <?php
-session_start();
 
 	define('DB_NAME', 'rotas');
 	define('DB_USER', 'root');
@@ -190,12 +205,12 @@ function getRota($colNumber, $weekEnding) {
 
 	echo '</table>';
 	
-	echo '
-			<div id="welcome">
-				<p><span>Welcome </span><span>'; 
-				echo $fullname;
-				echo '</span></p>
-			</div>';
+	echo '<div id="welcome">';
+	echo '<p>Welcome</p>'; 
+	echo '<div id="userName">';
+	echo $fullname;
+	echo '</div>';
+	echo '</div>';
 			
 			$_SESSION['weekEnding'] = $week_ending;
 		}
@@ -203,7 +218,7 @@ function getRota($colNumber, $weekEnding) {
 			
 				if (!$_SESSION['executed']){
 					echo '<script language="javascript">';
-					echo 'alert("No records for selected week")';
+					echo 'alert("No Rota for selected week")';
 					echo '</script>';
 					$weekEnding = $_SESSION['weekEnding'];
 					$colNumber = $_SESSION['pass'];
@@ -215,20 +230,11 @@ function getRota($colNumber, $weekEnding) {
 					$colNumber = $_SESSION['pass'];
 					getRota($colNumber, $weekEnding);
 					$_SESSION['executed'] = false;
-				}
-				
-				
-				
-				
-				
-		}
-		
-		
+				}		
+		}		
 		
 	$result->close();
-	$conn->close();
-	
-	
+	$conn->close();	
 	
 }
 
@@ -251,7 +257,8 @@ function getRota($colNumber, $weekEnding) {
 		$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
 		getRota($colNumber, $weekEnding);   
 		}
-	
+
+
 
 	
 

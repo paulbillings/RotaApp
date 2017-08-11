@@ -1,5 +1,6 @@
-﻿<!DOCTYPE html>
-<?php
+﻿<?php
+		session_start();
+		session_destroy();
 		session_start();
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			define('DB_NAME', 'rotas');
@@ -37,6 +38,7 @@
 						$_SESSION['user'] = $name;
 						$_SESSION['pass'] = $pass;
 						$_SESSION['executed'] = false;
+						$_SESSION['logged_in'] = true;
 						header("Location: userProfile.php");
 						exit;
 					}
@@ -59,6 +61,7 @@
 		
 		
 	?>
+<!DOCTYPE html>	
 <html>
   <head>
     <title>GotoRota - Login Page</title>
