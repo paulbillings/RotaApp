@@ -1,7 +1,15 @@
 ﻿<?php
 		session_start();
+		
+		 if(isset($_SESSION['fail'])){
+			echo '<script language="javascript">';
+			echo 'alert("Sorry no rota details")';
+			echo '</script>';
+		 }
+		
 		session_destroy();
 		session_start();
+		
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			define('DB_NAME', 'rotas');
 			define('DB_USER', 'root');
@@ -39,6 +47,7 @@
 						$_SESSION['pass'] = $pass;
 						$_SESSION['executed'] = false;
 						$_SESSION['logged_in'] = true;
+						$_SESSION['start'] = true;
 						header("Location: userProfile.php");
 						exit;
 					}

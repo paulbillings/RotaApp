@@ -213,10 +213,11 @@ function getRota($colNumber, $weekEnding) {
 	echo '</div>';
 			
 			$_SESSION['weekEnding'] = $week_ending;
+			$_SESSION['start'] = false;
 		}
 		else {
 			
-				if (!$_SESSION['executed']){
+				if (!$_SESSION['executed'] && !$_SESSION['start']){
 					echo '<script language="javascript">';
 					echo 'alert("No Rota for selected week")';
 					echo '</script>';
@@ -225,12 +226,16 @@ function getRota($colNumber, $weekEnding) {
 					getRota($colNumber, $weekEnding);
 					$_SESSION['executed'] = true;
 				}
-				else {
+				else if (!$_SESSION['start']) {
 					$weekEnding = $_SESSION['weekEnding'];
 					$colNumber = $_SESSION['pass'];
 					getRota($colNumber, $weekEnding);
 					$_SESSION['executed'] = false;
-				}		
+				}
+				else {
+					$_SESSION['fail']= true;
+					header("Location: login_page.php");
+				}
 		}		
 		
 	$result->close();
