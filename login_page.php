@@ -77,7 +77,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <link href="styles.css" type="text/css" rel="stylesheet"/>
+    <link href="loginPageStyle.css" type="text/css" rel="stylesheet"/>
 	<link href="resources/jquery-ui.css" rel="stylesheet">
   </head>
   <body>

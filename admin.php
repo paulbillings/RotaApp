@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>GotoRota</title>
+    <title>GotoRota - Admin Page</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -23,8 +23,8 @@
 		
 		<nav>
 			<ul>
-				<li><a href="" class="current">Home</a></li>
-				<li><a href="admin.php">Admin</a></li>
+				<li><a href="userProfile.php">Home</a></li>
+				<li><a href="" class="current">Admin</a></li>
 				<li><a href="">Help</a></li>
 				<li><a href="login_page.php">Logout</a></li>
 			</ul>
@@ -35,7 +35,7 @@
 		<form name="rotaForm" id="rotaForm" action="" method="post"> 
 			
 			<div id="rotaLabel" >
-				<p><span>View your rota for week ending:</span></p> 
+				<p><span>View all rotas for week ending:</span></p> 
 			</div>
 			<div id="dateChoice" >
 				<input id="week_ending" type="text" name="week_ending" maxlength="10" required="true" placeholder="yyyy-mm-dd"  />
@@ -56,8 +56,8 @@
 	
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
-	$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
-	getRota($colNumber, $weekEnding);
+	//$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
+	getAllRotas($weekEnding);
 }
 
 function mysql_entities_fix_string($conn, $string) {
@@ -70,7 +70,7 @@ function mysql_fix_string($conn, $string) {
 }
 
 
-function getRota($colNumber, $weekEnding) {
+function getAllRotas($weekEnding) {
 
 	$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	if ($conn->connect_error) die($conn->connect_error);
@@ -80,13 +80,13 @@ function getRota($colNumber, $weekEnding) {
 		
 		$week_beginning = date('Y-m-d', strtotime('-6 day', strtotime($week_ending)));
 		
-		$number = $colNumber;
-
+		//$number = $colNumber;
+		
 	$query = "SELECT firstname,lastname,start_shift,end_shift,day FROM employee,schedule,date \n"
 		. "WHERE schedule.employee_id=employee.employee_id AND schedule.Week_ending='$week_ending'\n"
 		. "AND date.fulldate=schedule.fulldate\n"
-		. "AND date.fulldate BETWEEN '$week_beginning' AND '$week_ending'\n"
-		. "AND schedule.employee_id='$number'";
+		. "AND date.fulldate BETWEEN '$week_beginning' AND '$week_ending'";
+		
 
 	$result = $conn->query($query);
 	if (!$result) die ("Database access failed: " . $conn->error);
@@ -126,6 +126,14 @@ function getRota($colNumber, $weekEnding) {
 
 		$sorted = array();
 
+		
+
+	for ($j = 0 ; $j < $rows ; ++$j) {
+		$result->data_seek($j);
+		$row = $result->fetch_array(MYSQLI_ASSOC);
+		
+		//for ($row['employee_id']) {
+			
 		$sorted[0] = 'Day';
 		$sorted[1] = 'Off';
 		$sorted[2] = 'Day';
@@ -140,11 +148,8 @@ function getRota($colNumber, $weekEnding) {
 		$sorted[11] = 'Off'; 
 		$sorted[12] = 'Day';
 		$sorted[13] = 'Off'; 
-		$sorted[14] = 'Name';
-
-	for ($j = 0 ; $j < $rows ; ++$j) {
-		$result->data_seek($j);
-		$row = $result->fetch_array(MYSQLI_ASSOC);
+		$sorted[14] = 'Name';	
+	
 	
 		if ($row['day'] === 'Sunday') {
 			$sorted[0] = $row['start_shift'];
@@ -180,12 +185,10 @@ function getRota($colNumber, $weekEnding) {
 		$fullname = $fname . ' ' . $sname;
 		$sorted[14] = $fullname;
 		
-		
-	}
-	//<th>'; echo $sorted[14]; echo '</th>
 	echo
 		'<tr>
-			<th>'; echo '<p>Week ending </p>'; echo $week_ending; echo '</th>
+			<th>'; echo $sorted[14]; echo '</th>
+			
 			<td>'; echo $sorted[0]; echo '</td>
 			<td>'; echo $sorted[1]; echo '</td>
 			<td>'; echo $sorted[2]; echo '</td>
@@ -201,14 +204,20 @@ function getRota($colNumber, $weekEnding) {
 			<td>'; echo $sorted[12]; echo '</td>
 			<td>'; echo $sorted[13]; echo '</td>
 		</tr>';
+		//}
 
-
+		
+		
+	}
 	echo '</table>';
 	
+	//<th>'; echo '<p>Week ending </p>'; echo $week_ending; echo '</th>
+	
+	
 	echo '<div id="welcome">';
-	echo '<p>Welcome</p>'; 
+	echo '<p>W/E: </p>'; 
 	echo '<div id="userName">';
-	echo $fullname;
+	echo $week_ending;
 	echo '</div>';
 	echo '</div>';
 			
@@ -219,17 +228,17 @@ function getRota($colNumber, $weekEnding) {
 			
 				if (!$_SESSION['executed'] && !$_SESSION['start']){
 					echo '<script language="javascript">';
-					echo 'alert("No Rota for selected week")';
+					echo 'alert("No Rotas for selected week")';
 					echo '</script>';
 					$weekEnding = $_SESSION['weekEnding'];
-					$colNumber = $_SESSION['pass'];
-					getRota($colNumber, $weekEnding);
+					//$colNumber = $_SESSION['pass'];
+					getAllRotas($weekEnding);
 					$_SESSION['executed'] = true;
 				}
 				else if (!$_SESSION['start']) {
 					$weekEnding = $_SESSION['weekEnding'];
-					$colNumber = $_SESSION['pass'];
-					getRota($colNumber, $weekEnding);
+					//$colNumber = $_SESSION['pass'];
+					getAllRotas($weekEnding);
 					$_SESSION['executed'] = false;
 				}
 				else {
@@ -259,8 +268,8 @@ function getRota($colNumber, $weekEnding) {
 		
 		//echo $weekEnding;
 		
-		$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
-		getRota($colNumber, $weekEnding);   
+		//$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
+		getAllRotas($weekEnding);   
 		}
 
 
