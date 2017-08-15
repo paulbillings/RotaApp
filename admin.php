@@ -1,9 +1,3 @@
-<?php
-	session_start();
-	if (!$_SESSION['logged_in']){
-		header("Location: login_page.php");
-	}
-?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,39 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <link href="userProfileStyle.css" type="text/css" rel="stylesheet"/>
+    <link href="adminStyle.css" type="text/css" rel="stylesheet"/>
 	<link href="resources/jquery-ui.css" rel="stylesheet">
   </head>
-  <body>
-    <div class="rota" >
-
-		<div id="header" >
-			<p><span id="goto" >Goto</span><span id="rota" >Rota</span></p>
-		</div>
-		
-		<nav>
-			<ul>
-				<li><a href="userProfile.php">Home</a></li>
-				<li><a href="" class="current">Admin</a></li>
-				<li><a href="">Help</a></li>
-				<li><a href="login_page.php">Logout</a></li>
-			</ul>
-		</nav>
-		
-
-			
-		<form name="rotaForm" id="rotaForm" action="" method="post"> 
-			
-			<div id="rotaLabel" >
-				<p><span>View all rotas for week ending:</span></p> 
-			</div>
-			<div id="dateChoice" >
-				<input id="week_ending" type="text" name="week_ending" maxlength="10" required="true" placeholder="yyyy-mm-dd"  />
-			</div>
-			<input id="submitButton" type="submit" value="Submit" />
-		</form>
-	  	
+ <body>
+    <div class="rota" > 
 <?php
+	session_start();
+	if (!$_SESSION['logged_in']){
+		header("Location: login_page.php");
+	}
+	if (!isset($_SESSION['sectionChoose'])){
+		$_SESSION['sectionChoose'] = "Grocery";
+	}
+
 
 	define('DB_NAME', 'rotas');
 	define('DB_USER', 'root');
@@ -55,9 +30,13 @@
 	
 	
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
-	//$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
-	getAllRotas($weekEnding);
+	if (isset($_POST['week_ending'])) {
+		$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
+		//$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
+		$section = mysql_entities_fix_string($conn, $_POST['section']);
+		$_SESSION['sectionChoose'] = $section;
+		getAllRotas($weekEnding, $section);
+	}
 }
 
 function mysql_entities_fix_string($conn, $string) {
@@ -70,7 +49,7 @@ function mysql_fix_string($conn, $string) {
 }
 
 
-function getAllRotas($weekEnding) {
+function getAllRotas($weekEnding, $section) {
 
 	$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	if ($conn->connect_error) die($conn->connect_error);
@@ -82,10 +61,12 @@ function getAllRotas($weekEnding) {
 		
 		//$number = $colNumber;
 		
+		
 	$query = "SELECT employee.employee_id FROM employee,schedule,date \n"
 		. "WHERE schedule.employee_id=employee.employee_id AND schedule.Week_ending='$week_ending'\n"
 		. "AND date.fulldate=schedule.fulldate\n"
-		. "AND date.fulldate BETWEEN '$week_beginning' AND '$week_ending'";
+		. "AND date.fulldate BETWEEN '$week_beginning' AND '$week_ending'\n"
+		. "AND employee.section='$section'";
 		
 
 	$result = $conn->query($query);
@@ -231,15 +212,17 @@ function getAllRotas($weekEnding) {
 	//<th>'; echo '<p>Week ending </p>'; echo $week_ending; echo '</th>
 	
 	
-	echo '<div id="welcome">';
-	echo '<p>W/E: </p>'; 
-	echo '<div id="userName">';
+	echo '<div id="weekLabel">';
+	echo '<p>Week Ending: </p>'; 
+	echo '<div id="week">';
 	echo $week_ending;
 	echo '</div>';
 	echo '</div>';
 			
 			$_SESSION['weekEnding'] = $week_ending;
+			$_SESSION['section'] = $section;
 			$_SESSION['start'] = false;
+			
 		}
 		else {
 			
@@ -248,14 +231,16 @@ function getAllRotas($weekEnding) {
 					echo 'alert("No Rotas for selected week")';
 					echo '</script>';
 					$weekEnding = $_SESSION['weekEnding'];
+					$section= $_SESSION['section'];
 					//$colNumber = $_SESSION['pass'];
-					getAllRotas($weekEnding);
+					getAllRotas($weekEnding, $section);
 					$_SESSION['executed'] = true;
 				}
 				else if (!$_SESSION['start']) {
 					$weekEnding = $_SESSION['weekEnding'];
 					//$colNumber = $_SESSION['pass'];
-					getAllRotas($weekEnding);
+					$section= $_SESSION['section'];
+					getAllRotas($weekEnding, $section);
 					$_SESSION['executed'] = false;
 				}
 				else {
@@ -278,15 +263,18 @@ function getAllRotas($weekEnding) {
 		
 		if (!isset($_POST['week_ending'])) {
 			$weekEnding = date('Y-m-d',strtotime('next saturday'));
+			$section = "Grocery";
 		}
 		else {
 			$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
+			$section = mysql_entities_fix_string($conn, $_POST['section']);
+			$_SESSION['sectionChoose'] = $section;
 		}
 		
 		//echo $weekEnding;
 		
 		//$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
-		getAllRotas($weekEnding);   
+		getAllRotas($weekEnding, $section);   
 		}
 
 
@@ -294,6 +282,51 @@ function getAllRotas($weekEnding) {
 	
 
 ?>
+
+  
+
+		<div id="header" >
+			<p><span id="goto" >Goto</span><span id="rota" >Rota</span></p>
+		</div>
+		
+		<nav>
+			<ul>
+				<li><a href="userProfile.php">Home</a></li>
+				<li><a href="" class="current">Admin</a></li>
+				<li><a href="">Help</a></li>
+				<li><a href="login_page.php">Logout</a></li>
+			</ul>
+		</nav>
+		
+
+			
+		<form name="rotaForm" id="rotaForm" action="" method="post"> 
+		
+			<div id="sectionLabel" >
+				<p><span>View all rotas for which section:</span></p> 
+			</div>
+			<div id="section" >
+				<select id="section" name="section">
+					<option value="Grocery"<?=$_SESSION['sectionChoose'] == "Grocery" ? ' selected="selected"' : ''?>>Grocery</option>
+					<option value="Provisions"<?=$_SESSION['sectionChoose'] == "Provisions" ? ' selected="selected"' : ''?>>Provisions</option>
+					<option value="Produce"<?=$_SESSION['sectionChoose'] == "Produce" ? ' selected="selected"' : ''?>>Produce</option>
+					<option value="Checkouts"<?=$_SESSION['sectionChoose'] == "Checkouts" ? ' selected="selected"' : ''?>>Checkouts</option>
+					<option value="Bakery"<?=$_SESSION['sectionChoose'] == "Bakery" ? ' selected="selected"' : ''?>>Bakery</option>
+					<option value="File"<?=$_SESSION['sectionChoose'] == "File" ? ' selected="selected"' : ''?>>File</option>
+					<option value="Management"<?=$_SESSION['sectionChoose'] == "Management" ? ' selected="selected"' : ''?>>Management</option>
+				</select>
+			</div>
+			
+			<div id="rotaLabel" >
+				<p><span>View all rotas for week ending:</span></p> 
+			</div>
+			<div id="dateChoice" >
+				<input id="week_ending" type="text" name="week_ending" maxlength="10" required="true" placeholder="yyyy-mm-dd"  />
+			</div>
+			<input id="submitButton" type="submit" value="Submit" />
+		</form>
+	  	
+
       
     </div>
 	<script src="resources/jquery-3.2.1.js"></script>
