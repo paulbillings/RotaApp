@@ -82,7 +82,7 @@ function getAllRotas($weekEnding) {
 		
 		//$number = $colNumber;
 		
-	$query = "SELECT firstname,lastname,start_shift,end_shift,day FROM employee,schedule,date \n"
+	$query = "SELECT employee.employee_id FROM employee,schedule,date \n"
 		. "WHERE schedule.employee_id=employee.employee_id AND schedule.Week_ending='$week_ending'\n"
 		. "AND date.fulldate=schedule.fulldate\n"
 		. "AND date.fulldate BETWEEN '$week_beginning' AND '$week_ending'";
@@ -125,89 +125,106 @@ function getAllRotas($weekEnding) {
 				</tr>';
 
 		$sorted = array();
-
+		$checkName = array();
 		
 
 	for ($j = 0 ; $j < $rows ; ++$j) {
 		$result->data_seek($j);
 		$row = $result->fetch_array(MYSQLI_ASSOC);
+		$number = $row['employee_id'];
 		
-		//for ($row['employee_id']) {
-			
-		$sorted[0] = 'Day';
-		$sorted[1] = 'Off';
-		$sorted[2] = 'Day';
-		$sorted[3] = 'Off';
-		$sorted[4] = 'Day';
-		$sorted[5] = 'Off';
-		$sorted[6] = 'Day';
-		$sorted[7] = 'Off'; 
-		$sorted[8] = 'Day'; 
-		$sorted[9] = 'Off';
-		$sorted[10] = 'Day'; 
-		$sorted[11] = 'Off'; 
-		$sorted[12] = 'Day';
-		$sorted[13] = 'Off'; 
-		$sorted[14] = 'Name';	
-	
-	
-		if ($row['day'] === 'Sunday') {
-			$sorted[0] = $row['start_shift'];
-			$sorted[1] = $row['end_shift'];
-		}
-		if ($row['day'] === 'Monday') {
-			$sorted[2] = $row['start_shift'];
-			$sorted[3] = $row['end_shift'];
-		}
-		if ($row['day'] === 'Tuesday') {
-			$sorted[4] = $row['start_shift'];
-			$sorted[5] = $row['end_shift'];
-		}
-		if ($row['day'] === 'Wednesday') {
-			$sorted[6] = $row['start_shift'];
-			$sorted[7] = $row['end_shift'];
-		}
-		if ($row['day'] === 'Thursday') {
-			$sorted[8] = $row['start_shift'];
-			$sorted[9] = $row['end_shift'];
-		}
-		if ($row['day'] === 'Friday') {
-			$sorted[10] = $row['start_shift'];
-			$sorted[11] = $row['end_shift'];
-		}
-		if ($row['day'] === 'Saturday') {
-			$sorted[12] = $row['start_shift'];
-			$sorted[13] = $row['end_shift'];
-		}
-	
-		$fname = $row['firstname'];
-		$sname = $row['lastname'];
-		$fullname = $fname . ' ' . $sname;
-		$sorted[14] = $fullname;
+		if (!in_array($row['employee_id'], $checkName)) {
 		
-	echo
-		'<tr>
-			<th>'; echo $sorted[14]; echo '</th>
-			
-			<td>'; echo $sorted[0]; echo '</td>
-			<td>'; echo $sorted[1]; echo '</td>
-			<td>'; echo $sorted[2]; echo '</td>
-			<td>'; echo $sorted[3]; echo '</td>
-			<td>'; echo $sorted[4]; echo '</td>
-			<td>'; echo $sorted[5]; echo '</td>
-			<td>'; echo $sorted[6]; echo '</td>
-			<td>'; echo $sorted[7]; echo '</td>
-			<td>'; echo $sorted[8]; echo '</td>
-			<td>'; echo $sorted[9]; echo '</td>
-			<td>'; echo $sorted[10]; echo '</td>
-			<td>'; echo $sorted[11]; echo '</td>
-			<td>'; echo $sorted[12]; echo '</td>
-			<td>'; echo $sorted[13]; echo '</td>
-		</tr>';
-		//}
+			$queryI = "SELECT firstname,lastname,start_shift,end_shift,day FROM employee,schedule,date \n"
+			. "WHERE schedule.employee_id=employee.employee_id AND schedule.Week_ending='$week_ending'\n"
+			. "AND date.fulldate=schedule.fulldate\n"
+			. "AND date.fulldate BETWEEN '$week_beginning' AND '$week_ending'\n"
+			. "AND employee.employee_id='$number'";
 
+			$resultI = $conn->query($queryI);
+			if (!$resultI) die ("Database access failed: " . $conn->error);
+
+			$sorted[0] = 'Day';
+			$sorted[1] = 'Off';
+			$sorted[2] = 'Day';
+			$sorted[3] = 'Off';
+			$sorted[4] = 'Day';
+			$sorted[5] = 'Off';
+			$sorted[6] = 'Day';
+			$sorted[7] = 'Off'; 
+			$sorted[8] = 'Day'; 
+			$sorted[9] = 'Off';
+			$sorted[10] = 'Day'; 
+			$sorted[11] = 'Off'; 
+			$sorted[12] = 'Day';
+			$sorted[13] = 'Off'; 
+			$sorted[14] = 'Name';	
+			
+			
+			$rowsI = $resultI->num_rows;
+			
+			for ($j = 0 ; $j < $rowsI ; ++$j) {
+				$resultI->data_seek($j);
+				$rowI = $resultI->fetch_array(MYSQLI_ASSOC);
+			
+	
+				if ($rowI['day'] === 'Sunday') {
+					$sorted[0] = $rowI['start_shift'];
+					$sorted[1] = $rowI['end_shift'];
+				}
+				if ($rowI['day'] === 'Monday') {
+					$sorted[2] = $rowI['start_shift'];
+					$sorted[3] = $rowI['end_shift'];
+				}
+				if ($rowI['day'] === 'Tuesday') {
+					$sorted[4] = $rowI['start_shift'];
+					$sorted[5] = $rowI['end_shift'];
+				}
+				if ($rowI['day'] === 'Wednesday') {
+					$sorted[6] = $rowI['start_shift'];
+					$sorted[7] = $rowI['end_shift'];
+				}
+				if ($rowI['day'] === 'Thursday') {
+					$sorted[8] = $rowI['start_shift'];
+					$sorted[9] = $rowI['end_shift'];
+				}
+				if ($rowI['day'] === 'Friday') {
+					$sorted[10] = $rowI['start_shift'];
+					$sorted[11] = $rowI['end_shift'];
+				}
+				if ($rowI['day'] === 'Saturday') {
+					$sorted[12] = $rowI['start_shift'];
+					$sorted[13] = $rowI['end_shift'];
+				}
+			}
 		
+			$fname = $rowI['firstname'];
+			$sname = $rowI['lastname'];
+			$fullname = $fname . ' ' . $sname;
+			$sorted[14] = $fullname;
 		
+			echo
+			'<tr>
+				<th>'; echo $sorted[14]; echo '</th>
+				
+				<td>'; echo $sorted[0]; echo '</td>
+				<td>'; echo $sorted[1]; echo '</td>
+				<td>'; echo $sorted[2]; echo '</td>
+				<td>'; echo $sorted[3]; echo '</td>
+				<td>'; echo $sorted[4]; echo '</td>
+				<td>'; echo $sorted[5]; echo '</td>
+				<td>'; echo $sorted[6]; echo '</td>
+				<td>'; echo $sorted[7]; echo '</td>
+				<td>'; echo $sorted[8]; echo '</td>
+				<td>'; echo $sorted[9]; echo '</td>
+				<td>'; echo $sorted[10]; echo '</td>
+				<td>'; echo $sorted[11]; echo '</td>
+				<td>'; echo $sorted[12]; echo '</td>
+				<td>'; echo $sorted[13]; echo '</td>
+			</tr>';
+			
+			array_push($checkName, $row['employee_id']);
+		} 	
 	}
 	echo '</table>';
 	
