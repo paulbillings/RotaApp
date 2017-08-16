@@ -24,7 +24,7 @@
 		<nav>
 			<ul>
 				<li><a href="" class="current">Home</a></li>
-				<li><a href="admin.php">Admin</a></li>
+				<li><a href="adminMenu.php">Admin</a></li>
 				<li><a href="">Help</a></li>
 				<li><a href="login_page.php">Logout</a></li>
 			</ul>
@@ -212,6 +212,7 @@ function getRota($colNumber, $weekEnding) {
 	echo '</div>';
 	echo '</div>';
 			
+			$_SESSION['firstName'] = $fname;
 			$_SESSION['weekEnding'] = $week_ending;
 			$_SESSION['start'] = false;
 		}

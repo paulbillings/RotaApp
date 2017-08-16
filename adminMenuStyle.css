@@ -1,0 +1,182 @@
+body {
+  margin:auto;
+  background-color:rgba(188, 188, 188, 1);
+  background-image:none;
+  max-width:700px;
+  text-align:left;
+}
+
+p {
+    margin: 0px;
+}
+
+.rota {
+  position:absolute;
+  z-index:0;
+}
+
+#header {
+  position:absolute;
+  border-width:0px;
+  position:absolute;
+  left:180px;
+  top:9px;
+  width:279px;
+  height:81px;
+  font-family:'Impact Bold', 'Impact';
+  font-weight:700;
+  font-style:normal;
+  font-size:72px;
+  text-align:center;
+}
+
+#goto {
+  color:#000033;
+}
+
+#rota {
+  color:#000000;
+}
+
+nav {
+  border-width:0px;
+  position:absolute;
+  left:120px;
+  top:103px;
+  width:400px;
+  height:30px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 20;
+    overflow: hidden;
+    background-color: #333;
+}
+
+nav li {
+    float: left;
+}
+
+nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+nav li a:hover {
+    background-color: #111;
+}
+
+nav .current {
+    background-color: #0d377a;
+}
+
+#rotaMenu {
+  display: block;
+  position:absolute;
+  left:-200px;
+  top:183px;
+  width:400px;
+  height:30px;
+  color: #333; 
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+#colleagueMenu {
+  position:absolute;
+  left:382px;
+  top:183px;
+  width:400px;
+  height:30px;
+  color: #333; 
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+#rotaMenu ul {
+	display: block;
+    margin: 0;
+    padding: 20;
+    overflow: hidden;
+    background: #FAFAFA;
+	color: #333; 
+}
+
+#rotaMenu li {
+	display: block;
+	text-align: center;
+    text-decoration: none;
+	color: #333; 
+	font-family: Helvetica, Arial, sans-serif;
+	background: #FAFAFA; 
+	border: 1px solid #CCC; 
+}
+
+#rotaMenu li a {
+	padding: 14px 20px;
+	display: block;
+	text-decoration: none;
+	color: #333;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+#rotaMenu .header {
+	background: #333;
+    font-weight: bold;
+	font-size:25px;
+	color: white;
+	padding: 14px 20px;
+}
+
+#rotaMenu li:hover {
+	background-color: #0d377a;
+	color: white;
+}
+
+#rotaMenu li a:hover {
+	background-color: #0d377a;
+	color: white;
+}
+
+#rotaMenu .header:hover {
+	background-color: #333;
+}
+
+#colleagueMenu ul {
+    margin: 0;
+    padding: 20;
+    overflow: hidden;
+    background: #FAFAFA;
+	color: #333; 
+}
+
+#colleagueMenu li {
+    display: block;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+	color: #333; 
+	font-family: Helvetica, Arial, sans-serif;
+	background: #FAFAFA; 
+	border: 1px solid #CCC; 
+}
+
+#colleagueMenu .header {
+	background: #333;
+    font-weight: bold;
+	font-size:25px;
+	color: white;
+}
+
+#colleagueMenu li:hover {
+	background-color: #0d377a;
+	color: white;
+}
+
+#colleagueMenu .header:hover {
+	background-color: #333;
+}
+  

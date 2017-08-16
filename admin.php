@@ -292,7 +292,7 @@ function getAllRotas($weekEnding, $section) {
 		<nav>
 			<ul>
 				<li><a href="userProfile.php">Home</a></li>
-				<li><a href="" class="current">Admin</a></li>
+				<li><a href="adminMenu.php" class="current">Admin</a></li>
 				<li><a href="">Help</a></li>
 				<li><a href="login_page.php">Logout</a></li>
 			</ul>
