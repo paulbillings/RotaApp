@@ -1,0 +1,232 @@
+body {
+  margin:auto;
+  background-color:rgba(188, 188, 188, 1);
+  background-image:none;
+  max-width:700px;
+  text-align:left;
+}
+
+p {
+    margin: 0px;
+}
+
+.rota {
+  position:absolute;
+  z-index:0;
+}
+
+#header {
+  border-width:0px;
+  position:absolute;
+  left:180px;
+  top:9px;
+  width:279px;
+  height:81px;
+  font-family:'Impact Bold', 'Impact';
+  font-weight:700;
+  font-style:normal;
+  font-size:72px;
+  text-align:center;
+}
+
+#goto {
+  color:#000033;
+}
+
+#rota {
+  color:#000000;
+}
+
+nav {
+  border-width:0px;
+  position:absolute;
+  left:120px;
+  top:103px;
+  width:400px;
+  height:30px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 20;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+    background-color: #111;
+}
+
+.current {
+    background-color: #0d377a;
+}
+
+#rotaLabel {
+  border-width:0px;
+  position:absolute;
+  left:89px;
+  top:222px;
+  width:199px;
+  height:16px;
+  white-space:nowrap;
+}
+
+#dateChoice {
+  border-width:0px;
+  position:absolute;
+  left:298px;
+  top:218px;
+  width:131px;
+  height:25px;
+  font-family:'Arial';
+  font-weight:400;
+  font-style:normal;
+  font-size:13px;
+  text-decoration:none;
+  color:#000000;
+  text-align:left;
+}
+
+#colleagueNumber {
+  border-width:0px;
+  position:absolute;
+  left:298px;
+  top:183px;
+  width:131px;
+  height:25px;
+  font-family:'Arial';
+  font-weight:400;
+  font-style:normal;
+  font-size:13px;
+  text-decoration:none;
+  color:#000000;
+  text-align:left;
+}
+
+#submitButton {
+  position:absolute;
+  left:480px;
+  top:218px;
+  width:94px;
+  height:25px;
+  font-family:'Arial';
+  font-weight:400;
+  font-style:normal;
+  font-size:13px;
+  text-decoration:none;
+  color:#333333;
+  text-align:center;
+}
+
+#sectionLabel {
+  position:absolute;
+  left:89px;
+  top:183px;
+  width:220px;
+  height:24px;
+}
+
+#section {
+  position:absolute;
+  left:149px;
+  top:90px;
+  width:150px;
+  height:24px;
+  font-family:'Helvetica';
+  font-weight:400;
+  font-style:normal;
+  font-size:20px;
+}
+
+#weekLabel {
+  position:absolute;
+  left:-100px;
+  top:248px;
+  width:150px;
+  height:24px;
+}
+
+#week {
+  position:absolute;
+  left:92px;
+  top:-3px;
+  width:150px;
+  height:24px;
+  font-family:'Helvetica';
+  font-weight: bold;
+  font-style:normal;
+  font-size:20px;
+}
+
+#rotaTable {
+  position:absolute;
+  top:268px;
+  left:-225px;
+  text-align:center;
+  background-color: white;
+}
+
+table {  
+    color: #333; 
+    font-family: Helvetica, Arial, sans-serif;
+    width: 950px; 
+    border-collapse: collapse; 
+	border-spacing: 0; 
+}
+
+td, th { 
+	border: 1px solid #CCC; 
+	height: 30px; 
+}
+
+th {  
+    background: #F3F3F3; 
+    font-weight: bold;
+}
+
+td {  
+    background: #FAFAFA; 
+    text-align: center;
+}
+
+.time {
+	width: 50px;
+	text-align:center;
+	height: 30px;
+	font-size:18px;
+}
+
+.timeSubmit {
+	width: 100px;
+	text-align:center;
+}
+
+.name {
+	width: auto;
+    font-weight: bold;
+	color: #333; 
+    font-family: Helvetica, Arial, sans-serif;
+	text-align:center;
+	font-size:20px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
