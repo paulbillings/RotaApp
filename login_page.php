@@ -46,8 +46,11 @@
 						$_SESSION['user'] = $name;
 						$_SESSION['pass'] = $pass;
 						$_SESSION['executed'] = false;
+						$_SESSION['executedAdmin'] = false;
 						$_SESSION['logged_in'] = true;
 						$_SESSION['start'] = true;
+						$_SESSION['startAdmin'] = true;
+						$_SESSION['startCreate'] = true;
 						header("Location: userProfile.php");
 						exit;
 					}

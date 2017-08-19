@@ -221,12 +221,12 @@ function getAllRotas($weekEnding, $section) {
 			
 			$_SESSION['weekEnding'] = $week_ending;
 			$_SESSION['section'] = $section;
-			$_SESSION['start'] = false;
+			$_SESSION['startAdmin'] = false;
 			
 		}
 		else {
 			
-				if (!$_SESSION['executed'] && !$_SESSION['start']){
+				if (!$_SESSION['executedAdmin'] && !$_SESSION['startAdmin']){
 					echo '<script language="javascript">';
 					echo 'alert("No Rotas for selected week")';
 					echo '</script>';
@@ -234,14 +234,14 @@ function getAllRotas($weekEnding, $section) {
 					$section= $_SESSION['section'];
 					//$colNumber = $_SESSION['pass'];
 					getAllRotas($weekEnding, $section);
-					$_SESSION['executed'] = true;
+					$_SESSION['executedAdmin'] = true;
 				}
-				else if (!$_SESSION['start']) {
+				else if (!$_SESSION['startAdmin']) {
 					$weekEnding = $_SESSION['weekEnding'];
 					//$colNumber = $_SESSION['pass'];
 					$section= $_SESSION['section'];
 					getAllRotas($weekEnding, $section);
-					$_SESSION['executed'] = false;
+					$_SESSION['executedAdmin'] = false;
 				}
 				else {
 					$_SESSION['fail']= true;

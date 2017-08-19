@@ -15,7 +15,7 @@
 	if (!$_SESSION['logged_in']){
 		header("Location: login_page.php");
 	}
-	if (!isset($_SESSION['sectionChoose'])){
+	if (!isset($_SESSION['sectionChoose']) && $_SESSION['startCreate']){
 		$_SESSION['sectionChoose'] = "Checkouts";
 	}
 
@@ -33,12 +33,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (isset($_POST['submit'])) {
 		$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
 		//$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
-		//$section = mysql_entities_fix_string($conn, $_POST['section']);
-		$_SESSION['sectionChoose'] = $section;
+		
+		if (isset($_POST['section'])){
+			$section = mysql_entities_fix_string($conn, $_POST['section']);
+			$_SESSION['sectionChoose'] = $section;
+		}
 		
 		$SelectedElem = array();
 		$SelectedElem = implode(",", array_keys($_POST['submit']));
-		print_r ($_POST['form'][$SelectedElem]);
+		//$rowsInputted = $_SESSION['rows'];
+		
+		
+			print_r ($_POST['form'][$SelectedElem]);
+			print_r ($weekEnding);
+		
+		
+		
 	}
 }
 
@@ -72,6 +82,7 @@ function getAllRotas($section) {
 	if (!$result) die ("Database access failed: " . $conn->error);
 
 		$rows = $result->num_rows;
+		$_SESSION['rows'] = $rows;
 		
 		if ($rows > 0) {
 		echo 
@@ -113,19 +124,27 @@ function getAllRotas($section) {
 	for ($j = 0 ; $j < $rows ; ++$j) {
 		$result->data_seek($j);
 		$row = $result->fetch_array(MYSQLI_ASSOC);
-		
-
-			
 			
 			$fname = $row['firstName'];
 			$sname = $row['lastName'];
 			$fullname = $fname . ' ' . $sname;
-			$sorted[14] = $fullname;
+			$sorted[1] = $fullname;
 			
-	echo '<form name="nameForm" id="nameForm" action="" method="post">';		
+			$number = $row['employee_id'];
+			$sorted[2] = $number;
+			
+	echo '<form name="createForm" id="createForm" action="" method="post">';
+
+			echo '<div id="rotaLabel" >';
+			echo '<p><span>Do rotas for week ending:</span></p>';
+			echo '</div>';
+			echo '<div id="dateChoice" >';
+			echo '<input id="week_ending" class="datepicker" type="text" name="week_ending" maxlength="10" required="true" placeholder="yyyy-mm-dd"  />';
+			echo '</div>';
+	
 			echo
 			'<tr>
-				<th>'; echo '<input class="name" id="sunStart" name="form[$j][name]" readonly type="text" value="' . $sorted[14]; echo '"/></th>
+				<th>'; echo '<input class="name" id="name" name="name" readonly disabled type="text" value="' . $sorted[1]; echo '"/></th>
 				<td>'; echo '<input class="time" id="sunStart" name="form[$j][sunStart]" type="number" value=""/>'; echo '</td>
 				<td>'; echo '<input class="time" id="sunFinish" name="form[$j][sunFinish]" type="number" value=""/>'; echo '</td>
 				<td>'; echo '<input class="time" id="monStart" name="form[$j][monStart]" type="number" value=""/>'; echo '</td>
@@ -139,20 +158,22 @@ function getAllRotas($section) {
 				<td>'; echo '<input class="time" id="friStart" name="form[$j][friStart]" type="number" value=""/>'; echo '</td>
 				<td>'; echo '<input class="time" id="friFinish" name="form[$j][friFinish]" type="number" value=""/>'; echo '</td>
 				<td>'; echo '<input class="time" id="satStart" name="form[$j][satStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="satFinish" name="form[$j][satFinish]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="timeSubmit" type="submit" name="submit[$j]" value="Save Changes">'; echo '</td>
+				<td>'; echo '<input class="time" id="satFinish" name="form[$j][satFinish]" type="number" value=""/>'; echo '</td>';
+				echo '<input class="number" id="number" name="form[$j][number]" readonly type="hidden" value="' . $sorted[2]; echo '"/>
+				<td>'; echo '<input class="timeSubmit" type="submit" name="submit[$j]" value="Save Changes"/>'; echo '	
 			</tr>';
-	echo '</form>';
-			
+	
+			echo '</form>';	
 			
 	}
 	echo '</table>';
 	
 		
-			
+		
 			//$_SESSION['weekEnding'] = $week_ending;
 			$_SESSION['section'] = $section;
 			$_SESSION['start'] = false;
+			$_SESSION['startCreate'] = false;
 			
 		}
 		else {
@@ -194,15 +215,19 @@ function getAllRotas($section) {
 		if ($conn->connect_error) die($conn->connect_error);
 		
 		
-		if (!isset($_POST['week_ending'])) {
-			$weekEnding = date('Y-m-d',strtotime('next saturday'));
-			$section = "Checkouts";
+		if (!isset($_POST['section'])) {
+			//$weekEnding = date('Y-m-d',strtotime('next saturday'));
+			$section = $_SESSION['sectionChoose'];
 		}
 		else {
-			$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
+			//$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
 			$section = mysql_entities_fix_string($conn, $_POST['section']);
 			$_SESSION['sectionChoose'] = $section;
 		}
+		
+		
+		
+		
 		
 		//echo $weekEnding;
 		
@@ -211,8 +236,8 @@ function getAllRotas($section) {
 		}
 
 
+//$sql = "INSERT INTO `schedule` (`shift_id`, `Week_ending`, `employee_id`, `fulldate`, `start_shift`, `end_shift`) VALUES (NULL, \'2017-08-26\', \'984140\', \'2017-08-14\', \'6.00\', \'14.00\')";
 
-	
 
 ?>
 
@@ -250,12 +275,6 @@ function getAllRotas($section) {
 				</select>
 			</div>
 			
-			<div id="rotaLabel" >
-				<p><span>Do rotas for week ending:</span></p> 
-			</div>
-			<div id="dateChoice" >
-				<input id="week_ending" type="text" name="week_ending" maxlength="10" required="true" placeholder="yyyy-mm-dd"  />
-			</div>
 			<input id="submitButton" type="submit" value="Submit" />
 		</form>
 	  	
@@ -264,6 +283,6 @@ function getAllRotas($section) {
     </div>
 	<script src="resources/jquery-3.2.1.js"></script>
 	<script src="resources/jquery-ui.js"></script>
-	<script src="index.js"></script>
+	<script src="create.js"></script>
   </body>
 </html>

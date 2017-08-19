@@ -119,8 +119,8 @@ li a:hover {
 
 #submitButton {
   position:absolute;
-  left:480px;
-  top:218px;
+  left:470px;
+  top:180px;
   width:94px;
   height:25px;
   font-family:'Arial';
@@ -134,7 +134,7 @@ li a:hover {
 
 #sectionLabel {
   position:absolute;
-  left:89px;
+  left:95px;
   top:183px;
   width:220px;
   height:24px;
