@@ -40,14 +40,90 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		}
 		
 		$SelectedElem = array();
-		$SelectedElem = implode(",", array_keys($_POST['submit']));
-		//$rowsInputted = $_SESSION['rows'];
+		$SelectedElem = implode(",", array_keys($_POST['form']['0']));
+		$rowsInputted = $_SESSION['rows'];
 		
+		$explode = array();
+		$explode = explode(",", $SelectedElem);
+		//echo var_dump ($explode);
+		 
+		//$dayDate = date('Y-m-d',strtotime($weekEnding .' -1 day'));
 		
-			print_r ($_POST['form'][$SelectedElem]);
-			print_r ($weekEnding);
-		
-		
+		for ($a = 0 ; $a < $rowsInputted ; ++$a) {
+			$number = $_POST['form'][$a]['number'];
+			if (!empty($_POST['form'][$a]['sunStart'] && $_POST['form'][$a]['sunFinish'])){
+				$dayDate = date('Y-m-d',strtotime($weekEnding .' -6 day'));
+				$start = $_POST['form'][$a]['sunStart'];
+				$finish = $_POST['form'][$a]['sunFinish'];
+				print_r ($weekEnding);
+				print_r ($number);
+				print_r ($dayDate);
+				print_r ($start);
+				print_r ($finish);
+			}
+			if (!empty($_POST['form'][$a]['monStart'] && $_POST['form'][$a]['monFinish'])){
+				$dayDate = date('Y-m-d',strtotime($weekEnding .' -5 day'));
+				$start = $_POST['form'][$a]['monStart'];
+				$finish = $_POST['form'][$a]['monFinish'];
+				print_r ($weekEnding);
+				print_r ($number);
+				print_r ($dayDate);
+				print_r ($start);
+				print_r ($finish);
+			}
+			if (!empty($_POST['form'][$a]['tueStart'] && $_POST['form'][$a]['tueFinish'])){
+				$dayDate = date('Y-m-d',strtotime($weekEnding .' -4 day'));
+				$start = $_POST['form'][$a]['tueStart'];
+				$finish = $_POST['form'][$a]['tueFinish'];
+				print_r ($weekEnding);
+				print_r ($number);
+				print_r ($dayDate);
+				print_r ($start);
+				print_r ($finish);
+			}
+			if (!empty($_POST['form'][$a]['wedStart'] && $_POST['form'][$a]['wedFinish'])){
+				$dayDate = date('Y-m-d',strtotime($weekEnding .' -3 day'));
+				$start = $_POST['form'][$a]['wedStart'];
+				$finish = $_POST['form'][$a]['wedFinish'];
+				print_r ($weekEnding);
+				print_r ($number);
+				print_r ($dayDate);
+				print_r ($start);
+				print_r ($finish);
+			}
+			if (!empty($_POST['form'][$a]['thuStart'] && $_POST['form'][$a]['thuFinish'])){
+				$dayDate = date('Y-m-d',strtotime($weekEnding .' -2 day'));
+				$start = $_POST['form'][$a]['thuStart'];
+				$finish = $_POST['form'][$a]['thuFinish'];
+				print_r ($weekEnding);
+				print_r ($number);
+				print_r ($dayDate);
+				print_r ($start);
+				print_r ($finish);
+			}
+			if (!empty($_POST['form'][$a]['friStart'] && $_POST['form'][$a]['friFinish'])){
+				$dayDate = date('Y-m-d',strtotime($weekEnding .' -1 day'));
+				$start = $_POST['form'][$a]['friStart'];
+				$finish = $_POST['form'][$a]['friFinish'];
+				print_r ($weekEnding);
+				print_r ($number);
+				print_r ($dayDate);
+				print_r ($start);
+				print_r ($finish);
+			}
+			if (!empty($_POST['form'][$a]['satStart'] && $_POST['form'][$a]['satFinish'])){
+				$dayDate = $weekEnding;
+				$start = $_POST['form'][$a]['satStart'];
+				$finish = $_POST['form'][$a]['satFinish'];
+				print_r ($weekEnding);
+				print_r ($number);
+				print_r ($dayDate);
+				print_r ($start);
+				print_r ($finish);
+			}
+			
+		}
+	//$sql = "INSERT INTO schedule (shift_id, Week_ending, employee_id, fulldate, start_shift, end_shift) VALUES (NULL, $weekEnding, $number, $dayDate, \'14.00\', \'22.00\')";	
 		
 	}
 }
@@ -145,30 +221,33 @@ function getAllRotas($section) {
 			echo
 			'<tr>
 				<th>'; echo '<input class="name" id="name" name="name" readonly disabled type="text" value="' . $sorted[1]; echo '"/></th>
-				<td>'; echo '<input class="time" id="sunStart" name="form[$j][sunStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="sunFinish" name="form[$j][sunFinish]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="monStart" name="form[$j][monStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="monFinish" name="form[$j][monFinish]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="tueStart" name="form[$j][tueStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="tueFinish" name="form[$j][tueFinish]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="wedStart" name="form[$j][wedStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="wedFinish" name="form[$j][wedFinish]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="thuStart" name="form[$j][thuStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="thuFinish" name="form[$j][thuFinish]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="friStart" name="form[$j][friStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="friFinish" name="form[$j][friFinish]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="satStart" name="form[$j][satStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="satFinish" name="form[$j][satFinish]" type="number" value=""/>'; echo '</td>';
-				echo '<input class="number" id="number" name="form[$j][number]" readonly type="hidden" value="' . $sorted[2]; echo '"/>
-				<td>'; echo '<input class="timeSubmit" type="submit" name="submit[$j]" value="Save Changes"/>'; echo '	
+				<td>'; echo '<input class="time" id="sunStart" name="form['; echo $j; echo '][sunStart]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="time" id="sunFinish" name="form['; echo $j; echo '][sunFinish]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="time" id="monStart" name="form['; echo $j; echo '][monStart]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="time" id="monFinish" name="form['; echo $j; echo '][monFinish]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="time" id="tueStart" name="form['; echo $j; echo '][tueStart]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="time" id="tueFinish" name="form['; echo $j; echo '][tueFinish]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="time" id="wedStart" name="form['; echo $j; echo '][wedStart]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="time" id="wedFinish" name="form['; echo $j; echo '][wedFinish]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="time" id="thuStart" name="form['; echo $j; echo '][thuStart]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="time" id="thuFinish" name="form['; echo $j; echo '][thuFinish]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="time" id="friStart" name="form['; echo $j; echo '][friStart]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="time" id="friFinish" name="form['; echo $j; echo '][friFinish]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="time" id="satStart" name="form['; echo $j; echo '][satStart]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="time" id="satFinish" name="form['; echo $j; echo '][satFinish]" type="number" value=""/>'; echo '</td>';
+				echo '<input class="number" id="number" name="form['; echo $j; echo '][number]" readonly type="hidden" value="' . $sorted[2]; echo '"/>
+				<td>'; echo '<input class="timeSubmit" type="submit" name="submit" value="Save Changes"/>'; echo '	
 			</tr>';
+			
 	
-			echo '</form>';	
+			//echo '</form>';	
 			
 	}
+	echo '<input class="timeSubmit" type="submit" name="submit" value="Save Changes"/>';
+	echo '</form>';	
 	echo '</table>';
 	
-		
+		 
 		
 			//$_SESSION['weekEnding'] = $week_ending;
 			$_SESSION['section'] = $section;
