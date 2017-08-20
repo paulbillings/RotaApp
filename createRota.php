@@ -176,7 +176,6 @@ function getAllRotas($section) {
 					<th name="Thursday" colspan="2">Thursday</th>
 					<th name="Friday" colspan="2">Friday</th>
 					<th name="Saturday" colspan="2">Saturday</th>
-					<th></th>
 				</tr>
 				<tr>
 					<th></th>
@@ -194,7 +193,6 @@ function getAllRotas($section) {
 					<th>Finish</th>
 					<th>Start</th>
 					<th>Finish</th>
-					<th></th>
 				</tr>';
 
 		$sorted = array();
@@ -240,14 +238,15 @@ function getAllRotas($section) {
 				<td>'; echo '<input class="time" id="satStart" name="form['; echo $j; echo '][satStart]" type="number" value=""/>'; echo '</td>
 				<td>'; echo '<input class="time" id="satFinish" name="form['; echo $j; echo '][satFinish]" type="number" value=""/>'; echo '</td>';
 				echo '<input class="number" id="number" name="form['; echo $j; echo '][number]" readonly type="hidden" value="' . $sorted[2]; echo '"/>
-				<td>'; echo '<input class="timeSubmit" type="submit" name="submit" value="Save Changes"/>'; echo '	
+				';  echo '	
 			</tr>';
 			
 	
 			//echo '</form>';	
 			
 	}
-	echo '<input class="timeSubmit" type="submit" name="submit" value="Save Changes"/>';
+	
+	echo '<tr><th colspan="15" >'; echo '<input class="timeSubmit" type="submit" name="submit" value="Save Changes"/>'; echo '</th></tr>';
 	echo '</form>';	
 	echo '</table>';
 	

@@ -175,7 +175,7 @@ li a:hover {
 #rotaTable {
   position:absolute;
   top:268px;
-  left:-225px;
+  left:-185px;
   text-align:center;
   background-color: white;
 }
@@ -211,8 +211,11 @@ td {
 }
 
 .timeSubmit {
-	width: 100px;
+	width: 200px;
+	height: 40px;
+	font-size:24px;
 	text-align:center;
+	float: right;
 }
 
 .name {
