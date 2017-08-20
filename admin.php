@@ -113,7 +113,7 @@ function getAllRotas($weekEnding, $section) {
 		$result->data_seek($j);
 		$row = $result->fetch_array(MYSQLI_ASSOC);
 		$number = $row['employee_id'];
-		
+		//echo $number;
 		if (!in_array($row['employee_id'], $checkName)) {
 		
 			$queryI = "SELECT firstname,lastname,start_shift,end_shift,day FROM employee,schedule,date \n"
@@ -144,8 +144,8 @@ function getAllRotas($weekEnding, $section) {
 			
 			$rowsI = $resultI->num_rows;
 			
-			for ($j = 0 ; $j < $rowsI ; ++$j) {
-				$resultI->data_seek($j);
+			for ($b = 0 ; $b < $rowsI ; ++$b) {
+				$resultI->data_seek($b);
 				$rowI = $resultI->fetch_array(MYSQLI_ASSOC);
 			
 	
@@ -204,8 +204,9 @@ function getAllRotas($weekEnding, $section) {
 				<td>'; echo $sorted[13]; echo '</td>
 			</tr>';
 			
-			array_push($checkName, $row['employee_id']);
-		} 	
+			array_push($checkName, $number);
+		}
+		
 	}
 	echo '</table>';
 	
@@ -263,7 +264,7 @@ function getAllRotas($weekEnding, $section) {
 		
 		if (!isset($_POST['week_ending'])) {
 			$weekEnding = date('Y-m-d',strtotime('next saturday'));
-			$section = "Grocery";
+			$section = $_SESSION['sectionChoose'];
 		}
 		else {
 			$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);

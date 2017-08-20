@@ -39,134 +39,103 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$_SESSION['sectionChoose'] = $section;
 		}
 		
-		
-		//$SelectedElem = array();
-		//$SelectedElem = implode(",", array_keys($_POST['form']['0']));
 		$rowsInputted = $_SESSION['rows'];
-		
-		//$explode = array();
-		//$explode = explode(",", $SelectedElem);
-		//echo var_dump ($explode);
-		 
-		//$dayDate = date('Y-m-d',strtotime($weekEnding .' -1 day'));
-		
-		
-	
 		
 		for ($a = 0 ; $a < $rowsInputted ; ++$a) {
 			$week = $weekEnding;
 			$number = $_POST['form'][$a]['number'];
 			
-			$week_ending = $weekEnding;
-			$week_beginning = date('Y-m-d', strtotime('-6 day', strtotime($week_ending)));
+			if (empty($_POST['form'][$a]['sunStart'] || $_POST['form'][$a]['monStart'] || $_POST['form'][$a]['tueStart'] ||
+				$_POST['form'][$a]['wedStart'] || $_POST['form'][$a]['thuStart'] || $_POST['form'][$a]['friStart'] || 
+				$_POST['form'][$a]['satStart'])) 
+			{
+				echo ('No shifts entered');
+			}
+			else {
 		
-			$query = "SELECT firstname,lastname,start_shift,end_shift,day FROM employee,schedule,date \n"
-			. "WHERE schedule.employee_id=employee.employee_id AND schedule.Week_ending='$week_ending'\n"
-			. "AND date.fulldate=schedule.fulldate\n"
-			. "AND date.fulldate BETWEEN '$week_beginning' AND '$week_ending'\n"
-			. "AND schedule.employee_id='$number'";
-
-			$result = $conn->query($query);
-			if (!$result) die ("Database access failed: " . $conn->error);
+				checkForExisting($week, $number);
 			
-			$rows = $result->num_rows;
-		
-			if ($rows > 0) {
-	
-			$delete = "DELETE FROM schedule WHERE schedule.employee_id = $number \n"
-					. "AND schedule.Week_ending = '$week'";
-	
-				if ($conn->query($delete) === TRUE) {
-					echo "records deleted successfully";
-				} else {
-					echo "Error: " . $sql . "<br>" . $conn->error;
+				if (!empty($_POST['form'][$a]['sunStart'] && $_POST['form'][$a]['sunFinish'])){
+					$dayDate = date('Y-m-d',strtotime($weekEnding .' -6 day'));
+					$start = $_POST['form'][$a]['sunStart'];
+					$finish = $_POST['form'][$a]['sunFinish'];
+					print_r ($week);
+					print_r ($number);
+					print_r ($dayDate);
+					print_r ($start);
+					print_r ($finish);
+					insertShift($week, $number, $dayDate, $start, $finish);
 				}
-			}
-			
-			
-			
-			
-			if (!empty($_POST['form'][$a]['sunStart'] && $_POST['form'][$a]['sunFinish'])){
-				$dayDate = date('Y-m-d',strtotime($weekEnding .' -6 day'));
-				$start = $_POST['form'][$a]['sunStart'];
-				$finish = $_POST['form'][$a]['sunFinish'];
-				print_r ($week);
-				print_r ($number);
-				print_r ($dayDate);
-				print_r ($start);
-				print_r ($finish);
-			$sql = "INSERT INTO schedule (shift_id, Week_ending, employee_id, fulldate, start_shift, end_shift) \n"
-				. "VALUES (NULL, '$week', $number, '$dayDate', $start, $finish)";
-				
-				if ($conn->query($sql) === TRUE) {
-					echo "New record created successfully";
-				} else {
-					echo "Error: " . $sql . "<br>" . $conn->error;
+				if (!empty($_POST['form'][$a]['monStart'] && $_POST['form'][$a]['monFinish'])){
+					$dayDate = date('Y-m-d',strtotime($weekEnding .' -5 day'));
+					$start = $_POST['form'][$a]['monStart'];
+					$finish = $_POST['form'][$a]['monFinish'];
+					print_r ($week);
+					print_r ($number);
+					print_r ($dayDate);
+					print_r ($start);
+					print_r ($finish);
+					insertShift($week, $number, $dayDate, $start, $finish);
 				}
-			}
-			if (!empty($_POST['form'][$a]['monStart'] && $_POST['form'][$a]['monFinish'])){
-				$dayDate = date('Y-m-d',strtotime($weekEnding .' -5 day'));
-				$start = $_POST['form'][$a]['monStart'];
-				$finish = $_POST['form'][$a]['monFinish'];
-				print_r ($week);
-				print_r ($number);
-				print_r ($dayDate);
-				print_r ($start);
-				print_r ($finish);
-			}
-			if (!empty($_POST['form'][$a]['tueStart'] && $_POST['form'][$a]['tueFinish'])){
-				$dayDate = date('Y-m-d',strtotime($weekEnding .' -4 day'));
-				$start = $_POST['form'][$a]['tueStart'];
-				$finish = $_POST['form'][$a]['tueFinish'];
-				print_r ($week);
-				print_r ($number);
-				print_r ($dayDate);
-				print_r ($start);
-				print_r ($finish);
-			}
-			if (!empty($_POST['form'][$a]['wedStart'] && $_POST['form'][$a]['wedFinish'])){
-				$dayDate = date('Y-m-d',strtotime($weekEnding .' -3 day'));
-				$start = $_POST['form'][$a]['wedStart'];
-				$finish = $_POST['form'][$a]['wedFinish'];
-				print_r ($week);
-				print_r ($number);
-				print_r ($dayDate);
-				print_r ($start);
-				print_r ($finish);
-			}
-			if (!empty($_POST['form'][$a]['thuStart'] && $_POST['form'][$a]['thuFinish'])){
-				$dayDate = date('Y-m-d',strtotime($weekEnding .' -2 day'));
-				$start = $_POST['form'][$a]['thuStart'];
-				$finish = $_POST['form'][$a]['thuFinish'];
-				print_r ($week);
-				print_r ($number);
-				print_r ($dayDate);
-				print_r ($start);
-				print_r ($finish);
-			}
-			if (!empty($_POST['form'][$a]['friStart'] && $_POST['form'][$a]['friFinish'])){
-				$dayDate = date('Y-m-d',strtotime($weekEnding .' -1 day'));
-				$start = $_POST['form'][$a]['friStart'];
-				$finish = $_POST['form'][$a]['friFinish'];
-				print_r ($week);
-				print_r ($number);
-				print_r ($dayDate);
-				print_r ($start);
-				print_r ($finish);
-			}
-			if (!empty($_POST['form'][$a]['satStart'] && $_POST['form'][$a]['satFinish'])){
-				$dayDate = $weekEnding;
-				$start = $_POST['form'][$a]['satStart'];
-				$finish = $_POST['form'][$a]['satFinish'];
-				print_r ($week);
-				print_r ($number);
-				print_r ($dayDate);
-				print_r ($start);
-				print_r ($finish);
+				if (!empty($_POST['form'][$a]['tueStart'] && $_POST['form'][$a]['tueFinish'])){
+					$dayDate = date('Y-m-d',strtotime($weekEnding .' -4 day'));
+					$start = $_POST['form'][$a]['tueStart'];
+					$finish = $_POST['form'][$a]['tueFinish'];
+					print_r ($week);
+					print_r ($number);
+					print_r ($dayDate);
+					print_r ($start);
+					print_r ($finish);
+					insertShift($week, $number, $dayDate, $start, $finish);
+				}
+				if (!empty($_POST['form'][$a]['wedStart'] && $_POST['form'][$a]['wedFinish'])){
+					$dayDate = date('Y-m-d',strtotime($weekEnding .' -3 day'));
+					$start = $_POST['form'][$a]['wedStart'];
+					$finish = $_POST['form'][$a]['wedFinish'];
+					print_r ($week);
+					print_r ($number);
+					print_r ($dayDate);
+					print_r ($start);
+					print_r ($finish);
+					insertShift($week, $number, $dayDate, $start, $finish);
+				}
+				if (!empty($_POST['form'][$a]['thuStart'] && $_POST['form'][$a]['thuFinish'])){
+					$dayDate = date('Y-m-d',strtotime($weekEnding .' -2 day'));
+					$start = $_POST['form'][$a]['thuStart'];
+					$finish = $_POST['form'][$a]['thuFinish'];
+					print_r ($week);
+					print_r ($number);
+					print_r ($dayDate);
+					print_r ($start);
+					print_r ($finish);
+					insertShift($week, $number, $dayDate, $start, $finish);
+				}
+				if (!empty($_POST['form'][$a]['friStart'] && $_POST['form'][$a]['friFinish'])){
+					$dayDate = date('Y-m-d',strtotime($weekEnding .' -1 day'));
+					$start = $_POST['form'][$a]['friStart'];
+					$finish = $_POST['form'][$a]['friFinish'];
+					print_r ($week);
+					print_r ($number);
+					print_r ($dayDate);
+					print_r ($start);
+					print_r ($finish);
+					insertShift($week, $number, $dayDate, $start, $finish);
+				}
+				if (!empty($_POST['form'][$a]['satStart'] && $_POST['form'][$a]['satFinish'])){
+					$dayDate = $weekEnding;
+					$start = $_POST['form'][$a]['satStart'];
+					$finish = $_POST['form'][$a]['satFinish'];
+					print_r ($week);
+					print_r ($number);
+					print_r ($dayDate);
+					print_r ($start);
+					print_r ($finish);
+					insertShift($week, $number, $dayDate, $start, $finish);
+				}
 			}
 			
 		}
-	//$sql = "INSERT INTO schedule (shift_id, Week_ending, employee_id, fulldate, start_shift, end_shift) VALUES (NULL, $weekEnding, $number, $dayDate, \'14.00\', \'22.00\')";	
+	
 		
 	$conn->close();	
 	}
@@ -185,19 +154,10 @@ function getAllRotas($section) {
 
 	$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	if ($conn->connect_error) die($conn->connect_error);
-		
-		//$week_ending = mysql_entities_fix_string($conn, $_POST['week_ending']);
-		//$week_ending = $weekEnding;
-		
-		//$week_beginning = date('Y-m-d', strtotime('-6 day', strtotime($week_ending)));
-		
-		//$number = $colNumber;
-		
-		
+			
 	$query = "SELECT employee.employee_id,employee.lastName,employee.firstName FROM employee \n"
 		. "WHERE employee.section='$section'";
 		
-
 	$result = $conn->query($query);
 	if (!$result) die ("Database access failed: " . $conn->error);
 
@@ -329,9 +289,6 @@ function getAllRotas($section) {
 	
 }
 
-
-
-
 	
 		if (isset($_SESSION['pass'])) {
 		$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
@@ -349,15 +306,59 @@ function getAllRotas($section) {
 		}
 		
 		
-		
-		
-		
-		//echo $weekEnding;
-		
-		//$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
 		getAllRotas($section);   
 		}
+		
+		
+		function checkForExisting($weekEnding, $number){
 
+		$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+		if ($conn->connect_error) die($conn->connect_error);
+			
+			
+			$week_beginning = date('Y-m-d', strtotime('-6 day', strtotime($weekEnding)));
+		
+			$query = "SELECT firstname,lastname,start_shift,end_shift,day FROM employee,schedule,date \n"
+			. "WHERE schedule.employee_id=employee.employee_id AND schedule.Week_ending='$weekEnding'\n"
+			. "AND date.fulldate=schedule.fulldate\n"
+			. "AND date.fulldate BETWEEN '$week_beginning' AND '$weekEnding'\n"
+			. "AND schedule.employee_id='$number'";
+
+			$result = $conn->query($query);
+			if (!$result) die ("Database access failed: " . $conn->error);
+			
+			$rows = $result->num_rows;
+		
+			if ($rows > 0) {
+	
+			$delete = "DELETE FROM schedule WHERE schedule.employee_id = $number \n"
+					. "AND schedule.Week_ending = '$weekEnding'";
+	
+				if ($conn->query($delete) === TRUE) {
+					echo "records deleted successfully";
+				} else {
+					echo "Error: " . $sql . "<br>" . $conn->error;
+				}
+			}
+			
+			$conn->close();	
+		}
+
+		function insertShift($week, $number, $dayDate, $start, $finish){
+			$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+			if ($conn->connect_error) die($conn->connect_error);
+			
+			$sql = "INSERT INTO schedule (shift_id, Week_ending, employee_id, fulldate, start_shift, end_shift) \n"
+				. "VALUES (NULL, '$week', $number, '$dayDate', $start, $finish)";
+				
+				if ($conn->query($sql) === TRUE) {
+					echo "New record created successfully";
+				} else {
+					echo "Error: " . $sql . "<br>" . $conn->error;
+				}
+				
+			$conn->close();	
+		}
 
 //$sql = "INSERT INTO `schedule` (`shift_id`, `Week_ending`, `employee_id`, `fulldate`, `start_shift`, `end_shift`) VALUES (NULL, \'2017-08-26\', \'984140\', \'2017-08-14\', \'6.00\', \'14.00\')";
 
