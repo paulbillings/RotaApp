@@ -216,6 +216,14 @@ td {
 	font-size:24px;
 	text-align:center;
 	float: right;
+	background: #0d377a;
+	color: white;
+}
+
+.timeSubmit:hover {
+	background: #111;
+	color: white;
+	cursor: pointer;
 }
 
 .name {
