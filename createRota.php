@@ -7,6 +7,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <link href="createRotaStyle.css" type="text/css" rel="stylesheet"/>
 	<link href="resources/jquery-ui.css" rel="stylesheet">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
   </head>
  <body>
     <div class="rota" > 
@@ -217,26 +218,26 @@ function getAllRotas($section) {
 			echo '<p><span>Do rotas for week ending:</span></p>';
 			echo '</div>';
 			echo '<div id="dateChoice" >';
-			echo '<input id="week_ending" class="datepicker" type="text" name="week_ending" maxlength="10" required="true" placeholder="yyyy-mm-dd"  />';
+			echo '<input id="week_ending" class="week_ending" type="text" name="week_ending" maxlength="10" required="true" placeholder="yyyy-mm-dd"  />';
 			echo '</div>';
 	
 			echo
 			'<tr>
 				<th>'; echo '<input class="name" id="name" name="name" readonly disabled type="text" value="' . $sorted[1]; echo '"/></th>
-				<td>'; echo '<input class="time" id="sunStart" name="form['; echo $j; echo '][sunStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="sunFinish" name="form['; echo $j; echo '][sunFinish]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="monStart" name="form['; echo $j; echo '][monStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="monFinish" name="form['; echo $j; echo '][monFinish]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="tueStart" name="form['; echo $j; echo '][tueStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="tueFinish" name="form['; echo $j; echo '][tueFinish]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="wedStart" name="form['; echo $j; echo '][wedStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="wedFinish" name="form['; echo $j; echo '][wedFinish]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="thuStart" name="form['; echo $j; echo '][thuStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="thuFinish" name="form['; echo $j; echo '][thuFinish]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="friStart" name="form['; echo $j; echo '][friStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="friFinish" name="form['; echo $j; echo '][friFinish]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="satStart" name="form['; echo $j; echo '][satStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="time" id="satFinish" name="form['; echo $j; echo '][satFinish]" type="number" value=""/>'; echo '</td>';
+				<td>'; echo '<input class="timepicker" id="sunStart" name="form['; echo $j; echo '][sunStart]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="sunFinish" name="form['; echo $j; echo '][sunFinish]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="monStart" name="form['; echo $j; echo '][monStart]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="monFinish" name="form['; echo $j; echo '][monFinish]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="tueStart" name="form['; echo $j; echo '][tueStart]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="tueFinish" name="form['; echo $j; echo '][tueFinish]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="wedStart" name="form['; echo $j; echo '][wedStart]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="wedFinish" name="form['; echo $j; echo '][wedFinish]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="thuStart" name="form['; echo $j; echo '][thuStart]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="thuFinish" name="form['; echo $j; echo '][thuFinish]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="friStart" name="form['; echo $j; echo '][friStart]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="friFinish" name="form['; echo $j; echo '][friFinish]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="satStart" name="form['; echo $j; echo '][satStart]" type="number" value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="satFinish" name="form['; echo $j; echo '][satFinish]" type="number" value=""/>'; echo '</td>';
 				echo '<input class="number" id="number" name="form['; echo $j; echo '][number]" readonly type="hidden" value="' . $sorted[2]; echo '"/>
 				';  echo '	
 			</tr>';
@@ -406,6 +407,7 @@ function getAllRotas($section) {
     </div>
 	<script src="resources/jquery-3.2.1.js"></script>
 	<script src="resources/jquery-ui.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 	<script src="create.js"></script>
   </body>
 </html>

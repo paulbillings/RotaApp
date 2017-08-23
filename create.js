@@ -2,6 +2,21 @@ $(document).ready(function(){
 	
     formReady();
 	
+	$('.timepicker').timepicker({
+		timeFormat: 'HH.mm',
+		interval: 60,
+		minTime: '1.00',
+		maxTime: '23.00',
+		startTime: '4.00',
+		dynamic: false,
+		dropdown: false,
+		scrollbar: false
+	});
+	
+	$('.week_ending').change(function(){
+		$('.week_ending').datepicker('setDate', $(this).val());
+	});
+	
 });
 		
 function disableDays(date) {
@@ -31,12 +46,13 @@ function formReady() {
 	}
 	//alert(displayDate);
 	
-	$(".datepicker").datepicker({
+	$(".week_ending").datepicker({
 	showButtonPanel: true,
+	inline: true,
 	dateFormat: 'yy-mm-dd',
 	beforeShowDay: disableDays}).on('keypress', function(e){ e.preventDefault(); });
 	
-	$(".datepicker").datepicker().datepicker("setDate", displayDate);
+	$(".week_ending").datepicker().datepicker("setDate", displayDate);
 	
 }
 

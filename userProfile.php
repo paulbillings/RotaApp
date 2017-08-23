@@ -38,7 +38,7 @@
 				<p><span>View your rota for week ending:</span></p> 
 			</div>
 			<div id="dateChoice" >
-				<input id="week_ending" type="text" name="week_ending" maxlength="10" required="true" placeholder="yyyy-mm-dd"  />
+				<input id="week_ending" class="week_ending" type="text" name="week_ending" maxlength="10" required="true" placeholder="yyyy-mm-dd"  />
 			</div>
 			<input id="submitButton" type="submit" value="Submit" />
 		</form>
