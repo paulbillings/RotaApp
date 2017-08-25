@@ -181,7 +181,7 @@ function getAllRotas($weekEnding, $section) {
 				$totalRecords[] = array($fnumber, $ffullname);
 			}
 		}
-		print_r($totalRecords);
+		//print_r($totalRecords);
 		
 		$week_ending = $weekEnding;
 		$week_beginning = date('Y-m-d', strtotime('-6 day', strtotime($week_ending)));
@@ -265,7 +265,7 @@ function getAllRotas($weekEnding, $section) {
 			$sorted[11] = 'Off'; 
 			$sorted[12] = 'Day';
 			$sorted[13] = 'Off'; 
-			$sorted[14] = 'Name';	
+			$sorted[14] = '';	
 			
 			
 			$rowsI = $resultI->num_rows;
@@ -350,6 +350,58 @@ function getAllRotas($weekEnding, $section) {
 			array_push($checkName, $number);
 		}
 		
+	}
+	
+	
+	
+	$amount = count($totalRecords);
+	
+	for ($z = 0; $z < $amount; ++$z){
+		$newNumber = $totalRecords[$z]['0'];
+		$newName = $totalRecords[$z]['1'];
+		
+		//print_r ($totalRecords[$z]['0']);
+		
+		if (!in_array($newNumber, $checkName)) {
+			
+			$sorted[0] = 'Day';
+			$sorted[1] = 'Off';
+			$sorted[2] = 'Day';
+			$sorted[3] = 'Off';
+			$sorted[4] = 'Day';
+			$sorted[5] = 'Off';
+			$sorted[6] = 'Day';
+			$sorted[7] = 'Off'; 
+			$sorted[8] = 'Day'; 
+			$sorted[9] = 'Off';
+			$sorted[10] = 'Day'; 
+			$sorted[11] = 'Off'; 
+			$sorted[12] = 'Day';
+			$sorted[13] = 'Off'; 
+			$sorted[14] = '';	
+			
+			echo
+			'<tr>
+				<th>'; echo '<input class="name" id="name" name="name" readonly disabled type="text" value="' . $newName; echo '"/></th>
+				<td>'; echo '<input class="timepicker" id="sunStart" name="form['; echo $big; echo '][sunStart]" type="number" step="0.05" value="' . $sorted[0]; echo '"/></th>
+				<td>'; echo '<input class="timepicker" id="sunFinish" name="form['; echo $big; echo '][sunFinish]" type="number" step="0.05"value="' . $sorted[1]; echo '"/></th>
+				<td>'; echo '<input class="timepicker" id="monStart" name="form['; echo $big; echo '][monStart]" type="number" step="0.05"value="' . $sorted[2]; echo '"/></th>
+				<td>'; echo '<input class="timepicker" id="monFinish" name="form['; echo $big; echo '][monFinish]" type="number" step="0.05"value="' . $sorted[3]; echo '"/></th>
+				<td>'; echo '<input class="timepicker" id="tueStart" name="form['; echo $big; echo '][tueStart]" type="number" step="0.05"value="' . $sorted[4]; echo '"/></th>
+				<td>'; echo '<input class="timepicker" id="tueFinish" name="form['; echo $big; echo '][tueFinish]" type="number" step="0.05"value="' . $sorted[5]; echo '"/></th>
+				<td>'; echo '<input class="timepicker" id="wedStart" name="form['; echo $big; echo '][wedStart]" type="number" step="0.05"value="' . $sorted[6]; echo '"/></th>
+				<td>'; echo '<input class="timepicker" id="wedFinish" name="form['; echo $big; echo '][wedFinish]" type="number" step="0.05"value="' . $sorted[7]; echo '"/></th>
+				<td>'; echo '<input class="timepicker" id="thuStart" name="form['; echo $big; echo '][thuStart]" type="number" step="0.05"value="' . $sorted[8]; echo '"/></th>
+				<td>'; echo '<input class="timepicker" id="thuFinish" name="form['; echo $big; echo '][thuFinish]" type="number" step="0.05"value="' . $sorted[9]; echo '"/></th>
+				<td>'; echo '<input class="timepicker" id="friStart" name="form['; echo $big; echo '][friStart]" type="number" step="0.05"value="' . $sorted[10]; echo '"/></th>
+				<td>'; echo '<input class="timepicker" id="friFinish" name="form['; echo $big; echo '][friFinish]" type="number" step="0.05"value="' . $sorted[11]; echo '"/></th>
+				<td>'; echo '<input class="timepicker" id="satStart" name="form['; echo $big; echo '][satStart]" type="number" step="0.05"value="' . $sorted[12]; echo '"/></th>
+				<td>'; echo '<input class="timepicker" id="satFinish" name="form['; echo $big; echo '][satFinish]" type="number" step="0.05"value="' . $sorted[13]; echo '"/></th>';
+				echo '<input class="number" id="number" name="form['; echo $big; echo '][number]" readonly type="hidden" value="' . $newNumber; echo '"/>
+				';  echo '	
+			</tr>';
+			$big++;
+		}
 	}
 	
 	echo "big number: " . $big;
