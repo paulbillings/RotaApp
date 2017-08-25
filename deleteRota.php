@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>GotoRota - Admin Page</title>
+    <title>GotoRota - Delete Rota Page</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -30,6 +30,7 @@
 	
 	
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	
 	if (isset($_POST['week_ending'])) {
 		$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
 		//$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
@@ -86,6 +87,7 @@ function getAllRotas($weekEnding, $section) {
 					<th name="Thursday" colspan="2">Thursday</th>
 					<th name="Friday" colspan="2">Friday</th>
 					<th name="Saturday" colspan="2">Saturday</th>
+					<th></th>
 				</tr>
 				<tr>
 					<th></th>
@@ -103,6 +105,7 @@ function getAllRotas($weekEnding, $section) {
 					<th>Finish</th>
 					<th>Start</th>
 					<th>Finish</th>
+					<th></th>
 				</tr>';
 
 		$sorted = array();
@@ -183,11 +186,12 @@ function getAllRotas($weekEnding, $section) {
 			$sname = $rowI['lastname'];
 			$fullname = $fname . ' ' . $sname;
 			$sorted[14] = $fullname;
+			
+		echo '<form name="deleteForm" id="deleteForm" action="" method="post">';			
 		
 			echo
 			'<tr>
 				<th>'; echo $sorted[14]; echo '</th>
-				
 				<td>'; echo $sorted[0]; echo '</td>
 				<td>'; echo $sorted[1]; echo '</td>
 				<td>'; echo $sorted[2]; echo '</td>
@@ -202,12 +206,14 @@ function getAllRotas($weekEnding, $section) {
 				<td>'; echo $sorted[11]; echo '</td>
 				<td>'; echo $sorted[12]; echo '</td>
 				<td>'; echo $sorted[13]; echo '</td>
+				<th>';echo '<input class="delete" type="submit" name="'; echo $j; echo '][number]" value="Delete"/>'; echo '</th>
 			</tr>';
 			
 			array_push($checkName, $number);
 		}
 		
 	}
+	echo '</form>';	
 	echo '</table>';
 	
 	//<th>'; echo '<p>Week ending </p>'; echo $week_ending; echo '</th>

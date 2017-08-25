@@ -32,10 +32,10 @@
 		
 		<ul id="rotaMenu">
 			<li class="header">Rotas</li>
-				<li><a href="admin.php">View rotas by section</a></li>
+				<li><a href="viewRota.php">View rotas by section</a></li>
 				<li><a href="createRota.php">Create rota</a></li>
 				<li><a href="editRota.php">Edit rota</a></li>
-				<li><a href="">Delete rota</a></li>
+				<li><a href="deleteRota.php">Delete rota</a></li>
 		</ul>
 		
 		<ul id="colleagueMenu">
