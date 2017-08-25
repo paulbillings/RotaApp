@@ -206,7 +206,7 @@ function getAllRotas($weekEnding, $section) {
 				<td>'; echo $sorted[11]; echo '</td>
 				<td>'; echo $sorted[12]; echo '</td>
 				<td>'; echo $sorted[13]; echo '</td>
-				<th>';echo '<input class="delete" type="submit" name="'; echo $j; echo '][number]" value="Delete"/>'; echo '</th>
+				<th>';echo '<input class="delete" type="submit" name="form['; echo $j; echo '][delete]" value="Delete"/>'; echo '</th>
 			</tr>';
 			
 			array_push($checkName, $number);
