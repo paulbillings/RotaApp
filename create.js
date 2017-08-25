@@ -4,7 +4,6 @@ $(document).ready(function(){
 	
 	$('.timepicker').timepicker({
 		timeFormat: 'HH.mm',
-		interval: 60,
 		minTime: '1.00',
 		maxTime: '23.00',
 		startTime: '4.00',

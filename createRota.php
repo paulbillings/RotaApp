@@ -224,20 +224,20 @@ function getAllRotas($section) {
 			echo
 			'<tr>
 				<th>'; echo '<input class="name" id="name" name="name" readonly disabled type="text" value="' . $sorted[1]; echo '"/></th>
-				<td>'; echo '<input class="timepicker" id="sunStart" name="form['; echo $j; echo '][sunStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="timepicker" id="sunFinish" name="form['; echo $j; echo '][sunFinish]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="timepicker" id="monStart" name="form['; echo $j; echo '][monStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="timepicker" id="monFinish" name="form['; echo $j; echo '][monFinish]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="timepicker" id="tueStart" name="form['; echo $j; echo '][tueStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="timepicker" id="tueFinish" name="form['; echo $j; echo '][tueFinish]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="timepicker" id="wedStart" name="form['; echo $j; echo '][wedStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="timepicker" id="wedFinish" name="form['; echo $j; echo '][wedFinish]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="timepicker" id="thuStart" name="form['; echo $j; echo '][thuStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="timepicker" id="thuFinish" name="form['; echo $j; echo '][thuFinish]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="timepicker" id="friStart" name="form['; echo $j; echo '][friStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="timepicker" id="friFinish" name="form['; echo $j; echo '][friFinish]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="timepicker" id="satStart" name="form['; echo $j; echo '][satStart]" type="number" value=""/>'; echo '</td>
-				<td>'; echo '<input class="timepicker" id="satFinish" name="form['; echo $j; echo '][satFinish]" type="number" value=""/>'; echo '</td>';
+				<td>'; echo '<input class="timepicker" id="sunStart" name="form['; echo $j; echo '][sunStart]" type="number" step="0.05" value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="sunFinish" name="form['; echo $j; echo '][sunFinish]" type="number" step="0.05"value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="monStart" name="form['; echo $j; echo '][monStart]" type="number" step="0.05"value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="monFinish" name="form['; echo $j; echo '][monFinish]" type="number" step="0.05"value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="tueStart" name="form['; echo $j; echo '][tueStart]" type="number" step="0.05"value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="tueFinish" name="form['; echo $j; echo '][tueFinish]" type="number" step="0.05"value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="wedStart" name="form['; echo $j; echo '][wedStart]" type="number" step="0.05"value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="wedFinish" name="form['; echo $j; echo '][wedFinish]" type="number" step="0.05"value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="thuStart" name="form['; echo $j; echo '][thuStart]" type="number" step="0.05"value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="thuFinish" name="form['; echo $j; echo '][thuFinish]" type="number" step="0.05"value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="friStart" name="form['; echo $j; echo '][friStart]" type="number" step="0.05"value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="friFinish" name="form['; echo $j; echo '][friFinish]" type="number" step="0.05"value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="satStart" name="form['; echo $j; echo '][satStart]" type="number" step="0.05"value=""/>'; echo '</td>
+				<td>'; echo '<input class="timepicker" id="satFinish" name="form['; echo $j; echo '][satFinish]" type="number" step="0.05"value=""/>'; echo '</td>';
 				echo '<input class="number" id="number" name="form['; echo $j; echo '][number]" readonly type="hidden" value="' . $sorted[2]; echo '"/>
 				';  echo '	
 			</tr>';
