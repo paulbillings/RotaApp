@@ -91,6 +91,10 @@
 		<div id="header" >
 			<p><span id="goto" >Goto</span><span id="rota" >Rota</span></p>
 		</div>
+		
+		<div id="by" >
+			<p><span id="create" >Created by Paul Billings</span>
+		</div>
 
         <div id="box" ></div>
        
