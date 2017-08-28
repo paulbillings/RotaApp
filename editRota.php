@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <link href="createRotaStyle.css" type="text/css" rel="stylesheet"/>
+    <link href="editRotaStyle.css" type="text/css" rel="stylesheet"/>
 	<link href="resources/jquery-ui.css" rel="stylesheet">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
   </head>
@@ -30,9 +30,22 @@
 	
 	
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	
+	if (isset($_POST['sectionSubmit'])) {
+		$weekEnding = mysql_entities_fix_string($conn, $_POST['selectWeek']);
+	
+		if (isset($_POST['section'])){
+			$section = mysql_entities_fix_string($conn, $_POST['section']);
+			$_SESSION['sectionChoose'] = $section;
+		}
+		
+		//getAllRotas($weekEnding, $section);
+	}
+	
 	if (isset($_POST['submit'])) {
+		
 		$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
-		//$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
+		
 		
 		if (isset($_POST['section'])){
 			$section = mysql_entities_fix_string($conn, $_POST['section']);
@@ -360,8 +373,6 @@ function getAllRotas($weekEnding, $section) {
 		$newNumber = $totalRecords[$z]['0'];
 		$newName = $totalRecords[$z]['1'];
 		
-		//print_r ($totalRecords[$z]['0']);
-		
 		if (!in_array($newNumber, $checkName)) {
 			
 			$sorted[0] = 'Day';
@@ -463,11 +474,11 @@ function getAllRotas($weekEnding, $section) {
 		if ($conn->connect_error) die($conn->connect_error);
 		
 		
-		if (!isset($_POST['week_ending'])) {
+		if (!isset($_POST['selectWeek'])) {
 			$weekEnding = date('Y-m-d',strtotime('next saturday'));
 		}
 		else {
-			$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
+			$weekEnding = mysql_entities_fix_string($conn, $_POST['selectWeek']);
 		}
 		if (!isset($_POST['section'])) {
 			$section = $_SESSION['sectionChoose'];
@@ -553,12 +564,12 @@ function getAllRotas($weekEnding, $section) {
 		
 
 			
-		<form name="rotaForm" id="rotaForm" action="" method="post"> 
+		<form name="rotaForm" id="rotaForm" action="" onsubmit="getWeek()" method="post"> 
 		
 			<div id="sectionLabel" >
 				<p><span>View all rotas for which section:</span></p> 
 			</div>
-			<div id="section" >
+			<div id="sectionDiv" >
 				<select id="section" name="section">
 					<option value="Grocery"<?=$_SESSION['sectionChoose'] == "Grocery" ? ' selected="selected"' : ''?>>Grocery</option>
 					<option value="Provisions"<?=$_SESSION['sectionChoose'] == "Provisions" ? ' selected="selected"' : ''?>>Provisions</option>
@@ -570,8 +581,9 @@ function getAllRotas($weekEnding, $section) {
 				</select>
 			</div>
 			
+			<input id="selectWeek" class="selectWeek" type="hidden" name="selectWeek" maxlength="10" value="" required="true" placeholder="yyyy-mm-dd"  />
 			
-			<input id="submitButton" type="submit" value="Submit" />
+			<input id="submitButton" type="submit" name="sectionSubmit" value="sectionSubmit" />
 		</form>
 	  	
 
@@ -580,6 +592,6 @@ function getAllRotas($weekEnding, $section) {
 	<script src="resources/jquery-3.2.1.js"></script>
 	<script src="resources/jquery-ui.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
-	<script src="index.js"></script>
+	<script src="edit.js"></script>
   </body>
 </html>
