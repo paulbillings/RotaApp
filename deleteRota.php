@@ -19,7 +19,6 @@
 		$_SESSION['sectionChoose'] = "Grocery";
 	}
 
-
 	define('DB_NAME', 'rotas');
 	define('DB_USER', 'root');
 	define('DB_PASSWORD', '');
@@ -31,13 +30,25 @@
 	
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
-	if (isset($_POST['week_ending'])) {
-		$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
-		//$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
-		$section = mysql_entities_fix_string($conn, $_POST['section']);
-		//$_SESSION['sectionChoose'] = $section;
-		getAllRotas($weekEnding, $section);
+	
+	if (isset($_POST['form'])) {
+		$weekEnding = $_SESSION['weekEnding'];
+		
+		$SelectedElem = implode(",", array_keys($_POST['form']));
+		print_r ($SelectedElem);
+	
+		$number = $SelectedElem;
+		
+		$delete = "DELETE FROM schedule WHERE schedule.employee_id = $number \n"
+					. "AND schedule.Week_ending = '$weekEnding'";
+	
+		if ($conn->query($delete) === TRUE) {
+			echo "records deleted successfully";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
 	}
+	
 }
 
 function mysql_entities_fix_string($conn, $string) {
@@ -110,7 +121,7 @@ function getAllRotas($weekEnding, $section) {
 
 		$sorted = array();
 		$checkName = array();
-		
+		$big = 0;
 
 	for ($j = 0 ; $j < $rows ; ++$j) {
 		$result->data_seek($j);
@@ -187,7 +198,8 @@ function getAllRotas($weekEnding, $section) {
 			$fullname = $fname . ' ' . $sname;
 			$sorted[14] = $fullname;
 			
-		echo '<form name="deleteForm" id="deleteForm" action="" method="post">';			
+			echo '<form name="deleteForm" id="deleteForm" action="" method="post">';
+					
 		
 			echo
 			'<tr>
@@ -206,9 +218,9 @@ function getAllRotas($weekEnding, $section) {
 				<td>'; echo $sorted[11]; echo '</td>
 				<td>'; echo $sorted[12]; echo '</td>
 				<td>'; echo $sorted[13]; echo '</td>
-				<th>';echo '<input class="delete" type="submit" name="form['; echo $j; echo '][delete]" value="Delete"/>'; echo '</th>
+				<th>';echo '<input class="delete" type="submit" name="form['; echo $number; echo ']" value="Delete"/>'; echo '</th>
 			</tr>';
-			
+			$big++;
 			array_push($checkName, $number);
 		}
 		
@@ -338,6 +350,6 @@ function getAllRotas($weekEnding, $section) {
     </div>
 	<script src="resources/jquery-3.2.1.js"></script>
 	<script src="resources/jquery-ui.js"></script>
-	<script src="index.js"></script>
+	<script src="delete.js"></script>
   </body>
 </html>
