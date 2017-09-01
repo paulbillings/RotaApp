@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>GotoRota - Admin Menu</title>
+    <title>GotoRota - Delete Colleague</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -30,21 +30,7 @@
 			</ul>
 		</nav>
 		
-		<ul id="rotaMenu">
-			<li class="header">Rotas</li>
-				<li><a href="viewRota.php">View rotas by section</a></li>
-				<li><a href="createRota.php">Create rota</a></li>
-				<li><a href="editRota.php">Edit rota</a></li>
-				<li><a href="deleteRota.php">Delete rota</a></li>
-		</ul>
 		
-		<ul id="colleagueMenu">
-			<li class="header">Colleagues</li>
-				<li><a href="viewColleague.php">View colleague details</a></li>
-				<li><a href="">Add colleague</a></li>
-				<li><a href="">Edit colleague</a></li>
-				<li><a href="">Delete colleague</a></li>
-		</ul>
       
     </div>
 	<script src="resources/jquery-3.2.1.js"></script>

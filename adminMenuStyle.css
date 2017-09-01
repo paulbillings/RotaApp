@@ -77,21 +77,22 @@ nav .current {
 
 #rotaMenu {
   display: block;
-  position:absolute;
-  left:-200px;
-  top:183px;
-  width:400px;
-  height:30px;
+  position: absolute;
+  left: -200px;
+  top: 183px;
+  width: 400px;
+  height: 30px;
   color: #333; 
   font-family: Helvetica, Arial, sans-serif;
 }
 
 #colleagueMenu {
-  position:absolute;
-  left:382px;
-  top:183px;
-  width:400px;
-  height:30px;
+  display: block;
+  position: absolute;
+  left: 382px;
+  top: 183px;
+  width: 400px;
+  height: 30px;
   color: #333; 
   font-family: Helvetica, Arial, sans-serif;
 }
@@ -146,6 +147,7 @@ nav .current {
 }
 
 #colleagueMenu ul {
+	display: block;
     margin: 0;
     padding: 20;
     overflow: hidden;
@@ -156,7 +158,6 @@ nav .current {
 #colleagueMenu li {
     display: block;
     text-align: center;
-    padding: 14px 20px;
     text-decoration: none;
 	color: #333; 
 	font-family: Helvetica, Arial, sans-serif;
@@ -164,14 +165,23 @@ nav .current {
 	border: 1px solid #CCC; 
 }
 
+#colleagueMenu li a {
+	padding: 14px 20px;
+	display: block;
+	text-decoration: none;
+	color: #333;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
 #colleagueMenu .header {
 	background: #333;
     font-weight: bold;
 	font-size:25px;
 	color: white;
+	padding: 14px 20px;
 }
 
-#colleagueMenu li:hover {
+#colleagueMenu li a:hover {
 	background-color: #0d377a;
 	color: white;
 }
@@ -179,4 +189,3 @@ nav .current {
 #colleagueMenu .header:hover {
 	background-color: #333;
 }
-  
