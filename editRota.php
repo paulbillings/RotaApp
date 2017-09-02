@@ -176,7 +176,6 @@ function getAllRotas($weekEnding, $section) {
 		if (!$fresult) die ("Database access failed: " . $conn->error);
 
 		$totalRows = $fresult->num_rows;
-		//$_SESSION['rows'] = $totalRows;
 		
 		echo $totalRows;
 		
@@ -211,7 +210,7 @@ function getAllRotas($weekEnding, $section) {
 
 		$rows = $result->num_rows;
 
-		if ($rows > 0) {
+		if ($rows > 0 || $totalRows > 0) {
 		echo 
 			'<table id="rotaTable" border="2">
 				<tr>
@@ -248,10 +247,11 @@ function getAllRotas($weekEnding, $section) {
 		$big = 0;
 		
 	for ($j = 0 ; $j < $rows ; ++$j) {
+		
 		$result->data_seek($j);
 		$row = $result->fetch_array(MYSQLI_ASSOC);
 		$number = $row['employee_id'];
-		//echo $number;
+		
 		if (!in_array($row['employee_id'], $checkName)) {
 			
 		
@@ -318,7 +318,6 @@ function getAllRotas($weekEnding, $section) {
 					}
 				}
 			
-		
 			$fname = $rowI['firstname'];
 			$sname = $rowI['lastname'];
 			$fullname = $fname . ' ' . $sname;
@@ -326,9 +325,6 @@ function getAllRotas($weekEnding, $section) {
 		
 			$number = $row['employee_id'];
 			$sorted[15] = $number;
-				
-				
-			
 			
 			echo '<form name="createForm" id="createForm" action="" method="post">';
 
@@ -436,9 +432,6 @@ function getAllRotas($weekEnding, $section) {
 		else {
 			
 				if (!$_SESSION['executedEdit'] && !$_SESSION['startEdit']){
-					//echo '<script language="javascript">';
-					//echo 'alert("No Rotas for selected week")';
-					//echo '</script>';
 					$weekEnding = $_SESSION['weekEnding'];
 					$section = $_SESSION['sectionChoose']; 
 					$_SESSION['executedEdit'] = true;

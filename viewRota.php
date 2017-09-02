@@ -31,9 +31,7 @@
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (isset($_POST['week_ending'])) {
 		$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
-		//$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
 		$section = mysql_entities_fix_string($conn, $_POST['section']);
-		//$_SESSION['sectionChoose'] = $section;
 		getAllRotas($weekEnding, $section);
 	}
 }
@@ -53,13 +51,8 @@ function getAllRotas($weekEnding, $section) {
 	$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	if ($conn->connect_error) die($conn->connect_error);
 		
-		//$week_ending = mysql_entities_fix_string($conn, $_POST['week_ending']);
 		$week_ending = $weekEnding;
-		
 		$week_beginning = date('Y-m-d', strtotime('-6 day', strtotime($week_ending)));
-		
-		//$number = $colNumber;
-		
 		
 	$query = "SELECT employee.employee_id FROM employee,schedule,date \n"
 		. "WHERE schedule.employee_id=employee.employee_id AND schedule.Week_ending='$week_ending'\n"
@@ -107,12 +100,14 @@ function getAllRotas($weekEnding, $section) {
 		$sorted = array();
 		$checkName = array();
 		
+		$big = 0;
 
 	for ($j = 0 ; $j < $rows ; ++$j) {
+		
 		$result->data_seek($j);
 		$row = $result->fetch_array(MYSQLI_ASSOC);
 		$number = $row['employee_id'];
-		//echo $number;
+		
 		if (!in_array($row['employee_id'], $checkName)) {
 		
 			$queryI = "SELECT firstname,lastname,start_shift,end_shift,day FROM employee,schedule,date \n"
@@ -186,7 +181,6 @@ function getAllRotas($weekEnding, $section) {
 			echo
 			'<tr>
 				<th>'; echo $sorted[14]; echo '</th>
-				
 				<td>'; echo $sorted[0]; echo '</td>
 				<td>'; echo $sorted[1]; echo '</td>
 				<td>'; echo $sorted[2]; echo '</td>
@@ -209,9 +203,6 @@ function getAllRotas($weekEnding, $section) {
 	}
 	echo '</table>';
 	
-	//<th>'; echo '<p>Week ending </p>'; echo $week_ending; echo '</th>
-	
-	
 	echo '<div id="weekLabel">';
 	echo '<p>Week Ending: </p>'; 
 	echo '<div id="week">';
@@ -232,16 +223,15 @@ function getAllRotas($weekEnding, $section) {
 					echo '</script>';
 					$weekEnding = $_SESSION['weekEnding'];
 					$section = $_SESSION['sectionChoose']; 
-					//$colNumber = $_SESSION['pass'];
-					getAllRotas($weekEnding, $section);
 					$_SESSION['executedAdmin'] = true;
+					getAllRotas($weekEnding, $section);
+					
 				}
 				else if (!$_SESSION['startAdmin']) {
 					$weekEnding = $_SESSION['weekEnding'];
-					//$colNumber = $_SESSION['pass'];
 					$section= $_SESSION['sectionChoose'];
-					getAllRotas($weekEnding, $section);
 					$_SESSION['executedAdmin'] = false;
+					getAllRotas($weekEnding, $section);
 				}
 				else {
 					$_SESSION['fail']= true;
@@ -253,8 +243,6 @@ function getAllRotas($weekEnding, $section) {
 	$conn->close();	
 	
 }
-
-
 	
 		if (isset($_SESSION['pass'])) {
 		$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
@@ -268,18 +256,11 @@ function getAllRotas($weekEnding, $section) {
 		else {
 			$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
 			$section = mysql_entities_fix_string($conn, $_POST['section']);
-			//$_SESSION['sectionChoose'] = $section;
 		}
 		
-		//echo $weekEnding;
-		
-		//$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
 		getAllRotas($weekEnding, $section);   
 		}
 
-
-
-	
 
 ?>
 
