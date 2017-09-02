@@ -36,7 +36,7 @@
 		return $conn->real_escape_string($string);
 	}
 	
-	function getAllRotas($section) {
+	function getAllColleagues($section) {
 
 		$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 		if ($conn->connect_error) die($conn->connect_error);
@@ -81,18 +81,44 @@
 				
 				echo
 			'<tr>
-				<th>'; echo $sorted[1]; echo '</th>
+				<td>'; echo $sorted[1]; echo '</td>
 				<td>'; echo $sorted[2]; echo '</td>
 				<td>'; echo $sorted[3]; echo '</td>
 				<td>'; echo $sorted[4]; echo '</td>
 			</tr>';
 			
 			}
-			
-			
-		}
-		echo '</table>';
+			echo '</table>';
 		
+			$_SESSION['sectionChoose'] = $section;
+			$_SESSION['startColView'] = false;
+		}
+		else {
+			
+				if (!$_SESSION['executedColView'] && !$_SESSION['startColView']){
+					echo '<script language="javascript">';
+					echo 'alert("No colleague records for selected section")';
+					echo '</script>';
+					$section = $_SESSION['sectionChoose'];
+					$_SESSION['executedColView'] = true;
+					getAllColleagues($section);
+					
+				}
+				else if (!$_SESSION['startColView']) {
+					echo '<script language="javascript">';
+					echo 'alert("No colleague records for selected section")';
+					echo '</script>';
+					$section= $_SESSION['sectionChoose'];
+					$_SESSION['executedColView'] = false;
+					getAllColleagues($section);
+					
+				}
+				else {
+					$_SESSION['fail']= true;
+					header("Location: login_page.php");
+				}
+		}		
+			
 		$result->close();
 		$conn->close();	
 	}
@@ -108,7 +134,7 @@
 			$section = mysql_entities_fix_string($conn, $_POST['section']);
 		}
 		
-		getAllRotas($section);
+		getAllColleagues($section);
 		
 		}
 ?>
@@ -120,7 +146,7 @@
 		<nav>
 			<ul>
 				<li><a href="userProfile.php">Home</a></li>
-				<li><a href="" class="current">Admin</a></li>
+				<li><a href="adminMenu.php" class="current">Admin</a></li>
 				<li><a href="">Help</a></li>
 				<li><a href="login_page.php">Logout</a></li>
 			</ul>

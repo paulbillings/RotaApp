@@ -46,7 +46,7 @@ nav {
   height:30px;
 }
 
-nav ul {
+ul {
     list-style-type: none;
     margin: 0;
     padding: 20;
@@ -54,11 +54,11 @@ nav ul {
     background-color: #333;
 }
 
-nav li {
+li {
     float: left;
 }
 
-nav li a {
+li a {
     display: block;
     color: white;
     text-align: center;
@@ -66,79 +66,29 @@ nav li a {
     text-decoration: none;
 }
 
-nav li a:hover {
+li a:hover {
     background-color: #111;
 }
 
-nav .current {
+ .current {
     background-color: #0d377a;
 }
 
-#rotaLabel {
-  border-width:0px;
+#intro {
   position:absolute;
-  left:89px;
-  top:222px;
-  width:199px;
-  height:16px;
-  white-space:nowrap;
-}
-
-#colleagueNumber {
-  border-width:0px;
-  position:absolute;
-  left:298px;
-  top:200px;
-  width:131px;
-  height:25px;
-  font-family:'Arial';
-  font-weight:400;
-  font-style:normal;
-  font-size:13px;
-  text-decoration:none;
-  color:#000000;
-  text-align:left;
-}
-
-#submitButton {
-  position:absolute;
-  left:456px;
-  top:196px;
-  width:94px;
-  height:25px;
-  font-family:'Arial';
-  font-weight:400;
-  font-style:normal;
-  font-size:13px;
-  text-decoration:none;
-  color:#333333;
-  text-align:center;
-}
-
-#sectionLabel {
-  position:absolute;
-  left:83px;
-  top:200px;
-  width:220px;
+  left:-110px;
+  top:220px;
+  width:500px;
   height:24px;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
-#section {
-  position:absolute;
-  left:144px;
-  top:98px;
-  width:150px;
-  height:24px;
-  font-family:'Helvetica';
-  font-weight:400;
-  font-style:normal;
-  font-size:20px;
-}
+
 
 #rotaTable {
   position:absolute;
-  top:268px;
-  left:50px;
+  top:248px;
+  left:-120px;
   text-align:center;
   background-color: white;
 }
@@ -146,8 +96,8 @@ nav .current {
 table {  
     color: #333; 
     font-family: Helvetica, Arial, sans-serif;
-    width: 540px; 
-    border-collapse: collapse; 
+    width: 840px; 
+   
 	border-spacing: 0; 
 }
 
@@ -164,4 +114,45 @@ th {
 td {  
     background: #FAFAFA; 
     text-align: center;
+}
+
+#formSection {
+	width: 150px;
+	font-size:20px;
+}
+
+#firstname {
+	font-size:17px;
+	text-align: center;
+}
+
+#surname {
+	font-size:17px;
+	text-align: center;
+}
+
+#number {
+	font-size:17px;
+	text-align: center;
+}
+
+#hours {
+	font-size:17px;
+	text-align: center;
+}
+
+.colSubmit {
+	width: 200px;
+	height: 40px;
+	font-size:24px;
+	text-align:center;
+	float: right;
+	background: #0d377a;
+	color: white;
+}
+
+.colSubmit:hover {
+	background: #111;
+	color: white;
+	cursor: pointer;
 }

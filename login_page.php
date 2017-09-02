@@ -53,6 +53,8 @@
 						$_SESSION['startAdmin'] = true;
 						$_SESSION['startCreate'] = true;
 						$_SESSION['startEdit'] = true;
+						$_SESSION['executedColView'] = false;
+						$_SESSION['startColView'] = true;
 						header("Location: userProfile.php");
 						exit;
 					}

@@ -28,8 +28,7 @@
 		$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 		if ($conn->connect_error) die($conn->connect_error);
 	
-	
-	
+		
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (isset($_POST['submit'])) {
 		$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
