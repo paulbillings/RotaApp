@@ -42,7 +42,7 @@
 			<li class="header">Colleagues</li>
 				<li><a href="viewColleague.php">View colleague details</a></li>
 				<li><a href="createColleague.php">Add colleague</a></li>
-				<li><a href="">Edit colleague</a></li>
+				<li><a href="editColleague.php">Edit colleague</a></li>
 				<li><a href="">Delete colleague</a></li>
 		</ul>
       

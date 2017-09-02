@@ -1,0 +1,184 @@
+body {
+  margin:auto;
+  background-color:rgba(188, 188, 188, 1);
+  background-image:none;
+  max-width:700px;
+  text-align:left;
+}
+
+p {
+    margin: 0px;
+}
+
+.rota {
+  position:absolute;
+  z-index:0;
+}
+
+#header {
+  border-width:0px;
+  position:absolute;
+  left:180px;
+  top:9px;
+  width:279px;
+  height:81px;
+  font-family:'Impact Bold', 'Impact';
+  font-weight:700;
+  font-style:normal;
+  font-size:72px;
+  text-align:center;
+}
+
+#goto {
+  color:#000033;
+}
+
+#rota {
+  color:#000000;
+}
+
+nav {
+  border-width:0px;
+  position:absolute;
+  left:120px;
+  top:103px;
+  width:400px;
+  height:30px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 20;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111;
+}
+
+ .current {
+    background-color: #0d377a;
+}
+
+
+
+#submitButton {
+  position:absolute;
+  left:456px;
+  top:198px;
+  width:94px;
+  height:25px;
+  font-family:'Arial';
+  font-weight:400;
+  font-style:normal;
+  font-size:13px;
+  text-decoration:none;
+  color:#333333;
+  text-align:center;
+}
+
+#sectionLabel {
+  position:absolute;
+  left:83px;
+  top:200px;
+  width:220px;
+  height:24px;
+}
+
+#section {
+  position:absolute;
+  left:300px;
+  top:198px;
+  width:150px;
+  height:24px;
+  font-family:'Helvetica';
+  font-weight:400;
+  font-style:normal;
+  font-size:20px;
+}
+
+#rotaTable {
+  position:absolute;
+  top:248px;
+  left:-120px;
+  text-align:center;
+  background-color: white;
+}
+
+table {  
+    color: #333; 
+    font-family: Helvetica, Arial, sans-serif;
+    width: 840px; 
+   
+	border-spacing: 0; 
+}
+
+td, th { 
+	border: 1px solid #CCC; 
+	height: 30px; 
+}
+
+th {  
+    background: #F3F3F3; 
+    font-weight: bold; 
+}
+
+td {  
+    background: #FAFAFA; 
+    text-align: center;
+}
+
+#formSection {
+	width: 150px;
+	font-size:20px;
+}
+
+#firstname {
+	font-size:17px;
+	text-align: center;
+}
+
+#surname {
+	font-size:17px;
+	text-align: center;
+}
+
+#number {
+	font-size:17px;
+	text-align: center;
+}
+
+#hours {
+	font-size:17px;
+	text-align: center;
+}
+
+.colSubmit {
+	width: 200px;
+	height: 40px;
+	font-size:24px;
+	text-align:center;
+	float: right;
+	background: #0d377a;
+	color: white;
+}
+
+.colSubmit:hover {
+	background: #111;
+	color: white;
+	cursor: pointer;
+}
