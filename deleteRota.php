@@ -200,7 +200,6 @@ function getAllRotas($weekEnding, $section) {
 			
 			echo '<form name="deleteForm" id="deleteForm" action="" method="post">';
 					
-		
 			echo
 			'<tr>
 				<th>'; echo $sorted[14]; echo '</th>
