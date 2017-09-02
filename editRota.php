@@ -365,8 +365,6 @@ function getAllRotas($weekEnding, $section) {
 		
 	}
 	
-	
-	
 	$amount = count($totalRecords);
 	
 	for ($z = 0; $z < $amount; ++$z){
@@ -415,22 +413,20 @@ function getAllRotas($weekEnding, $section) {
 		}
 	}
 	
-	echo "big number: " . $big;
-	$_SESSION['rows'] = $big;
-	
-	echo '<tr><th colspan="15" >'; echo '<input class="timeSubmit" type="submit" name="submit" value="Save Changes"/>'; echo '</th></tr>';
-	echo '</form>';	
-	echo '</table>';
-	
-	//<th>'; echo '<p>Week ending </p>'; echo $week_ending; echo '</th>
-	
-	
-	echo '<div id="weekLabel">';
-	echo '<p>Week Ending: </p>'; 
-	echo '<div id="week">';
-	echo $week_ending;
-	echo '</div>';
-	echo '</div>';
+			echo "big number: " . $big;
+			$_SESSION['rows'] = $big;
+			
+			echo '<tr><th colspan="15" >'; echo '<input class="timeSubmit" type="submit" name="submit" value="Save Changes"/>'; echo '</th></tr>';
+			echo '</form>';	
+			echo '</table>';
+			
+			
+			echo '<div id="weekLabel">';
+			echo '<p>Week Ending: </p>'; 
+			echo '<div id="week">';
+			echo $week_ending;
+			echo '</div>';
+			echo '</div>';
 			
 			$_SESSION['weekEnding'] = $week_ending;
 			$_SESSION['sectionChoose'] = $section;
@@ -445,16 +441,14 @@ function getAllRotas($weekEnding, $section) {
 					//echo '</script>';
 					$weekEnding = $_SESSION['weekEnding'];
 					$section = $_SESSION['sectionChoose']; 
-					//$colNumber = $_SESSION['pass'];
-					getAllRotas($weekEnding, $section);
 					$_SESSION['executedEdit'] = true;
+					getAllRotas($weekEnding, $section);
 				}
 				else if (!$_SESSION['startEdit']) {
 					$weekEnding = $_SESSION['weekEnding'];
-					//$colNumber = $_SESSION['pass'];
 					$section= $_SESSION['sectionChoose'];
-					getAllRotas($weekEnding, $section);
 					$_SESSION['executedEdit'] = false;
+					getAllRotas($weekEnding, $section);	
 				}
 				else {
 					$_SESSION['fail']= true;
@@ -487,9 +481,6 @@ function getAllRotas($weekEnding, $section) {
 			$section = mysql_entities_fix_string($conn, $_POST['section']);
 		}
 		
-		//echo $weekEnding;
-		
-		//$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
 		getAllRotas($weekEnding, $section);   
 		}
 
