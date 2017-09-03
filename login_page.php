@@ -17,73 +17,70 @@
 			define('DB_HOST', 'localhost');
 
 		
-		$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-		if ($conn->connect_error) die($conn->connect_error);
+			$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+			if ($conn->connect_error) die($conn->connect_error);
 		
 		
 		
-		if (isset($_POST['submit'])){
-			$number = mysql_entities_fix_string($conn, $_POST['colNumber']);
-			$_SESSION['user'] = $number;
-			$pass = mysql_entities_fix_string($conn, $_POST['password']);
-			
-			if ($number == "" || $pass == ""){
-				echo "<script type='text/javascript'>alert('Please input both username and password');</script>";
-			}
-			else {
-					$query = "SELECT password, employee_id FROM employee \n"
-					. "WHERE employee_id='$number'";
-					
-					$result = $conn->query($query);
-					if (!$result) die ("Database access failed: " . $conn->error);
-					
-					$result->data_seek(0);
-					$row = $result->fetch_array(MYSQLI_ASSOC);
+			if (isset($_POST['submit'])){
+				$number = mysql_entities_fix_string($conn, $_POST['colNumber']);
+				$_SESSION['user'] = $number;
+				$pass = mysql_entities_fix_string($conn, $_POST['password']);
 				
-					if ($result->num_rows == 0){
-						echo "<script type='text/javascript'>alert('Invalid username/ password');</script>";
-					}
-					
-					if ($result->num_rows == 1){
-						if ($row['password'] == "password"){
-							header("Location: register.php");
-						}
-						else {
-							$hashedPassword = $row['password'];
-							if (password_verify($pass, $hashedPassword)){
-								$_SESSION['user'] = $number;
-								$_SESSION['pass'] = $pass;
-								$_SESSION['executed'] = false;
-								$_SESSION['executedAdmin'] = false;
-								$_SESSION['executedEdit'] = false;
-								$_SESSION['executeDelete'] = false;
-								$_SESSION['logged_in'] = true;
-								$_SESSION['start'] = true;
-								$_SESSION['startAdmin'] = true;
-								$_SESSION['startCreate'] = true;
-								$_SESSION['startEdit'] = true;
-								$_SESSION['startDelete'] = true;
-								$_SESSION['executedColView'] = false;
-								$_SESSION['startColView'] = true;
-								header("Location: userProfile.php");
-								exit;
-							}
-							else{
-								echo "<script type='text/javascript'>alert('Invalid username/ password');</script>";
-							}
-						
-						}
-					}
-					
-						
-					
-					
+				if ($number == "" || $pass == ""){
+					echo "<script type='text/javascript'>alert('Please input both username and password');</script>";
 				}
-			
-		}
-	
-			
-		
+				else {
+						$query = "SELECT password, employee_id FROM employee \n"
+						. "WHERE employee_id='$number'";
+						
+						$result = $conn->query($query);
+						if (!$result) die ("Database access failed: " . $conn->error);
+						
+						$result->data_seek(0);
+						$row = $result->fetch_array(MYSQLI_ASSOC);
+					
+						if ($result->num_rows == 0){
+							echo "<script type='text/javascript'>alert('Invalid username/ password');</script>";
+						}
+						
+						if ($result->num_rows == 1){
+							if ($row['password'] == "password"){
+								header("Location: register.php");
+							}
+							else {
+								$hashedPassword = $row['password'];
+								if (password_verify($pass, $hashedPassword)){
+									$_SESSION['user'] = $number;
+									$_SESSION['pass'] = $pass;
+									$_SESSION['executed'] = false;
+									$_SESSION['executedAdmin'] = false;
+									$_SESSION['executedEdit'] = false;
+									$_SESSION['executeDelete'] = false;
+									$_SESSION['logged_in'] = true;
+									$_SESSION['start'] = true;
+									$_SESSION['startAdmin'] = true;
+									$_SESSION['startCreate'] = true;
+									$_SESSION['startEdit'] = true;
+									$_SESSION['startDelete'] = true;
+									$_SESSION['executedColView'] = false;
+									$_SESSION['startColView'] = true;
+									header("Location: userProfile.php");
+									exit;
+								}
+								else{
+									echo "<script type='text/javascript'>alert('Invalid username/ password');</script>";
+								}
+							
+							}
+						}
+						
+							
+						
+						
+					}
+				
+			}
 		
 		}	
 		

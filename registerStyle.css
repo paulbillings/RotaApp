@@ -60,7 +60,7 @@ p {
 #box_header {
   border-width:0px;
   position:absolute;
-  left:290px;
+  left:230px;
   top:229px;
   width:132px;
   height:28px;
@@ -72,9 +72,10 @@ p {
   -webkit-box-shadow:none;
   box-shadow:none;
   font-family: 'serif';
-  font-size:25px;
+  font-size:28px;
   font-style:normal;
   white-space:nowrap;
+  
 }
 
 #create {
@@ -134,7 +135,7 @@ p {
 #intro {
   border-width:0px;
   position:absolute;
-  left:175px;
+  left:125px;
   top:310px;
   width:96px;
   height:24px;
@@ -145,7 +146,7 @@ p {
 #password_label {
   border-width:0px;
   position:absolute;
-  left:175px;
+  left:135px;
   top:365px;
   width:95px;
   height:24px;

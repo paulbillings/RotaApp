@@ -73,19 +73,20 @@
         <div id="box" ></div>
        
 		<div id="box_header" >
-			<p><span>Register password Page</span></p>
+			<p><span>Register new password</span></p>
 		</div>
 
 		<form method="post" action="">
 		<div id="passwordResetBox" >
 				<p id="intro">As you are a new user can you input a new password please</p>
+				<p id="password_label">New password:</p>
 				<div id="password_input_box">
-					<p id="password_label">New password:</p>
 					<input id="passwordReset" name="passwordReset" type="password" value="" maxlength="30"/>
 				</div>
 				<div id="submit_box">
 					<input id="submitReset" name="submitReset" type="submit" value="Submit"/>
 				</div>
+				
 		</div>
 		</form>
 		
