@@ -239,27 +239,30 @@ function getAllRotas($weekEnding, $section) {
 			
 			$_SESSION['weekEnding'] = $week_ending;
 			$_SESSION['sectionChoose'] = $section;
-			$_SESSION['startAdmin'] = false;
+			$_SESSION['startDelete'] = false;
 			
 		}
 		else {
 			
-				if (!$_SESSION['executedAdmin'] && !$_SESSION['startAdmin']){
+				if (!$_SESSION['executeDelete'] && !$_SESSION['startDelete']){
 					echo '<script language="javascript">';
-					echo 'alert("No Rotas for selected week")';
+					echo 'alert("No rotas for selected week/section")';
 					echo '</script>';
 					$weekEnding = $_SESSION['weekEnding'];
 					$section = $_SESSION['sectionChoose']; 
 					//$colNumber = $_SESSION['pass'];
 					getAllRotas($weekEnding, $section);
-					$_SESSION['executedAdmin'] = true;
+					$_SESSION['executeDelete'] = true;
 				}
-				else if (!$_SESSION['startAdmin']) {
+				else if (!$_SESSION['startDelete']) {
+					echo '<script language="javascript">';
+					echo 'alert("No rotas for selected week/section")';
+					echo '</script>';
 					$weekEnding = $_SESSION['weekEnding'];
 					//$colNumber = $_SESSION['pass'];
 					$section= $_SESSION['sectionChoose'];
 					getAllRotas($weekEnding, $section);
-					$_SESSION['executedAdmin'] = false;
+					$_SESSION['executeDelete'] = false;
 				}
 				else {
 					$_SESSION['fail']= true;

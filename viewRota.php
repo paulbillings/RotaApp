@@ -50,6 +50,32 @@ function getAllRotas($weekEnding, $section) {
 
 	$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	if ($conn->connect_error) die($conn->connect_error);
+	
+	$query = "SELECT employee.employee_id,employee.lastName,employee.firstName FROM employee \n"
+		. "WHERE employee.section='$section'";
+		
+		$fresult = $conn->query($query);
+		if (!$fresult) die ("Database access failed: " . $conn->error);
+
+		$totalRows = $fresult->num_rows;
+		
+		echo $totalRows;
+		
+		$totalRecords = array();
+		
+		if ($totalRows > 0) {
+		
+			for ($f = 0 ; $f < $totalRows ; ++$f) {
+				$fresult->data_seek($f);
+				$frow = $fresult->fetch_array(MYSQLI_ASSOC);
+				$fnumber = $frow['employee_id'];
+				$ffname = $frow['firstName'];
+				$fsname = $frow['lastName'];
+				$ffullname = $ffname . ' ' . $fsname;
+				$totalRecords[] = array($fnumber, $ffullname);
+			}
+		}
+		
 		
 		$week_ending = $weekEnding;
 		$week_beginning = date('Y-m-d', strtotime('-6 day', strtotime($week_ending)));
@@ -100,7 +126,6 @@ function getAllRotas($weekEnding, $section) {
 		$sorted = array();
 		$checkName = array();
 		
-		$big = 0;
 
 	for ($j = 0 ; $j < $rows ; ++$j) {
 		
@@ -177,6 +202,9 @@ function getAllRotas($weekEnding, $section) {
 			$sname = $rowI['lastname'];
 			$fullname = $fname . ' ' . $sname;
 			$sorted[14] = $fullname;
+			
+			$number = $row['employee_id'];
+			$sorted[15] = $number;
 		
 			echo
 			'<tr>
@@ -201,6 +229,56 @@ function getAllRotas($weekEnding, $section) {
 		}
 		
 	}
+	
+	$amount = count($totalRecords);
+	
+	for ($z = 0; $z < $amount; ++$z){
+		
+		$newNumber = $totalRecords[$z]['0'];
+		$newName = $totalRecords[$z]['1'];
+		echo $newNumber;
+		
+		if (!in_array($newNumber, $checkName)) {
+			
+				$sorted[0] = 'Not';
+				$sorted[1] = 'Done';
+				$sorted[2] = 'Not';
+				$sorted[3] = 'Done';
+				$sorted[4] = 'Not';
+				$sorted[5] = 'Done';
+				$sorted[6] = 'Not';
+				$sorted[7] = 'Done'; 
+				$sorted[8] = 'Not'; 
+				$sorted[9] = 'Done';
+				$sorted[10] = 'Not'; 
+				$sorted[11] = 'Done'; 
+				$sorted[12] = 'Not';
+				$sorted[13] = 'Done'; 
+			
+			$sorted[14] = $newName;
+	
+			echo
+			'<tr>
+				<th>'; echo $sorted[14]; echo '</th>
+				<td>'; echo $sorted[0]; echo '</td>
+				<td>'; echo $sorted[1]; echo '</td>
+				<td>'; echo $sorted[2]; echo '</td>
+				<td>'; echo $sorted[3]; echo '</td>
+				<td>'; echo $sorted[4]; echo '</td>
+				<td>'; echo $sorted[5]; echo '</td>
+				<td>'; echo $sorted[6]; echo '</td>
+				<td>'; echo $sorted[7]; echo '</td>
+				<td>'; echo $sorted[8]; echo '</td>
+				<td>'; echo $sorted[9]; echo '</td>
+				<td>'; echo $sorted[10]; echo '</td>
+				<td>'; echo $sorted[11]; echo '</td>
+				<td>'; echo $sorted[12]; echo '</td>
+				<td>'; echo $sorted[13]; echo '</td>
+			</tr>';
+				
+		}
+	}
+	
 	echo '</table>';
 	
 	echo '<div id="weekLabel">';
@@ -213,30 +291,30 @@ function getAllRotas($weekEnding, $section) {
 			$_SESSION['weekEnding'] = $week_ending;
 			$_SESSION['sectionChoose'] = $section;
 			$_SESSION['startAdmin'] = false;
+			$_SESSION['executedAdmin'] = false;
 			
 		}
 		else {
 			
-				if (!$_SESSION['executedAdmin'] && !$_SESSION['startAdmin']){
+				
 					echo '<script language="javascript">';
-					echo 'alert("No Rotas for selected week")';
+					echo 'alert("No Rotas availiable for selected week")';
 					echo '</script>';
-					$weekEnding = $_SESSION['weekEnding'];
-					$section = $_SESSION['sectionChoose']; 
+					//$weekEnding = $_SESSION['weekEnding'];
+					//$section = $_SESSION['sectionChoose']; 
 					$_SESSION['executedAdmin'] = true;
-					getAllRotas($weekEnding, $section);
+					//getAllRotas($weekEnding, $section);
+					if (!isset($_POST['week_ending'])) {
+						$weekEnding = date('Y-m-d',strtotime('next saturday'));
+						$section = $_SESSION['sectionChoose'];
+					}
+					else {
+						$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
+						$section = mysql_entities_fix_string($conn, $_POST['section']);
+					}
 					
-				}
-				else if (!$_SESSION['startAdmin']) {
-					$weekEnding = $_SESSION['weekEnding'];
-					$section= $_SESSION['sectionChoose'];
-					$_SESSION['executedAdmin'] = false;
-					getAllRotas($weekEnding, $section);
-				}
-				else {
-					$_SESSION['fail']= true;
-					header("Location: login_page.php");
-				}
+					noShiftsFound($weekEnding, $section);
+			
 		}		
 		
 	$result->close();
@@ -245,23 +323,132 @@ function getAllRotas($weekEnding, $section) {
 }
 	
 		if (isset($_SESSION['pass'])) {
+			$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+			if ($conn->connect_error) die($conn->connect_error);
+		
+			if (!$_SESSION['executedAdmin']){
+				if (!isset($_POST['week_ending'])) {
+					$weekEnding = date('Y-m-d',strtotime('next saturday'));
+					$section = $_SESSION['sectionChoose'];
+				}
+				else {
+					$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
+					$section = mysql_entities_fix_string($conn, $_POST['section']);
+				}
+		
+				getAllRotas($weekEnding, $section);  
+			}
+		}
+
+	function noShiftsFound($weekEnding, $section) {
+		
 		$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 		if ($conn->connect_error) die($conn->connect_error);
+	
+		$query = "SELECT employee.employee_id,employee.lastName,employee.firstName FROM employee \n"
+		. "WHERE employee.section='$section'";
 		
-		
-		if (!isset($_POST['week_ending'])) {
-			$weekEnding = date('Y-m-d',strtotime('next saturday'));
-			$section = $_SESSION['sectionChoose'];
-		}
-		else {
-			$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
-			$section = mysql_entities_fix_string($conn, $_POST['section']);
-		}
-		
-		getAllRotas($weekEnding, $section);   
-		}
+		$fresult = $conn->query($query);
+		if (!$fresult) die ("Database access failed: " . $conn->error);
 
-
+		$totalRows = $fresult->num_rows;
+		
+		$totalRecords = array();
+		
+		if ($totalRows > 0) {
+		
+			for ($f = 0 ; $f < $totalRows ; ++$f) {
+				$fresult->data_seek($f);
+				$frow = $fresult->fetch_array(MYSQLI_ASSOC);
+				$fnumber = $frow['employee_id'];
+				$ffname = $frow['firstName'];
+				$fsname = $frow['lastName'];
+				$ffullname = $ffname . ' ' . $fsname;
+				$totalRecords[] = array($fnumber, $ffullname);
+			}
+		}
+		
+		if ($totalRows > 0) {
+			echo 
+				'<table id="rotaTable" border="2">
+					<tr>
+						<th></th>
+						<th name="Sunday" colspan="2">Sunday</th>
+						<th name="Monday" colspan="2">Monday</th>
+						<th name="Tuesday" colspan="2">Tuesday</th>
+						<th name="Wednesday" colspan="2">Wednesday</th>
+						<th name="Thursday" colspan="2">Thursday</th>
+						<th name="Friday" colspan="2">Friday</th>
+						<th name="Saturday" colspan="2">Saturday</th>
+					</tr>
+					<tr>
+						<th></th>
+						<th>Start</th>
+						<th>Finish</th>
+						<th>Start</th>
+						<th>Finish</th>
+						<th>Start</th>
+						<th>Finish</th>
+						<th>Start</th>
+						<th>Finish</th>
+						<th>Start</th>
+						<th>Finish</th>
+						<th>Start</th>
+						<th>Finish</th>
+						<th>Start</th>
+						<th>Finish</th>
+					</tr>';	
+					
+			$amount = count($totalRecords);
+	
+			for ($z = 0; $z < $amount; ++$z){
+			
+				$newNumber = $totalRecords[$z]['0'];
+				$newName = $totalRecords[$z]['1'];
+				
+				$sorted[0] = 'Not';
+				$sorted[1] = 'Done';
+				$sorted[2] = 'Not';
+				$sorted[3] = 'Done';
+				$sorted[4] = 'Not';
+				$sorted[5] = 'Done';
+				$sorted[6] = 'Not';
+				$sorted[7] = 'Done'; 
+				$sorted[8] = 'Not'; 
+				$sorted[9] = 'Done';
+				$sorted[10] = 'Not'; 
+				$sorted[11] = 'Done'; 
+				$sorted[12] = 'Not';
+				$sorted[13] = 'Done'; 
+		
+				$sorted[14] = $newName;
+		
+				echo
+				'<tr>
+					<th>'; echo $sorted[14]; echo '</th>
+					<td>'; echo $sorted[0]; echo '</td>
+					<td>'; echo $sorted[1]; echo '</td>
+					<td>'; echo $sorted[2]; echo '</td>
+					<td>'; echo $sorted[3]; echo '</td>
+					<td>'; echo $sorted[4]; echo '</td>
+					<td>'; echo $sorted[5]; echo '</td>
+					<td>'; echo $sorted[6]; echo '</td>
+					<td>'; echo $sorted[7]; echo '</td>
+					<td>'; echo $sorted[8]; echo '</td>
+					<td>'; echo $sorted[9]; echo '</td>
+					<td>'; echo $sorted[10]; echo '</td>
+					<td>'; echo $sorted[11]; echo '</td>
+					<td>'; echo $sorted[12]; echo '</td>
+					<td>'; echo $sorted[13]; echo '</td>
+				</tr>';
+					
+			}
+		}
+		
+			$_SESSION['sectionChoose'] = $section;
+			$_SESSION['startAdmin'] = false;
+	}
+		
 ?>
 
   

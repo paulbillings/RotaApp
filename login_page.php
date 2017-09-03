@@ -48,11 +48,13 @@
 						$_SESSION['executed'] = false;
 						$_SESSION['executedAdmin'] = false;
 						$_SESSION['executedEdit'] = false;
+						$_SESSION['executeDelete'] = false;
 						$_SESSION['logged_in'] = true;
 						$_SESSION['start'] = true;
 						$_SESSION['startAdmin'] = true;
 						$_SESSION['startCreate'] = true;
 						$_SESSION['startEdit'] = true;
+						$_SESSION['startDelete'] = true;
 						$_SESSION['executedColView'] = false;
 						$_SESSION['startColView'] = true;
 						header("Location: userProfile.php");
