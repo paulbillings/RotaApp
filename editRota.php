@@ -327,13 +327,6 @@ function getAllRotas($weekEnding, $section) {
 			$sorted[15] = $number;
 			
 			echo '<form name="createForm" id="createForm" action="" method="post">';
-
-			echo '<div id="rotaLabel" >';
-			echo '<p><span>Do rotas for week ending:</span></p>';
-			echo '</div>';
-			echo '<div id="dateChoice" >';
-			echo '<input id="week_ending" class="week_ending" type="text" name="week_ending" maxlength="10" required="true" placeholder="yyyy-mm-dd"  />';
-			echo '</div>';
 	
 			echo
 			'<tr>
@@ -360,6 +353,14 @@ function getAllRotas($weekEnding, $section) {
 		}
 		
 	}
+	
+			echo '<div id="rotaLabel" >';
+			echo '<p><span>Do rotas for week ending:</span></p>';
+			echo '</div>';
+			echo '<div id="dateChoice" >';
+			echo '<input id="week_ending" class="week_ending" type="text" name="week_ending" maxlength="10" required="true" placeholder="yyyy-mm-dd"  />';
+			echo '</div>';
+	
 	
 	$amount = count($totalRecords);
 	
