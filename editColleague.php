@@ -187,7 +187,7 @@
 		$conn->close();	
 	}
 	
-	if (isset($_SESSION['pass'])) {
+	if (isset($_SESSION['user'])) {
 		$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 		if ($conn->connect_error) die($conn->connect_error);
 		

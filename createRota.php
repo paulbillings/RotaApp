@@ -32,7 +32,7 @@
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (isset($_POST['submit'])) {
 		$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
-		//$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
+		//$colNumber = mysql_entities_fix_string($conn, $_SESSION['user']);
 		
 		if (isset($_POST['section'])){
 			$section = mysql_entities_fix_string($conn, $_POST['section']);
@@ -266,13 +266,13 @@ function getAllRotas($section) {
 					//echo '</script>';
 					//$weekEnding = $_SESSION['weekEnding'];
 					$section= $_SESSION['sectionChoose'];
-					//$colNumber = $_SESSION['pass'];
+					//$colNumber = $_SESSION['user'];
 					getAllRotas($section);
 					$_SESSION['executed'] = true;
 				}
 				else if (!$_SESSION['start']) {
 					//$weekEnding = $_SESSION['weekEnding'];
-					//$colNumber = $_SESSION['pass'];
+					//$colNumber = $_SESSION['user'];
 					$section= $_SESSION['sectionChoose'];
 					getAllRotas($section);
 					$_SESSION['executed'] = false;
@@ -289,7 +289,7 @@ function getAllRotas($section) {
 }
 
 	
-		if (isset($_SESSION['pass'])) {
+		if (isset($_SESSION['user'])) {
 		$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 		if ($conn->connect_error) die($conn->connect_error);
 		

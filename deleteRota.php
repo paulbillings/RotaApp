@@ -250,7 +250,7 @@ function getAllRotas($weekEnding, $section) {
 					echo '</script>';
 					$weekEnding = $_SESSION['weekEnding'];
 					$section = $_SESSION['sectionChoose']; 
-					//$colNumber = $_SESSION['pass'];
+					//$colNumber = $_SESSION['user'];
 					getAllRotas($weekEnding, $section);
 					$_SESSION['executeDelete'] = true;
 				}
@@ -259,7 +259,7 @@ function getAllRotas($weekEnding, $section) {
 					echo 'alert("No rotas for selected week/section")';
 					echo '</script>';
 					$weekEnding = $_SESSION['weekEnding'];
-					//$colNumber = $_SESSION['pass'];
+					//$colNumber = $_SESSION['user'];
 					$section= $_SESSION['sectionChoose'];
 					getAllRotas($weekEnding, $section);
 					$_SESSION['executeDelete'] = false;
@@ -277,7 +277,7 @@ function getAllRotas($weekEnding, $section) {
 
 
 	
-		if (isset($_SESSION['pass'])) {
+		if (isset($_SESSION['user'])) {
 		$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 		if ($conn->connect_error) die($conn->connect_error);
 		
@@ -294,7 +294,7 @@ function getAllRotas($weekEnding, $section) {
 		
 		//echo $weekEnding;
 		
-		//$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
+		//$colNumber = mysql_entities_fix_string($conn, $_SESSION['user']);
 		getAllRotas($weekEnding, $section);   
 		}
 

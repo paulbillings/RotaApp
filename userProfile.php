@@ -56,7 +56,7 @@
 	
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
-	$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
+	$colNumber = mysql_entities_fix_string($conn, $_SESSION['user']);
 	getRota($colNumber, $weekEnding);
 }
 
@@ -223,13 +223,13 @@ function getRota($colNumber, $weekEnding) {
 					echo 'alert("No Rota for selected week")';
 					echo '</script>';
 					$weekEnding = $_SESSION['weekEnding'];
-					$colNumber = $_SESSION['pass'];
+					$colNumber = $_SESSION['user'];
 					getRota($colNumber, $weekEnding);
 					$_SESSION['executed'] = true;
 				}
 				else if (!$_SESSION['start']) {
 					$weekEnding = $_SESSION['weekEnding'];
-					$colNumber = $_SESSION['pass'];
+					$colNumber = $_SESSION['user'];
 					getRota($colNumber, $weekEnding);
 					$_SESSION['executed'] = false;
 				}
@@ -246,7 +246,7 @@ function getRota($colNumber, $weekEnding) {
 
 
 	
-		if (isset($_SESSION['pass'])) {
+		if (isset($_SESSION['user'])) {
 		$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 		if ($conn->connect_error) die($conn->connect_error);
 		
@@ -260,7 +260,7 @@ function getRota($colNumber, $weekEnding) {
 		
 		//echo $weekEnding;
 		
-		$colNumber = mysql_entities_fix_string($conn, $_SESSION['pass']);
+		$colNumber = mysql_entities_fix_string($conn, $_SESSION['user']);
 		getRota($colNumber, $weekEnding);   
 		}
 

@@ -116,7 +116,7 @@ p {
   width:300px;
   height:25px;
 }
-#password {
+#passwordReset {
   position:absolute;
   left:0px;
   top:0px;
@@ -131,7 +131,7 @@ p {
   text-align:left;
 }
 
-#username_label {
+#intro {
   border-width:0px;
   position:absolute;
   left:175px;
@@ -161,7 +161,7 @@ p {
   width:165px;
   height:41px;
 }
-#submit {
+#submitReset {
   position:absolute;
   left:0px;
   top:0px;
