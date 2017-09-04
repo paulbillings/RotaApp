@@ -250,8 +250,9 @@
 						</div>';
 						$weekEnding = $_SESSION['weekEnding'];
 						$colNumber = $_SESSION['user'];
-						getRota($colNumber, $weekEnding);
 						$_SESSION['executed'] = true;
+						getRota($colNumber, $weekEnding);
+						
 					}
 					else if (!$_SESSION['start']) {
 						echo '<div id="dialog" title="Error">
@@ -259,8 +260,9 @@
 						</div>';
 						$weekEnding = $_SESSION['weekEnding'];
 						$colNumber = $_SESSION['user'];
-						getRota($colNumber, $weekEnding);
 						$_SESSION['executed'] = false;
+						getRota($colNumber, $weekEnding);
+						
 					}
 					else {
 						$_SESSION['fail']= true;
@@ -288,6 +290,9 @@
 		
 			$colNumber = mysql_entities_fix_string($conn, $_SESSION['user']);
 	
+		} else {
+			$weekEnding = $_SESSION['weekEnding'];
+			$colNumber = $_SESSION['user'];
 		}
 		
 		getRota($colNumber, $weekEnding);  

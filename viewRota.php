@@ -330,8 +330,19 @@ function getAllRotas($weekEnding, $section) {
 					$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
 					$section = mysql_entities_fix_string($conn, $_POST['section']);
 				}
-		
-				getAllRotas($weekEnding, $section);  
+				getAllRotas($weekEnding, $section); 
+				
+			} else {
+				if (!isset($_POST['week_ending'])) {
+						$weekEnding = date('Y-m-d',strtotime('next saturday'));
+						$section = $_SESSION['sectionChoose'];
+					}
+					else {
+						$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
+						$section = mysql_entities_fix_string($conn, $_POST['section']);
+					}
+					
+					noShiftsFound($weekEnding, $section);
 			}
 		}
 

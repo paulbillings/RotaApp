@@ -69,6 +69,10 @@
 									$_SESSION['nextPrev'] = false;
 									$_SESSION['editRecords'] = false;
 									$_SESSION['editRota'] = false;
+									$_SESSION['executeAmount'] = 0;
+									$_SESSION['executeColAmount'] = 0;
+									$_SESSION['executeViewAmount'] = 0;
+									$_SESSION['executeEditAmount'] = 0;
 									header("Location: userProfile.php");
 									exit;
 								}

@@ -119,8 +119,12 @@
 		
 			$_SESSION['sectionChoose'] = $section;
 			$_SESSION['startColView'] = false;
+			$_SESSION['executeColAmount'] = 0;
 		}
 		else {
+				if ($_SESSION['executeColAmount'] > 2) {
+					header("Location: createColleague.php");
+				}
 			
 				if (!$_SESSION['executedColView'] && !$_SESSION['startColView']){
 					echo '<div id="dialog" title="Colleague Records">
@@ -128,6 +132,7 @@
 						</div>';
 					$section = $_SESSION['sectionChoose'];
 					$_SESSION['executedColView'] = true;
+					$_SESSION['executeColAmount'] = $_SESSION['executeColAmount'] + 1;
 					getAllColleagues($section);
 					
 				}
@@ -137,6 +142,7 @@
 						</div>';
 					$section= $_SESSION['sectionChoose'];
 					$_SESSION['executedColView'] = false;
+					$_SESSION['executeColAmount'] = $_SESSION['executeColAmount'] + 1;
 					getAllColleagues($section);
 					
 				}

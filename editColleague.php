@@ -18,6 +18,11 @@
 	if (!isset($_SESSION['sectionChoose'])){
 		$_SESSION['sectionChoose'] = "Grocery";
 	}
+	if ($_SESSION['executeEditAmount'] > 2){
+		echo '<div id="dialog" title="Error">
+					<p>No colleague records for selected section, please create colleague details first</p>
+			</div>';
+	}
 
 	define('DB_NAME', 'rotas');
 	define('DB_USER', 'root');
@@ -161,8 +166,12 @@
 		
 			$_SESSION['sectionChoose'] = $section;
 			$_SESSION['startColView'] = false;
+			$_SESSION['executeEditAmount'] = 0;
 		}
 		else {
+				if ($_SESSION['executeEditAmount'] > 2) {
+					header("Location: createColleague.php");
+				}
 			
 				if (!$_SESSION['executedColView'] && !$_SESSION['startColView']){
 					echo '<div id="dialog" title="Error">
@@ -170,6 +179,7 @@
 					</div>';
 					$section = $_SESSION['sectionChoose'];
 					$_SESSION['executedColView'] = true;
+					$_SESSION['executeEditAmount'] = $_SESSION['executeEditAmount'] + 1;
 					getAllColleagues($section);
 					
 				}
@@ -179,6 +189,7 @@
 					</div>';
 					$section= $_SESSION['sectionChoose'];
 					$_SESSION['executedColView'] = false;
+					$_SESSION['executeEditAmount'] = $_SESSION['executeEditAmount'] + 1;
 					getAllColleagues($section);
 					
 				}

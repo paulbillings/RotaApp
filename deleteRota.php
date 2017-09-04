@@ -18,6 +18,11 @@
 	if (!isset($_SESSION['sectionChoose'])){
 		$_SESSION['sectionChoose'] = "Grocery";
 	}
+	if ($_SESSION['executeAmount'] > 2){
+		echo '<div id="dialog" title="Error">
+					<p>No colleague records for selected section, please create colleague details first</p>
+			</div>';
+	}
 
 	define('DB_NAME', 'rotas');
 	define('DB_USER', 'root');
@@ -116,138 +121,143 @@ function getAllRotas($weekEnding, $section) {
 					<th></th>
 				</tr>';
 
-		$sorted = array();
-		$checkName = array();
-		$big = 0;
+						$sorted = array();
+						$checkName = array();
+						$big = 0;
 
-	for ($j = 0 ; $j < $rows ; ++$j) {
-		$result->data_seek($j);
-		$row = $result->fetch_array(MYSQLI_ASSOC);
-		$number = $row['employee_id'];
-		//echo $number;
-		if (!in_array($row['employee_id'], $checkName)) {
-		
-			$queryI = "SELECT firstname,lastname,start_shift,end_shift,day FROM employee,schedule,date \n"
-			. "WHERE schedule.employee_id=employee.employee_id AND schedule.Week_ending='$week_ending'\n"
-			. "AND date.fulldate=schedule.fulldate\n"
-			. "AND date.fulldate BETWEEN '$week_beginning' AND '$week_ending'\n"
-			. "AND employee.employee_id='$number'";
+					for ($j = 0 ; $j < $rows ; ++$j) {
+						$result->data_seek($j);
+						$row = $result->fetch_array(MYSQLI_ASSOC);
+						$number = $row['employee_id'];
+						//echo $number;
+						if (!in_array($row['employee_id'], $checkName)) {
+						
+							$queryI = "SELECT firstname,lastname,start_shift,end_shift,day FROM employee,schedule,date \n"
+							. "WHERE schedule.employee_id=employee.employee_id AND schedule.Week_ending='$week_ending'\n"
+							. "AND date.fulldate=schedule.fulldate\n"
+							. "AND date.fulldate BETWEEN '$week_beginning' AND '$week_ending'\n"
+							. "AND employee.employee_id='$number'";
 
-			$resultI = $conn->query($queryI);
-			if (!$resultI) die ("Database access failed: " . $conn->error);
+							$resultI = $conn->query($queryI);
+							if (!$resultI) die ("Database access failed: " . $conn->error);
 
-			$sorted[0] = 'Day';
-			$sorted[1] = 'Off';
-			$sorted[2] = 'Day';
-			$sorted[3] = 'Off';
-			$sorted[4] = 'Day';
-			$sorted[5] = 'Off';
-			$sorted[6] = 'Day';
-			$sorted[7] = 'Off'; 
-			$sorted[8] = 'Day'; 
-			$sorted[9] = 'Off';
-			$sorted[10] = 'Day'; 
-			$sorted[11] = 'Off'; 
-			$sorted[12] = 'Day';
-			$sorted[13] = 'Off'; 
-			$sorted[14] = 'Name';	
-			
-			$rowsI = $resultI->num_rows;
-			
-			for ($b = 0 ; $b < $rowsI ; ++$b) {
-				$resultI->data_seek($b);
-				$rowI = $resultI->fetch_array(MYSQLI_ASSOC);
-			
-	
-				if ($rowI['day'] === 'Sunday') {
-					$sorted[0] = $rowI['start_shift'];
-					$sorted[1] = $rowI['end_shift'];
-				}
-				if ($rowI['day'] === 'Monday') {
-					$sorted[2] = $rowI['start_shift'];
-					$sorted[3] = $rowI['end_shift'];
-				}
-				if ($rowI['day'] === 'Tuesday') {
-					$sorted[4] = $rowI['start_shift'];
-					$sorted[5] = $rowI['end_shift'];
-				}
-				if ($rowI['day'] === 'Wednesday') {
-					$sorted[6] = $rowI['start_shift'];
-					$sorted[7] = $rowI['end_shift'];
-				}
-				if ($rowI['day'] === 'Thursday') {
-					$sorted[8] = $rowI['start_shift'];
-					$sorted[9] = $rowI['end_shift'];
-				}
-				if ($rowI['day'] === 'Friday') {
-					$sorted[10] = $rowI['start_shift'];
-					$sorted[11] = $rowI['end_shift'];
-				}
-				if ($rowI['day'] === 'Saturday') {
-					$sorted[12] = $rowI['start_shift'];
-					$sorted[13] = $rowI['end_shift'];
-				}
-			}
-		
-			$fname = $rowI['firstname'];
-			$sname = $rowI['lastname'];
-			$fullname = $fname . ' ' . $sname;
-			$sorted[14] = $fullname;
-			
-			echo '<form name="deleteForm" id="deleteForm" action="" method="post">';
+							$sorted[0] = 'Day';
+							$sorted[1] = 'Off';
+							$sorted[2] = 'Day';
+							$sorted[3] = 'Off';
+							$sorted[4] = 'Day';
+							$sorted[5] = 'Off';
+							$sorted[6] = 'Day';
+							$sorted[7] = 'Off'; 
+							$sorted[8] = 'Day'; 
+							$sorted[9] = 'Off';
+							$sorted[10] = 'Day'; 
+							$sorted[11] = 'Off'; 
+							$sorted[12] = 'Day';
+							$sorted[13] = 'Off'; 
+							$sorted[14] = 'Name';	
+							
+							$rowsI = $resultI->num_rows;
+							
+							for ($b = 0 ; $b < $rowsI ; ++$b) {
+								$resultI->data_seek($b);
+								$rowI = $resultI->fetch_array(MYSQLI_ASSOC);
+							
 					
-			echo
-			'<tr>
-				<th>'; echo $sorted[14]; echo '</th>
-				<td>'; echo $sorted[0]; echo '</td>
-				<td>'; echo $sorted[1]; echo '</td>
-				<td>'; echo $sorted[2]; echo '</td>
-				<td>'; echo $sorted[3]; echo '</td>
-				<td>'; echo $sorted[4]; echo '</td>
-				<td>'; echo $sorted[5]; echo '</td>
-				<td>'; echo $sorted[6]; echo '</td>
-				<td>'; echo $sorted[7]; echo '</td>
-				<td>'; echo $sorted[8]; echo '</td>
-				<td>'; echo $sorted[9]; echo '</td>
-				<td>'; echo $sorted[10]; echo '</td>
-				<td>'; echo $sorted[11]; echo '</td>
-				<td>'; echo $sorted[12]; echo '</td>
-				<td>'; echo $sorted[13]; echo '</td>
-				<th>';echo '<input class="delete" type="submit" name="form['; echo $number; echo ']" value="Delete"/>'; echo '</th>
-			</tr>';
-			$big++;
-			array_push($checkName, $number);
-		}
-		
-	}
-	echo '</form>';	
-	echo '</table>';
-	
-	
-	$convertWeek = date("M jS, Y", strtotime($week_ending));
-	
-	echo '<div id="weekLabel">';
-	echo '<p>Week Ending: </p>'; 
-	echo '<div id="week">';
-	echo $convertWeek;
-	echo '</div>';
-	echo '</div>';
-			
-			$_SESSION['weekEnding'] = $week_ending;
-			$_SESSION['sectionChoose'] = $section;
-			$_SESSION['startDelete'] = false;
-			
+								if ($rowI['day'] === 'Sunday') {
+									$sorted[0] = $rowI['start_shift'];
+									$sorted[1] = $rowI['end_shift'];
+								}
+								if ($rowI['day'] === 'Monday') {
+									$sorted[2] = $rowI['start_shift'];
+									$sorted[3] = $rowI['end_shift'];
+								}
+								if ($rowI['day'] === 'Tuesday') {
+									$sorted[4] = $rowI['start_shift'];
+									$sorted[5] = $rowI['end_shift'];
+								}
+								if ($rowI['day'] === 'Wednesday') {
+									$sorted[6] = $rowI['start_shift'];
+									$sorted[7] = $rowI['end_shift'];
+								}
+								if ($rowI['day'] === 'Thursday') {
+									$sorted[8] = $rowI['start_shift'];
+									$sorted[9] = $rowI['end_shift'];
+								}
+								if ($rowI['day'] === 'Friday') {
+									$sorted[10] = $rowI['start_shift'];
+									$sorted[11] = $rowI['end_shift'];
+								}
+								if ($rowI['day'] === 'Saturday') {
+									$sorted[12] = $rowI['start_shift'];
+									$sorted[13] = $rowI['end_shift'];
+								}
+							}
+						
+							$fname = $rowI['firstname'];
+							$sname = $rowI['lastname'];
+							$fullname = $fname . ' ' . $sname;
+							$sorted[14] = $fullname;
+							
+							echo '<form name="deleteForm" id="deleteForm" action="" method="post">';
+									
+							echo
+							'<tr>
+								<th>'; echo $sorted[14]; echo '</th>
+								<td>'; echo $sorted[0]; echo '</td>
+								<td>'; echo $sorted[1]; echo '</td>
+								<td>'; echo $sorted[2]; echo '</td>
+								<td>'; echo $sorted[3]; echo '</td>
+								<td>'; echo $sorted[4]; echo '</td>
+								<td>'; echo $sorted[5]; echo '</td>
+								<td>'; echo $sorted[6]; echo '</td>
+								<td>'; echo $sorted[7]; echo '</td>
+								<td>'; echo $sorted[8]; echo '</td>
+								<td>'; echo $sorted[9]; echo '</td>
+								<td>'; echo $sorted[10]; echo '</td>
+								<td>'; echo $sorted[11]; echo '</td>
+								<td>'; echo $sorted[12]; echo '</td>
+								<td>'; echo $sorted[13]; echo '</td>
+								<th>';echo '<input class="delete" type="submit" name="form['; echo $number; echo ']" value="Delete"/>'; echo '</th>
+							</tr>';
+							$big++;
+							array_push($checkName, $number);
+						}
+						
+					}
+					echo '</form>';	
+					echo '</table>';
+					
+					
+					$convertWeek = date("M jS, Y", strtotime($week_ending));
+					
+					echo '<div id="weekLabel">';
+					echo '<p>Week Ending: </p>'; 
+					echo '<div id="week">';
+					echo $convertWeek;
+					echo '</div>';
+					echo '</div>';
+							
+							$_SESSION['weekEnding'] = $week_ending;
+							$_SESSION['sectionChoose'] = $section;
+							$_SESSION['startDelete'] = false;
+							$_SESSION['executeAmount'] = 0;
+									
 		}
 		else {
+				if ($_SESSION['executeAmount'] > 2) {
+					header("Location: adminMenu.php");
+				}
 			
 				if (!$_SESSION['executeDelete'] && !$_SESSION['startDelete']){
 					echo '<div id="dialog" title="Error">
 							<p>No rotas for selected week/section</p>
 						</div>';
 					$weekEnding = $_SESSION['weekEnding'];
-					$section = $_SESSION['sectionChoose']; 
-					getAllRotas($weekEnding, $section);
+					$section = $_SESSION['sectionChoose'];
 					$_SESSION['executeDelete'] = true;
+					$_SESSION['executeAmount'] = $_SESSION['executeAmount'] + 1;
+					getAllRotas($weekEnding, $section);
 				}
 				else if (!$_SESSION['startDelete']) {
 					echo '<div id="dialog" title="Error">
@@ -255,8 +265,9 @@ function getAllRotas($weekEnding, $section) {
 						</div>';
 					$weekEnding = $_SESSION['weekEnding'];
 					$section= $_SESSION['sectionChoose'];
-					getAllRotas($weekEnding, $section);
 					$_SESSION['executeDelete'] = false;
+					$_SESSION['executeAmount'] = $_SESSION['executeAmount'] + 1;
+					getAllRotas($weekEnding, $section);
 				}
 				else {
 					//$_SESSION['fail']= true;
@@ -284,10 +295,15 @@ function getAllRotas($weekEnding, $section) {
 			$section = mysql_entities_fix_string($conn, $_POST['section']);	
 		}
 		
-		getAllRotas($weekEnding, $section); 
+			getAllRotas($weekEnding, $section); 
 		
 		}
+		
+		
+		
 
+		
+		
 ?>
 
   
@@ -309,7 +325,7 @@ function getAllRotas($weekEnding, $section) {
 		<form name="rotaForm" id="rotaForm" action="" method="post"> 
 		
 			<div id="sectionLabel" >
-				<p><span>View all rotas for which section:</span></p> 
+				<p><span>View all rotas for:</span></p> 
 			</div>
 			<div id="section" >
 				<select id="section" name="section">
@@ -324,15 +340,13 @@ function getAllRotas($weekEnding, $section) {
 			</div>
 			
 			<div id="rotaLabel" >
-				<p><span>View all rotas for week ending:</span></p> 
+				<p><span>For week ending:</span></p> 
 			</div>
 			<div id="dateChoice" >
 				<input id="week_ending" class="week_ending" type="text" name="week_ending" maxlength="10" required="true" placeholder="yyyy-mm-dd"  />
 			</div>
 			<input id="submitButton" type="submit" value="Submit" />
 		</form>
-	  	
-
       
     </div>
 	<script src="resources/jquery-3.2.1.js"></script>
