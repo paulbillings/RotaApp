@@ -66,7 +66,6 @@ li a {
     text-decoration: none;
 }
 
-/* Change the link color to #111 (black) on hover */
 li a:hover {
     background-color: #111;
 }
@@ -130,6 +129,8 @@ li a:hover {
   text-decoration:none;
   color:#333333;
   text-align:center;
+  cursor: pointer; 
+  cursor: hand;
 }
 
 #welcome {
@@ -158,6 +159,36 @@ li a:hover {
   left:-100px;
   text-align:center;
   background-color: white;
+}
+
+#next{
+  position:absolute;
+  top:400px;
+  left:550px;
+  text-align: center;
+  padding: 4px 30px;
+  cursor: pointer; 
+  cursor: hand;
+}
+
+#next:hover {
+	 background-color: #0d377a;
+	 color: white;
+}
+
+#prev {
+  position:absolute;
+  top:400px;  
+  left:-50px;
+  text-align: center;
+  padding: 4px 30px;
+  cursor: pointer; 
+  cursor: hand;
+}
+
+#prev:hover {
+	 background-color: #0d377a;
+	 color: white;
 }
 
 table {  

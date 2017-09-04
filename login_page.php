@@ -65,6 +65,7 @@
 									$_SESSION['startDelete'] = true;
 									$_SESSION['executedColView'] = false;
 									$_SESSION['startColView'] = true;
+									$_SESSION['nextPrev'] = false;
 									header("Location: userProfile.php");
 									exit;
 								}
