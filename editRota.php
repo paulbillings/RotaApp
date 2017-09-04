@@ -193,7 +193,6 @@ function getAllRotas($weekEnding, $section) {
 				$totalRecords[] = array($fnumber, $ffullname);
 			}
 		}
-		//print_r($totalRecords);
 		
 		$week_ending = $weekEnding;
 		$week_beginning = date('Y-m-d', strtotime('-6 day', strtotime($week_ending)));
@@ -355,7 +354,7 @@ function getAllRotas($weekEnding, $section) {
 	}
 	
 			echo '<div id="rotaLabel" >';
-			echo '<p><span>Do rotas for week ending:</span></p>';
+			echo '<p><span>For week ending:</span></p>';
 			echo '</div>';
 			echo '<div id="dateChoice" >';
 			echo '<input id="week_ending" class="week_ending" type="text" name="week_ending" maxlength="10" required="true" placeholder="yyyy-mm-dd"  />';
@@ -552,7 +551,7 @@ function getAllRotas($weekEnding, $section) {
 		<form name="rotaForm" id="rotaForm" action="" onsubmit="getWeek()" method="post"> 
 		
 			<div id="sectionLabel" >
-				<p><span>View all rotas for which section:</span></p> 
+				<p><span>View all rotas for:</span></p> 
 			</div>
 			<div id="sectionDiv" >
 				<select id="section" name="section">
@@ -568,7 +567,7 @@ function getAllRotas($weekEnding, $section) {
 			
 			<input id="selectWeek" class="selectWeek" type="hidden" name="selectWeek" maxlength="10" value="" required="true" placeholder="yyyy-mm-dd"  />
 			
-			<input id="submitButton" type="submit" name="sectionSubmit" value="sectionSubmit" />
+			<input id="submitButton" type="submit" name="sectionSubmit" value="Submit" />
 		</form>
 	  	
 

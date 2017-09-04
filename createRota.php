@@ -32,7 +32,6 @@
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (isset($_POST['submit'])) {
 		$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
-		//$colNumber = mysql_entities_fix_string($conn, $_SESSION['user']);
 		
 		if (isset($_POST['section'])){
 			$section = mysql_entities_fix_string($conn, $_POST['section']);
@@ -135,7 +134,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			}
 			
 		}
-	
 		
 	$conn->close();	
 	}
@@ -197,8 +195,6 @@ function getAllRotas($section) {
 
 		$sorted = array();
 		
-		
-
 	for ($j = 0 ; $j < $rows ; ++$j) {
 		$result->data_seek($j);
 		$row = $result->fetch_array(MYSQLI_ASSOC);
@@ -241,9 +237,6 @@ function getAllRotas($section) {
 				';  echo '	
 			</tr>';
 			
-	
-			//echo '</form>';	
-			
 	}
 	
 	echo '<tr><th colspan="15" >'; echo '<input class="timeSubmit" type="submit" name="submit" value="Save Changes"/>'; echo '</th></tr>';
@@ -251,8 +244,6 @@ function getAllRotas($section) {
 	echo '</table>';
 	
 		 
-		
-			//$_SESSION['weekEnding'] = $week_ending;
 			$_SESSION['sectionChoose'] = $section;
 			$_SESSION['start'] = false;
 			$_SESSION['startCreate'] = false;
@@ -261,18 +252,11 @@ function getAllRotas($section) {
 		else {
 			
 				if (!$_SESSION['executed'] && !$_SESSION['start']){
-					//echo '<script language="javascript">';
-					//echo 'alert("No Rotas for selected week")';
-					//echo '</script>';
-					//$weekEnding = $_SESSION['weekEnding'];
 					$section= $_SESSION['sectionChoose'];
-					//$colNumber = $_SESSION['user'];
 					getAllRotas($section);
 					$_SESSION['executed'] = true;
 				}
 				else if (!$_SESSION['start']) {
-					//$weekEnding = $_SESSION['weekEnding'];
-					//$colNumber = $_SESSION['user'];
 					$section= $_SESSION['sectionChoose'];
 					getAllRotas($section);
 					$_SESSION['executed'] = false;
@@ -295,13 +279,10 @@ function getAllRotas($section) {
 		
 		
 		if (!isset($_POST['section'])) {
-			//$weekEnding = date('Y-m-d',strtotime('next saturday'));
 			$section = $_SESSION['sectionChoose'];
 		}
 		else {
-			//$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
 			$section = mysql_entities_fix_string($conn, $_POST['section']);
-			//$_SESSION['sectionChoose'] = $section;
 		}
 		
 		
@@ -384,7 +365,7 @@ function getAllRotas($section) {
 		<form name="rotaForm" id="rotaForm" action="" method="post"> 
 		
 			<div id="sectionLabel" >
-				<p><span>Do rotas for which section:</span></p> 
+				<p><span>Do rotas for:</span></p> 
 			</div>
 			<div id="section" >
 				<select id="section" name="section">

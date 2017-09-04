@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	$_SESSION['nextPrev'] = false;
 	if (!$_SESSION['logged_in']){
 		header("Location: login_page.php");
 	}
@@ -34,7 +35,7 @@
 			
 		<form name="rotaForm" id="rotaForm" action="" method="post"> 	
 			<div id="rotaLabel" >
-				<p><span>View your rota for week ending:</span></p> 
+				<p><span>View rota for week ending:</span></p> 
 			</div>
 			<div id="dateChoice" >
 				<input id="week_ending" class="week_ending" type="text" name="week_ending" maxlength="10" required="true" placeholder="yyyy-mm-dd"  />
@@ -99,7 +100,6 @@
 		$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 		if ($conn->connect_error) die($conn->connect_error);
 			
-			//$week_ending = mysql_entities_fix_string($conn, $_POST['week_ending']);
 			$week_ending = $weekEnding;
 			
 			$week_beginning = date('Y-m-d', strtotime('-6 day', strtotime($week_ending)));
@@ -206,7 +206,7 @@
 			
 			
 		}
-		//<th>'; echo $sorted[14]; echo '</th>
+	
 		echo
 			'<tr>
 				<th>'; echo '<p>Week ending </p>'; echo $week_ending; echo '</th>

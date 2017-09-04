@@ -447,6 +447,13 @@ function getAllRotas($weekEnding, $section) {
 		
 			$_SESSION['sectionChoose'] = $section;
 			$_SESSION['startAdmin'] = false;
+			
+		echo '<div id="weekLabel">';
+		echo '<p>Week Ending: </p>'; 
+		echo '<div id="week">';
+		echo $weekEnding;
+		echo '</div>';
+		echo '</div>';
 	}
 		
 ?>
@@ -471,7 +478,7 @@ function getAllRotas($weekEnding, $section) {
 		<form name="rotaForm" id="rotaForm" action="" method="post"> 
 		
 			<div id="sectionLabel" >
-				<p><span>View all rotas for which section:</span></p> 
+				<p><span>View all rotas for:</span></p> 
 			</div>
 			<div id="section" >
 				<select id="section" name="section">
@@ -486,7 +493,7 @@ function getAllRotas($weekEnding, $section) {
 			</div>
 			
 			<div id="rotaLabel" >
-				<p><span>View all rotas for week ending:</span></p> 
+				<p><span>For week ending:</span></p> 
 			</div>
 			<div id="dateChoice" >
 				<input id="week_ending" class="week_ending" type="text" name="week_ending" maxlength="10" required="true" placeholder="yyyy-mm-dd"  />

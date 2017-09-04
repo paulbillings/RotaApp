@@ -77,8 +77,8 @@ li a:hover {
 #rotaLabel {
   border-width:0px;
   position:absolute;
-  left:89px;
-  top:222px;
+  left:400px;
+  top:200px;
   width:199px;
   height:16px;
   white-space:nowrap;
@@ -87,17 +87,22 @@ li a:hover {
 #dateChoice {
   border-width:0px;
   position:absolute;
-  left:298px;
+  left:400px;
   top:218px;
-  width:131px;
+  width:75px;
   height:25px;
   font-family:'Arial';
   font-weight:400;
   font-style:normal;
-  font-size:13px;
+  font-size:15px;
   text-decoration:none;
   color:#000000;
-  text-align:left;
+}
+
+#week_ending {
+	height:18px;
+	width: 75px;
+	text-align: center;
 }
 
 #colleagueNumber {
@@ -135,8 +140,8 @@ li a:hover {
 
 #welcome {
   position:absolute;
-  left:89px;
-  top:183px;
+  left:49px;
+  top:203px;
   width:30px;
   height:24px;
 }
