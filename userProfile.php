@@ -204,12 +204,13 @@
 			$fullname = $fname . ' ' . $sname;
 			$sorted[14] = $fullname;
 			
-			
 		}
+		
+		$convertWeek = date("M jS, Y", strtotime($week_ending));
 	
 		echo
 			'<tr>
-				<th>'; echo '<p>Week ending </p>'; echo $week_ending; echo '</th>
+				<th>'; echo '<p>Week ending </p>'; echo $convertWeek; echo '</th>
 				<td>'; echo $sorted[0]; echo '</td>
 				<td>'; echo $sorted[1]; echo '</td>
 				<td>'; echo $sorted[2]; echo '</td>
@@ -244,15 +245,18 @@
 			else {
 				
 					if (!$_SESSION['executed'] && !$_SESSION['start']){
-						echo '<script language="javascript">';
-						echo 'alert("No Rota for selected week")';
-						echo '</script>';
+						echo '<div id="dialog" title="Error">
+							<p>No Rota for selected week</p>
+						</div>';
 						$weekEnding = $_SESSION['weekEnding'];
 						$colNumber = $_SESSION['user'];
 						getRota($colNumber, $weekEnding);
 						$_SESSION['executed'] = true;
 					}
 					else if (!$_SESSION['start']) {
+						echo '<div id="dialog" title="Error">
+							<p>No Rota for selected week</p>
+						</div>';
 						$weekEnding = $_SESSION['weekEnding'];
 						$colNumber = $_SESSION['user'];
 						getRota($colNumber, $weekEnding);
@@ -283,7 +287,7 @@
 			}
 		
 			$colNumber = mysql_entities_fix_string($conn, $_SESSION['user']);
-			echo 'Here';
+	
 		}
 		
 		getRota($colNumber, $weekEnding);  

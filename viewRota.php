@@ -58,8 +58,7 @@ function getAllRotas($weekEnding, $section) {
 		if (!$fresult) die ("Database access failed: " . $conn->error);
 
 		$totalRows = $fresult->num_rows;
-		
-		echo $totalRows;
+		//echo $totalRows;
 		
 		$totalRecords = array();
 		
@@ -75,7 +74,6 @@ function getAllRotas($weekEnding, $section) {
 				$totalRecords[] = array($fnumber, $ffullname);
 			}
 		}
-		
 		
 		$week_ending = $weekEnding;
 		$week_beginning = date('Y-m-d', strtotime('-6 day', strtotime($week_ending)));
@@ -160,14 +158,12 @@ function getAllRotas($weekEnding, $section) {
 			$sorted[13] = 'Off'; 
 			$sorted[14] = 'Name';	
 			
-			
 			$rowsI = $resultI->num_rows;
 			
 			for ($b = 0 ; $b < $rowsI ; ++$b) {
 				$resultI->data_seek($b);
 				$rowI = $resultI->fetch_array(MYSQLI_ASSOC);
 			
-	
 				if ($rowI['day'] === 'Sunday') {
 					$sorted[0] = $rowI['start_shift'];
 					$sorted[1] = $rowI['end_shift'];
@@ -236,7 +232,7 @@ function getAllRotas($weekEnding, $section) {
 		
 		$newNumber = $totalRecords[$z]['0'];
 		$newName = $totalRecords[$z]['1'];
-		echo $newNumber;
+		//echo $newNumber;
 		
 		if (!in_array($newNumber, $checkName)) {
 			
@@ -281,10 +277,12 @@ function getAllRotas($weekEnding, $section) {
 	
 	echo '</table>';
 	
+	$convertWeek = date("M jS, Y", strtotime($week_ending));
+	
 	echo '<div id="weekLabel">';
 	echo '<p>Week Ending: </p>'; 
 	echo '<div id="week">';
-	echo $week_ending;
+	echo $convertWeek;
 	echo '</div>';
 	echo '</div>';
 			
@@ -296,14 +294,11 @@ function getAllRotas($weekEnding, $section) {
 		}
 		else {
 			
-				
-					echo '<script language="javascript">';
-					echo 'alert("No Rotas availiable for selected week")';
-					echo '</script>';
-					//$weekEnding = $_SESSION['weekEnding'];
-					//$section = $_SESSION['sectionChoose']; 
+					echo '<div id="dialog" title="Error">
+							<p>No rotas for selected week/section</p>
+						</div>';
 					$_SESSION['executedAdmin'] = true;
-					//getAllRotas($weekEnding, $section);
+				
 					if (!isset($_POST['week_ending'])) {
 						$weekEnding = date('Y-m-d',strtotime('next saturday'));
 						$section = $_SESSION['sectionChoose'];
@@ -448,10 +443,12 @@ function getAllRotas($weekEnding, $section) {
 			$_SESSION['sectionChoose'] = $section;
 			$_SESSION['startAdmin'] = false;
 			
+		$convertWeek = date("M jS, Y", strtotime($weekEnding));
+		
 		echo '<div id="weekLabel">';
 		echo '<p>Week Ending: </p>'; 
 		echo '<div id="week">';
-		echo $weekEnding;
+		echo $convertWeek;
 		echo '</div>';
 		echo '</div>';
 	}
@@ -459,7 +456,6 @@ function getAllRotas($weekEnding, $section) {
 ?>
 
   
-
 		<div id="header" >
 			<p><span id="goto" >Goto</span><span id="rota" >Rota</span></p>
 		</div>

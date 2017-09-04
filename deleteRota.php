@@ -43,7 +43,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					. "AND schedule.Week_ending = '$weekEnding'";
 	
 		if ($conn->query($delete) === TRUE) {
-			echo "records deleted successfully";
+			echo '<div id="dialog" title="Success">
+							<p>Rota details successfully Deleted.</p>
+						</div>';
 		} else {
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
@@ -65,14 +67,9 @@ function getAllRotas($weekEnding, $section) {
 
 	$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	if ($conn->connect_error) die($conn->connect_error);
-		
-		//$week_ending = mysql_entities_fix_string($conn, $_POST['week_ending']);
+	
 		$week_ending = $weekEnding;
-		
 		$week_beginning = date('Y-m-d', strtotime('-6 day', strtotime($week_ending)));
-		
-		//$number = $colNumber;
-		
 		
 	$query = "SELECT employee.employee_id FROM employee,schedule,date \n"
 		. "WHERE schedule.employee_id=employee.employee_id AND schedule.Week_ending='$week_ending'\n"
@@ -155,7 +152,6 @@ function getAllRotas($weekEnding, $section) {
 			$sorted[13] = 'Off'; 
 			$sorted[14] = 'Name';	
 			
-			
 			$rowsI = $resultI->num_rows;
 			
 			for ($b = 0 ; $b < $rowsI ; ++$b) {
@@ -227,13 +223,13 @@ function getAllRotas($weekEnding, $section) {
 	echo '</form>';	
 	echo '</table>';
 	
-	//<th>'; echo '<p>Week ending </p>'; echo $week_ending; echo '</th>
 	
+	$convertWeek = date("M jS, Y", strtotime($week_ending));
 	
 	echo '<div id="weekLabel">';
 	echo '<p>Week Ending: </p>'; 
 	echo '<div id="week">';
-	echo $week_ending;
+	echo $convertWeek;
 	echo '</div>';
 	echo '</div>';
 			
@@ -245,28 +241,26 @@ function getAllRotas($weekEnding, $section) {
 		else {
 			
 				if (!$_SESSION['executeDelete'] && !$_SESSION['startDelete']){
-					echo '<script language="javascript">';
-					echo 'alert("No rotas for selected week/section")';
-					echo '</script>';
+					echo '<div id="dialog" title="Error">
+							<p>No rotas for selected week/section</p>
+						</div>';
 					$weekEnding = $_SESSION['weekEnding'];
 					$section = $_SESSION['sectionChoose']; 
-					//$colNumber = $_SESSION['user'];
 					getAllRotas($weekEnding, $section);
 					$_SESSION['executeDelete'] = true;
 				}
 				else if (!$_SESSION['startDelete']) {
-					echo '<script language="javascript">';
-					echo 'alert("No rotas for selected week/section")';
-					echo '</script>';
+					echo '<div id="dialog" title="Error">
+							<p>No rotas for selected week/section</p>
+						</div>';
 					$weekEnding = $_SESSION['weekEnding'];
-					//$colNumber = $_SESSION['user'];
 					$section= $_SESSION['sectionChoose'];
 					getAllRotas($weekEnding, $section);
 					$_SESSION['executeDelete'] = false;
 				}
 				else {
-					$_SESSION['fail']= true;
-					header("Location: login_page.php");
+					//$_SESSION['fail']= true;
+					header("Location: adminMenu.php");
 				}
 		}		
 		
@@ -276,7 +270,6 @@ function getAllRotas($weekEnding, $section) {
 }
 
 
-	
 		if (isset($_SESSION['user'])) {
 		$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 		if ($conn->connect_error) die($conn->connect_error);
@@ -288,24 +281,16 @@ function getAllRotas($weekEnding, $section) {
 		}
 		else {
 			$weekEnding = mysql_entities_fix_string($conn, $_POST['week_ending']);
-			$section = mysql_entities_fix_string($conn, $_POST['section']);
-			//$_SESSION['sectionChoose'] = $section;
+			$section = mysql_entities_fix_string($conn, $_POST['section']);	
 		}
 		
-		//echo $weekEnding;
+		getAllRotas($weekEnding, $section); 
 		
-		//$colNumber = mysql_entities_fix_string($conn, $_SESSION['user']);
-		getAllRotas($weekEnding, $section);   
 		}
-
-
-
-	
 
 ?>
 
   
-
 		<div id="header" >
 			<p><span id="goto" >Goto</span><span id="rota" >Rota</span></p>
 		</div>

@@ -41,14 +41,16 @@
 		if (isset($_POST['form'])) {
 			
 			$SelectedElem = implode(",", array_keys($_POST['form']));
-			print_r ($SelectedElem);
+			//print_r ($SelectedElem);
 		
 			$number = $SelectedElem;
 			
 			$delete = "DELETE FROM employee WHERE employee.employee_id = $number";
 		
 			if ($conn->query($delete) === TRUE) {
-				echo "records deleted successfully";
+				echo '<div id="dialog" title="Success">
+							<p>Colleague details successfully Deleted.</p>
+						</div>';
 			} else {
 				echo "Error: " . $sql . "<br>" . $conn->error;
 			}
@@ -121,18 +123,18 @@
 		else {
 			
 				if (!$_SESSION['executedColView'] && !$_SESSION['startColView']){
-					echo '<script language="javascript">';
-					echo 'alert("No colleague records for selected section")';
-					echo '</script>';
+					echo '<div id="dialog" title="Colleague Records">
+							<p>No colleague records for selected section</p>
+						</div>';
 					$section = $_SESSION['sectionChoose'];
 					$_SESSION['executedColView'] = true;
 					getAllColleagues($section);
 					
 				}
 				else if (!$_SESSION['startColView']) {
-					echo '<script language="javascript">';
-					echo 'alert("No colleague records for selected section")';
-					echo '</script>';
+					echo '<div id="dialog" title="Colleague Records">
+							<p>No colleague records for selected section</p>
+						</div>';
 					$section= $_SESSION['sectionChoose'];
 					$_SESSION['executedColView'] = false;
 					getAllColleagues($section);

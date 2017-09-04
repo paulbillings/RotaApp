@@ -48,7 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_POST['form'][$a]['wedStart'] || $_POST['form'][$a]['thuStart'] || $_POST['form'][$a]['friStart'] || 
 				$_POST['form'][$a]['satStart'])) 
 			{
-				echo ('No shifts entered');
+				echo '<div id="dialog" title="Error">
+							<p>No Shifts Entered</p>
+					</div>';
 			}
 			else {
 		
@@ -58,79 +60,55 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					$dayDate = date('Y-m-d',strtotime($weekEnding .' -6 day'));
 					$start = $_POST['form'][$a]['sunStart'];
 					$finish = $_POST['form'][$a]['sunFinish'];
-					print_r ($week);
-					print_r ($number);
-					print_r ($dayDate);
-					print_r ($start);
-					print_r ($finish);
+					
 					insertShift($week, $number, $dayDate, $start, $finish);
 				}
 				if (!empty($_POST['form'][$a]['monStart'] && $_POST['form'][$a]['monFinish'])){
 					$dayDate = date('Y-m-d',strtotime($weekEnding .' -5 day'));
 					$start = $_POST['form'][$a]['monStart'];
 					$finish = $_POST['form'][$a]['monFinish'];
-					print_r ($week);
-					print_r ($number);
-					print_r ($dayDate);
-					print_r ($start);
-					print_r ($finish);
+					
 					insertShift($week, $number, $dayDate, $start, $finish);
 				}
 				if (!empty($_POST['form'][$a]['tueStart'] && $_POST['form'][$a]['tueFinish'])){
 					$dayDate = date('Y-m-d',strtotime($weekEnding .' -4 day'));
 					$start = $_POST['form'][$a]['tueStart'];
 					$finish = $_POST['form'][$a]['tueFinish'];
-					print_r ($week);
-					print_r ($number);
-					print_r ($dayDate);
-					print_r ($start);
-					print_r ($finish);
+					
 					insertShift($week, $number, $dayDate, $start, $finish);
 				}
 				if (!empty($_POST['form'][$a]['wedStart'] && $_POST['form'][$a]['wedFinish'])){
 					$dayDate = date('Y-m-d',strtotime($weekEnding .' -3 day'));
 					$start = $_POST['form'][$a]['wedStart'];
 					$finish = $_POST['form'][$a]['wedFinish'];
-					print_r ($week);
-					print_r ($number);
-					print_r ($dayDate);
-					print_r ($start);
-					print_r ($finish);
+					
 					insertShift($week, $number, $dayDate, $start, $finish);
 				}
 				if (!empty($_POST['form'][$a]['thuStart'] && $_POST['form'][$a]['thuFinish'])){
 					$dayDate = date('Y-m-d',strtotime($weekEnding .' -2 day'));
 					$start = $_POST['form'][$a]['thuStart'];
 					$finish = $_POST['form'][$a]['thuFinish'];
-					print_r ($week);
-					print_r ($number);
-					print_r ($dayDate);
-					print_r ($start);
-					print_r ($finish);
+					
 					insertShift($week, $number, $dayDate, $start, $finish);
 				}
 				if (!empty($_POST['form'][$a]['friStart'] && $_POST['form'][$a]['friFinish'])){
 					$dayDate = date('Y-m-d',strtotime($weekEnding .' -1 day'));
 					$start = $_POST['form'][$a]['friStart'];
 					$finish = $_POST['form'][$a]['friFinish'];
-					print_r ($week);
-					print_r ($number);
-					print_r ($dayDate);
-					print_r ($start);
-					print_r ($finish);
+					
 					insertShift($week, $number, $dayDate, $start, $finish);
 				}
 				if (!empty($_POST['form'][$a]['satStart'] && $_POST['form'][$a]['satFinish'])){
 					$dayDate = $weekEnding;
 					$start = $_POST['form'][$a]['satStart'];
 					$finish = $_POST['form'][$a]['satFinish'];
-					print_r ($week);
-					print_r ($number);
-					print_r ($dayDate);
-					print_r ($start);
-					print_r ($finish);
+					
 					insertShift($week, $number, $dayDate, $start, $finish);
 				}
+				
+				echo '<div id="dialog" title="Success">
+							<p>New Rota/s created successfully</p>
+					</div>';
 			}
 			
 		}
@@ -285,8 +263,8 @@ function getAllRotas($section) {
 			$section = mysql_entities_fix_string($conn, $_POST['section']);
 		}
 		
+		getAllRotas($section); 
 		
-		getAllRotas($section);   
 		}
 		
 		
@@ -315,7 +293,7 @@ function getAllRotas($section) {
 					. "AND schedule.Week_ending = '$weekEnding'";
 	
 				if ($conn->query($delete) === TRUE) {
-					echo "records deleted successfully";
+					//echo "records deleted successfully";
 				} else {
 					echo "Error: " . $sql . "<br>" . $conn->error;
 				}
@@ -332,7 +310,7 @@ function getAllRotas($section) {
 				. "VALUES (NULL, '$week', $number, '$dayDate', $start, $finish)";
 				
 				if ($conn->query($sql) === TRUE) {
-					echo "New record created successfully";
+					//echo "New record created successfully";
 				} else {
 					echo "Error: " . $sql . "<br>" . $conn->error;
 				}
@@ -340,12 +318,9 @@ function getAllRotas($section) {
 			$conn->close();	
 		}
 
-//$sql = "INSERT INTO `schedule` (`shift_id`, `Week_ending`, `employee_id`, `fulldate`, `start_shift`, `end_shift`) VALUES (NULL, \'2017-08-26\', \'984140\', \'2017-08-14\', \'6.00\', \'14.00\')";
-
 
 ?>
 
-  
 
 		<div id="header" >
 			<p><span id="goto" >Goto</span><span id="rota" >Rota</span></p>
@@ -359,8 +334,6 @@ function getAllRotas($section) {
 				<li><a href="login_page.php">Logout</a></li>
 			</ul>
 		</nav>
-		
-
 			
 		<form name="rotaForm" id="rotaForm" action="" method="post"> 
 		
@@ -378,11 +351,8 @@ function getAllRotas($section) {
 					<option value="Management"<?=$_SESSION['sectionChoose'] == "Management" ? ' selected="selected"' : ''?>>Management</option>
 				</select>
 			</div>
-			
 			<input id="submitButton" type="submit" value="Submit" />
 		</form>
-	  	
-
       
     </div>
 	<script src="resources/jquery-3.2.1.js"></script>

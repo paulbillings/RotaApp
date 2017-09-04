@@ -96,18 +96,18 @@
 		else {
 			
 				if (!$_SESSION['executedColView'] && !$_SESSION['startColView']){
-					echo '<script language="javascript">';
-					echo 'alert("No colleague records for selected section")';
-					echo '</script>';
+					echo '<div id="dialog" title="Error">
+							<p>No colleague records for selected section</p>
+					</div>';
 					$section = $_SESSION['sectionChoose'];
 					$_SESSION['executedColView'] = true;
 					getAllColleagues($section);
 					
 				}
 				else if (!$_SESSION['startColView']) {
-					echo '<script language="javascript">';
-					echo 'alert("No colleague records for selected section")';
-					echo '</script>';
+					echo '<div id="dialog" title="Error">
+							<p>No colleague records for selected section</p>
+					</div>';
 					$section= $_SESSION['sectionChoose'];
 					$_SESSION['executedColView'] = false;
 					getAllColleagues($section);

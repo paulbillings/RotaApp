@@ -48,10 +48,19 @@ function formReady() {
 	beforeShowDay: disableDays}).on('keypress', function(e){ e.preventDefault(); });
 	
 	$(".week_ending").datepicker().datepicker("setDate", displayDate);
-	
 }
 
+ $( function() {
+    $( "#dialog" ).dialog({
+	modal: true,
+    buttons: {
+    Ok: function() {
+      $( this ).dialog( "close" );
+    }
+  }
+	});
+  } );
 
-
+ 
 
 

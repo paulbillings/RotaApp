@@ -25,16 +25,16 @@
 						. "WHERE employee.employee_id='$number'";
 						
 						if ($conn->query($sql) === TRUE) {
-							echo "<script type='text/javascript'>alert('Password updated successfully, you can now login');</script>";
-							
+							echo '<div id="dialog" title="Success">
+							<p>Password updated successfully</p>
+							<p>You can now login with your new password</p>
+							</div>';
 							header("Location: login_page.php");
 						} else {
 							echo "Error: " . $sql . "<br>" . $conn->error;
 						}
 						
 					}
-	
-		
 		
 		}	
 		

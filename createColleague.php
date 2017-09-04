@@ -47,7 +47,10 @@
 			if (empty($_POST['form']['fname'] && $_POST['form']['sname'] && $_POST['form']['number'] &&
 				$_POST['form']['section'] && $_POST['form']['hours'] )) 
 			{
-				echo ('Please enter all details');
+				echo '<div id="dialog" title="Error">
+							<p>Please enter all details</p>
+						</div>';
+				
 			}
 			else {
 				
@@ -59,37 +62,17 @@
 					$number = $_POST['form']['number'];
 					$fSection = $_POST['form']['section'];
 					$hours = $_POST['form']['hours'];
-					print_r ($fname);
-					print_r ($sname);
-					print_r ($number);
-					print_r ($fSection);
-					print_r ($hours);
+					
 					insertColleague($number, $fname, $sname, $fSection, $hours);
 				}
 				
-			
-				
 			}
-			
-		
-	
 		
 	$conn->close();	
 	}
 }
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	function getAllColleagues($section) {
 
 		$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
@@ -170,7 +153,9 @@
 			$rows = $result->num_rows;
 		
 			if ($rows > 0) {
-				echo ('Colleague number already exists');
+				echo '<div id="dialog" title="Error">
+							<p>Colleague number already exists</p>
+					</div>';
 				return true;
 			}
 			else {
@@ -188,7 +173,10 @@
 				. "VALUES ('$number', '$fname', '$sname', '$fSection', '$hours')";
 				
 				if ($conn->query($sql) === TRUE) {
-					echo "New record created successfully";
+					echo '<div id="dialog" title="Success">
+							<p></p>
+							<p>Colleague details successfully added.</p>
+						</div>';
 				} else {
 					echo "Error: " . $sql . "<br>" . $conn->error;
 				}

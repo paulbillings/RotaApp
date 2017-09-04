@@ -54,26 +54,22 @@ function formReady() {
 
 function getWeek() {
 	var week = $('.week_ending').val();
-	//$('.selectWeek').val(week);
-	
-	//var sel = $('.selectWeek').val();
-	//alert(sel);
-
-	
-	//var sel = $('.rotaForm').selectWeek.value;
-	//alert(sel);
-	
 	document.getElementById("selectWeek").value = week;
-	alert(document.getElementById("selectWeek").value);
-	
-	
-	alert(document.getElementById("section").value);
-	
+	//alert(document.getElementById("selectWeek").value);
+	//alert(document.getElementById("section").value);
 	document.getElementById("rotaForm").submit();
-	//$("rotaForm").submit();
 	}
 
-
+ $( function() {
+    $( "#dialog" ).dialog({
+	modal: true,
+    buttons: {
+    Ok: function() {
+      $( this ).dialog( "close" );
+    }
+  }
+	});
+  } );
 
 
 

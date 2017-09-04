@@ -56,6 +56,7 @@
 					$_POST['form'][$a]['section'] && $_POST['form'][$a]['hours'] )) 
 				{
 					echo ('Please enter all details');
+					exit;
 				}
 				else {
 				
@@ -68,15 +69,19 @@
 					$number = $_POST['form'][$a]['number'];
 					$fSection = $_POST['form'][$a]['section'];
 					$hours = $_POST['form'][$a]['hours'];
-					print_r ($fname);
-					print_r ($sname);
-					print_r ($number);
-					print_r ($fSection);
-					print_r ($hours);
+					
 					changeColleague($number, $fname, $sname, $fSection, $hours);
 					
 				}
+				
 			}
+			
+		if ($_SESSION['editRecords']) {
+			echo '<div id="dialog" title="Success">
+							<p>Rota/s successfully changed</p>
+				</div>';
+		}
+		
 	$conn->close();	
 	}
 }
@@ -135,7 +140,7 @@
 			'<tr>
 				<td>'; echo '<input id="firstname" name="form['; echo $j; echo '][fname]" type="text" minlength="1" maxlength="15" value="' . $sorted[1]; echo '"/></td>
 				<td>'; echo '<input id="surname" name="form['; echo $j; echo '][sname]" type="text" minlength="1" maxlength="20" value="' . $sorted[2]; echo '"/></td>
-				<td>'; echo '<input id="number" name="form['; echo $j; echo '][number]" type="number" min="1" max="9999999999" step="1"  value="' . $sorted[3]; echo '"/></td>
+				<td>'; echo '<input id="number" name="form['; echo $j; echo '][number]" type="number" readonly min="1" max="9999999999" step="1"  value="' . $sorted[3]; echo '"/></td>
 				<td>'; echo '<select id="formSection" name="form['; echo $j; echo '][section]" >
 								<option value="Grocery"'; if ($sorted[4] == "Grocery") { echo ' selected="selected"'; }  echo '>Grocery</option>
 								<option value="Provisions"'; if ($sorted[4] == "Provisions") { echo ' selected="selected"'; }  echo '>Provisions</option>
@@ -160,18 +165,18 @@
 		else {
 			
 				if (!$_SESSION['executedColView'] && !$_SESSION['startColView']){
-					echo '<script language="javascript">';
-					echo 'alert("No colleague records for selected section")';
-					echo '</script>';
+					echo '<div id="dialog" title="Error">
+							<p>No colleague records for selected section</p>
+					</div>';
 					$section = $_SESSION['sectionChoose'];
 					$_SESSION['executedColView'] = true;
 					getAllColleagues($section);
 					
 				}
 				else if (!$_SESSION['startColView']) {
-					echo '<script language="javascript">';
-					echo 'alert("No colleague records for selected section")';
-					echo '</script>';
+					echo '<div id="dialog" title="Error">
+							<p>No colleague records for selected section</p>
+					</div>';
 					$section= $_SESSION['sectionChoose'];
 					$_SESSION['executedColView'] = false;
 					getAllColleagues($section);
@@ -221,7 +226,7 @@
 				$delete = "DELETE FROM employee WHERE employee.employee_id = $number";
 	
 				if ($conn->query($delete) === TRUE) {
-					echo "records deleted successfully";
+					//echo "records deleted successfully";
 				} else {
 					echo "Error: " . $sql . "<br>" . $conn->error;
 				}
@@ -239,8 +244,10 @@
 				. "VALUES ('$number', '$fname', '$sname', '$fSection', '$hours')";
 				
 				if ($conn->query($sql) === TRUE) {
-					echo "New record created successfully";
+					//echo "New record created successfully";
+					$_SESSION['editRecords'] = true;
 				} else {
+					$_SESSION['editRecords'] = false;
 					echo "Error: " . $sql . "<br>" . $conn->error;
 				}
 				
