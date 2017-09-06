@@ -46,11 +46,13 @@
 						}
 						
 						if ($result->num_rows == 1){
-							if ($row['password'] == "password"){
+							
+							if ($row['password'] == 'password'){
 								header("Location: register.php");
 							}
 							else {
 								$hashedPassword = $row['password'];
+								
 								if (password_verify($pass, $hashedPassword)){
 									$_SESSION['user'] = $number;
 									$_SESSION['pass'] = $pass;
