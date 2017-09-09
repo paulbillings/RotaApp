@@ -159,6 +159,7 @@
 		
 	
     </div>
-	
+	<script src="resources/jquery-3.2.1.js"></script>
+	<script src="resources/jquery-ui.js"></script>
   </body>
 </html>
