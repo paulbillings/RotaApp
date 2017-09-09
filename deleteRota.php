@@ -39,10 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (isset($_POST['form'])) {
 		$weekEnding = $_SESSION['weekEnding'];
 		
-		$SelectedElem = implode(",", array_keys($_POST['form']));
-		print_r ($SelectedElem);
+		$element = implode(",", array_keys($_POST['form']));
+		//print_r ($element);
 	
-		$number = $SelectedElem;
+		$number = $element;
 		
 		$delete = "DELETE FROM schedule WHERE schedule.employee_id = $number \n"
 					. "AND schedule.Week_ending = '$weekEnding'";
