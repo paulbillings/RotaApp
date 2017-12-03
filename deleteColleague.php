@@ -48,7 +48,7 @@
 			$delete = "DELETE FROM employee WHERE employee.employee_id = $number";
 		
 			if ($conn->query($delete) === TRUE) {
-				echo '<div id="dialog" title="Success">
+				echo '<div style="display: none" id="dialog" title="Success">
 							<p>Colleague details successfully Deleted.</p>
 						</div>';
 			} else {
@@ -127,7 +127,7 @@
 				}
 			
 				if (!$_SESSION['executedColView'] && !$_SESSION['startColView']){
-					echo '<div id="dialog" title="Colleague Records">
+					echo '<div style="display: none" id="dialog" title="Colleague Records">
 							<p>No colleague records for selected section</p>
 						</div>';
 					$section = $_SESSION['sectionChoose'];
@@ -137,7 +137,7 @@
 					
 				}
 				else if (!$_SESSION['startColView']) {
-					echo '<div id="dialog" title="Colleague Records">
+					echo '<div style="display: none" id="dialog" title="Colleague Records">
 							<p>No colleague records for selected section</p>
 						</div>';
 					$section= $_SESSION['sectionChoose'];

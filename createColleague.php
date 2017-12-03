@@ -47,7 +47,7 @@
 			if (empty($_POST['form']['fname'] && $_POST['form']['sname'] && $_POST['form']['number'] &&
 				$_POST['form']['section'] && $_POST['form']['hours'] )) 
 			{
-				echo '<div id="dialog" title="Error">
+				echo '<div style="display: none" id="dialog" title="Error">
 							<p>Please enter all details</p>
 						</div>';
 				
@@ -153,7 +153,7 @@
 			$rows = $result->num_rows;
 		
 			if ($rows > 0) {
-				echo '<div id="dialog" title="Error">
+				echo '<div style="display: none" id="dialog" title="Error">
 							<p>Colleague number already exists</p>
 					</div>';
 				return true;
@@ -173,7 +173,7 @@
 				. "VALUES ('$number', '$fname', '$sname', '$fSection', '$hours')";
 				
 				if ($conn->query($sql) === TRUE) {
-					echo '<div id="dialog" title="Success">
+					echo '<div style="display: none" id="dialog" title="Success">
 							<p></p>
 							<p>Colleague details successfully added.</p>
 						</div>';

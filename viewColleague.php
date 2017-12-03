@@ -19,7 +19,7 @@
 		$_SESSION['sectionChoose'] = "Grocery";
 	}
 	if ($_SESSION['executeViewAmount'] > 2){
-		echo '<div id="dialog" title="Error">
+		echo '<div style="display: none" id="dialog" title="Error">
 					<p>No colleague records for selected section, please create colleague details first</p>
 			</div>';
 	}
@@ -105,7 +105,7 @@
 				}
 			
 				if (!$_SESSION['executedColView'] && !$_SESSION['startColView']){
-					echo '<div id="dialog" title="Error">
+					echo '<div style="display: none" id="dialog" title="Error">
 							<p>No colleague records for selected section</p>
 					</div>';
 					$section = $_SESSION['sectionChoose'];
@@ -115,7 +115,7 @@
 					
 				}
 				else if (!$_SESSION['startColView']) {
-					echo '<div id="dialog" title="Error">
+					echo '<div style="display: none" id="dialog" title="Error">
 							<p>No colleague records for selected section</p>
 					</div>';
 					$section= $_SESSION['sectionChoose'];

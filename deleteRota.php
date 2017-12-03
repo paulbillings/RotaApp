@@ -19,7 +19,7 @@
 		$_SESSION['sectionChoose'] = "Grocery";
 	}
 	if ($_SESSION['executeAmount'] > 2){
-		echo '<div id="dialog" title="Error">
+		echo '<div style="display: none" id="dialog" title="Error">
 					<p>No colleague records for selected section, please create colleague details first</p>
 			</div>';
 	}
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					. "AND schedule.Week_ending = '$weekEnding'";
 	
 		if ($conn->query($delete) === TRUE) {
-			echo '<div id="dialog" title="Success">
+			echo '<div style="display: none" id="dialog" title="Success">
 							<p>Rota details successfully Deleted.</p>
 						</div>';
 		} else {
@@ -250,7 +250,7 @@ function getAllRotas($weekEnding, $section) {
 				}
 			
 				if (!$_SESSION['executeDelete'] && !$_SESSION['startDelete']){
-					echo '<div id="dialog" title="Error">
+					echo '<div style="display: none" id="dialog" title="Error">
 							<p>No rotas for selected week/section</p>
 						</div>';
 					$weekEnding = $_SESSION['weekEnding'];
@@ -260,7 +260,7 @@ function getAllRotas($weekEnding, $section) {
 					getAllRotas($weekEnding, $section);
 				}
 				else if (!$_SESSION['startDelete']) {
-					echo '<div id="dialog" title="Error">
+					echo '<div style="display: none" id="dialog" title="Error">
 							<p>No rotas for selected week/section</p>
 						</div>';
 					$weekEnding = $_SESSION['weekEnding'];

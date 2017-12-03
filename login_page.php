@@ -25,7 +25,7 @@
 				$pass = mysql_entities_fix_string($conn, $_POST['password']);
 				
 				if ($number == "" || $pass == ""){
-					echo '<div id="dialog" title="Error">
+					echo '<div style="display: none" id="dialog" title="Error">
 							<p>Please input both username and password</p>
 						</div>';
 				}
@@ -40,7 +40,7 @@
 						$row = $result->fetch_array(MYSQLI_ASSOC);
 					
 						if ($result->num_rows == 0){
-							echo '<div id="dialog" title="Error">
+							echo '<div style="display: none" id="dialog" title="Error">
 									<p>Invalid username/ password</p>
 								</div>';
 						}
@@ -79,7 +79,7 @@
 									exit;
 								}
 								else{
-									echo '<div id="dialog" title="Error">
+									echo '<div style="display: none" id="dialog" title="Error">
 									<p>Invalid username/ password</p>
 									</div>';
 								}

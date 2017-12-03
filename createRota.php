@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_POST['form'][$a]['wedStart'] || $_POST['form'][$a]['thuStart'] || $_POST['form'][$a]['friStart'] || 
 				$_POST['form'][$a]['satStart'])) 
 			{
-				echo '<div id="dialog" title="Error">
+				echo '<div style="display: none" id="dialog" title="Error">
 							<p>No Shifts Entered</p>
 					</div>';
 			}
@@ -106,9 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					insertShift($week, $number, $dayDate, $start, $finish);
 				}
 				
-				echo '<div id="dialog" title="Success">
-							<p>New Rota/s created successfully</p>
-					</div>';
+				
 			}
 			
 		}
@@ -310,7 +308,11 @@ function getAllRotas($section) {
 				. "VALUES (NULL, '$week', $number, '$dayDate', $start, $finish)";
 				
 				if ($conn->query($sql) === TRUE) {
-					//echo "New record created successfully";
+					
+					echo '<div style="display: none" id="dialog" title="Success">
+							<p>New Rota/s created successfully</p>
+					</div>';
+					
 				} else {
 					echo "Error: " . $sql . "<br>" . $conn->error;
 				}

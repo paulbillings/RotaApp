@@ -25,7 +25,7 @@
 						. "WHERE employee.employee_id='$number'";
 						
 						if ($conn->query($sql) === TRUE) {
-							echo '<div id="dialog" title="Success">
+							echo '<div style="display: none" id="dialog" title="Success">
 							<p>Password updated successfully</p>
 							<p>You can now login with your new password</p>
 							</div>';

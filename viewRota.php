@@ -294,7 +294,7 @@ function getAllRotas($weekEnding, $section) {
 		}
 		else {
 			
-					echo '<div id="dialog" title="Error">
+					echo '<div style="display: none" id="dialog" title="Error">
 							<p>No rotas for selected week/section</p>
 						</div>';
 					$_SESSION['executedAdmin'] = true;

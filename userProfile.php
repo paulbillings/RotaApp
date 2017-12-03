@@ -245,7 +245,7 @@
 			else {
 				
 					if (!$_SESSION['executed'] && !$_SESSION['start']){
-						echo '<div id="dialog" title="Error">
+						echo '<div style="display: none" id="dialog" title="Error">
 							<p>No Rota for selected week</p>
 						</div>';
 						$weekEnding = $_SESSION['weekEnding'];
@@ -255,7 +255,7 @@
 						
 					}
 					else if (!$_SESSION['start']) {
-						echo '<div id="dialog" title="Error">
+						echo '<div style="display: none" id="dialog" title="Error">
 							<p>No Rota for selected week</p>
 						</div>';
 						$weekEnding = $_SESSION['weekEnding'];
